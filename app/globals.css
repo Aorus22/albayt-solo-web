@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Poppins;
+}
+
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 70%;
+  min-width: 0;
+}
+
+.embla__slide3 {
+  flex: 0 0 75%;
+  min-width: 0;
+}
+
+.card_galery {
+  width: 400px;
+  aspect-ratio: 1/0.5;
+  border-radius: 8px;
+  position: relative;
+}
+
+.The_Image {
+  width: 100%;
+  heigth: 100%;
+  object-fit: cover;
+  transition: 0.5s ease-in-out;
+  border-radius: 8px;
+}
+
+.image_text {
+  opacity: 0;
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  color: white; 
+  font-size: 18px;
+  font-weight: bold; 
+  text-align: center;
+}
+
+.card_galery::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid white;
+  border-radius: inherit;
+  opacity: 0;
+  transition: 0.4s ease-in-out;
+}
+
+.card_galery:hover {
+  cursor: pointer;
+}
+
+.card_galery:hover .The_Image {
+  filter: grayscale(1) brightness(0.4);
+}
+
+.card_galery:hover::after {
+  opacity: 1;
+  inset: 20px;
+}
+
+.preview-galery:hover::after {
+  opacity: 1;
+  inset: 20px;
+}
+
+.card_galery:hover .image_text {
+  transition: 0.4s ease-in-out;
+  scale: 1;
+  opacity: 1;
+}
+
+.text-shadow-1 {
+  text-Shadow: 0.1px 3.5px orangered;
+}
+
+.text-shadow-2 {
+  text-Shadow: 0.1px 4px orangered;
+}
+
+.text-shadow-3 {
+  text-Shadow: 0.1px 2.5px orangered;
+}
+
+.text-shadow-4 {
+  text-Shadow: 0.1px 7px orangered;
+}
+
+@layer utilities {
+  /* CAROUSEL */
+  .embla__slide2 {
+    @apply flex-[0_0_33%] min-w-0
+  }
+
+  /* BUTTON */
+  .btn_orange { 
+    @apply  bg-[#f14310] px-5 py-2 text-white text-lg transition-all hover:bg-gray-90
+  }
+  .btn_dark_green_outline  { 
+    @apply border-gray-20 bg-green-90 px-8 py-5 text-white
+  }
+  
+  .max-container {
+    @apply mx-auto max-w-[1440px];
+  }
+
+  .padding-container {
+    @apply px-6 lg:px-20 3xl:px-0;
+  }
+
+  .flexCenter {
+    @apply flex items-center justify-center;
+  }
+
+  .flexBetween {
+    @apply flex items-center justify-between;
+  }
+
+  .flexStart {
+    @apply flex items-center justify-start;
+  }
+
+  .flexEnd {
+    @apply flex items-center justify-end;
+  }
+
+  /* FONTS */
+  .regular-64 {
+    @apply text-[64px] font-[400] leading-[120%];
+  }
+
+  .regular-40 {
+    @apply text-[40px] font-[400] leading-[120%];
+  }
+
+  .regular-32 {
+    @apply text-[32px] font-[400];
+  }
+
+  .regular-24 {
+    @apply text-[24px] font-[400];
+  }
+
+  .regular-20 {
+    @apply text-[20px] font-[400];
+  }
+
+  .regular-18 {
+    @apply text-[18px] font-[400];
+  }
+
+  .regular-16 {
+    @apply text-[16px] font-[400];
+  }
+
+  .regular-14 {
+    @apply text-[14px] font-[400];
+  }
+
+  .medium-18 {
+    @apply text-[18px] font-[600]
+  }
+
+  .medium-16 {
+    @apply text-[16] font-[600]
+  }
+
+  .medium-14 {
+    @apply text-[14px] font-[600];
+  }
+
+  .bold-88 {
+    @apply text-[88px] font-[700] leading-[120%];
+  }
+
+  .bold-64 {
+    @apply text-[64px] font-[700] leading-[120%];
+  }
+
+  .bold-52 {
+    @apply text-[52px] font-[700] leading-[120%];
+  }
+
+  .bold-40 {
+    @apply text-[40px] font-[700] leading-[120%];
+  }
+
+  .bold-32 {
+    @apply text-[32px] font-[700] leading-[120%];
+  }
+
+  .bold-24 {
+    @apply text-[24px] font-[700]
+  }
+
+  .bold-20 {
+    @apply text-[20px] font-[700];
+  }
+
+  .bold-18 {
+    @apply text-[18px] font-[700];
+  }
+
+  .bold-16 {
+    @apply text-[16px] font-[700];
+  }
+
+  .bold-14 {
+    @apply text-[14px] font-[700];
+  }
+
+  /* Hero */
+  .hero-map {
+    @apply absolute right-0 top-0 h-screen w-screen bg-pattern-2 bg-cover bg-center md:-right-28 xl:-top-60;
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
