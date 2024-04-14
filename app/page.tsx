@@ -5,6 +5,7 @@ import PreviewArtikel from '@/Components/PreviewArtikel'
 import PreviewGaleri from '@/Components/PreviewGaleri'
 import Testimoni from '@/Components/Testimoni'
 import WhyUs from '@/Components/WhyUs'
+import "./globals.css";
 
 const page = () => {
   return (

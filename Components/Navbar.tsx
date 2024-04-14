@@ -34,13 +34,11 @@ const Navbar = () => {
     <>
         <nav className={`max-container padding-container items-center z-30 py-3 shadow-md sticky top-0 w-full bg-white transition-all duration-300 ease-in-out ${isScrolled ? 'py-[2px]' : 'py-5'}`}>
             <div className='flex items-center'>
-                {/* Bagian Logo */}
                 <Link href={'/'}>
                     <Image src={'/images/Logo.png'} alt='logo' width={100} height={100}/>
                 </Link>
 
                 <div className='w-full flexCenter'>
-                    {/* Komponen Navbar */}
                     <ul className='hidden h-full gap-12 lg:flex'>
                         {NAV_LINKS.map((link) => (
                             <Link href={link.href} key={link.key} className={`medium-16 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold hover:text-black text-[#89060b]`}>
@@ -50,7 +48,6 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                {/* Tombol Daftar */}
                 <div className='lg:flexBetween hidden'>
                     <SignInButton></SignInButton>
                 </div>

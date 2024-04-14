@@ -30,9 +30,11 @@ export default function Paket() {
     }, []);
     console.log(data)
 
-    const currentPage = data.find((paket) => paket.key === params.title);
+    // const currentPage = data.find((paket) => paket.key === params.title);
+    const currentPage = PACKAGE_DATA.find((paket) => paket.key === params.title)
     
-    return (
+    // @ts-ignore
+  return (
       <div>
         <div className="mt-4 w-screen h-[55vh] bg-white bg-fixed mx-auto px-4 bg-cover" style={{backgroundImage: "url('/images/background1.jpg')"}}>
           <div className="h-[55vh] flex justify-start items-center sm:p-2 md:p-10">
@@ -275,7 +277,7 @@ export default function Paket() {
                         </div>
                       </div>
                     </div>
-                    <SeatBar totalSeats={currentPage?.totalseat} remainingSeats={currentPage?.remainingseat}></SeatBar>
+                    {/*<SeatBar totalSeats={currentPage?.totalseat} remainingSeats={currentPage?.remainingseat}></SeatBar>*/}
                     <div className="mt-4 h-1 w-[60%] rounded opacity-40 bg-slate-950"></div>
                     <a href='https://wa.me/+6289636843541' className='w-full' target='_blank' rel="noopener noreferrer">
                       <div className="flex bg-[#208942] text-gray font-semibold py-2 px-4 rounded justify-center space-x-4 text-zinc-50 w-full mt-3">
