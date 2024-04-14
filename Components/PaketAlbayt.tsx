@@ -4,25 +4,28 @@ import Card_Paket from './Card_Paket'
 import Template_form from './Template_form'
 import Card_Paket_Alt from './Card_Paket_Alt'
 import Link from 'next/link'
+import {PACKAGE_DATA} from "@/constants";
 
 const PaketAlbayt = () => {
 
-  const [data, setData] = useState<any[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/paket/full');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
+  // const [data, setData] = useState<any[]>([]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch('/api/paket/full');
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch data');
+  //       }
+  //       const data = await response.json();
+  //       setData(data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
+  const data = PACKAGE_DATA
 
   return (
     <>
