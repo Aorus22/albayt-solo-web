@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Card_Paket from '@/Components/Card_Paket';
 import { LocationMarkerIcon, CalendarIcon, CurrencyDollarIcon } from '@heroicons/react/solid';
 import {PACKAGE_DATA} from "@/constants";
+import "app/globals.css";
 
 function SearchForm() {
   // const [data, setData] = useState<any[]>([]);
