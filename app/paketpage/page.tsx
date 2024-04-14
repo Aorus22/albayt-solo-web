@@ -2,24 +2,27 @@
 import React, { useEffect, useState } from 'react';
 import Card_Paket from '@/Components/Card_Paket';
 import { LocationMarkerIcon, CalendarIcon, CurrencyDollarIcon } from '@heroicons/react/solid';
+import {PACKAGE_DATA} from "@/constants";
 
 function SearchForm() {
-  const [data, setData] = useState<any[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/paket/full');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
+  // const [data, setData] = useState<any[]>([]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch('/api/paket/full');
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch data');
+  //       }
+  //       const data = await response.json();
+  //       setData(data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
+  const data = PACKAGE_DATA
 
   return (
     <div className="px-4 sm:px-8 md:px-12 lg:px-20 py-10 md:py-20"> 
