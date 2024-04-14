@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Providers from "@/Components/Providers";
+import {AuthContextProvider} from "@/context/AuthContext";
 
 const roboto = Roboto({ weight: ['100', '300', '400', '700'], subsets: ["latin"], display: 'swap' });
 
@@ -16,11 +17,11 @@ export default function RootLayout({children}: {  children: React.ReactNode;}) {
   return (
     <html lang="en">
       <body>
-        <Providers>
+        <AuthContextProvider>
           <Navbar />
             {children}
           <Footer />
-        </Providers>
+        </AuthContextProvider>
       </body>
     </html>
   );

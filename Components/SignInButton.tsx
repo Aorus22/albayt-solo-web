@@ -1,9 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import React, { useRef, useState } from "react";
+import {UserAuth} from "@/context/AuthContext";
 
 const SignInButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const { user, googleSignIn, logOut } = UserAuth()
+
+  const handleSignIn = async () => {
+    try {
+      googleSignIn()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleLogOut = async () => {
+    try {
+      logOut()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -20,12 +38,12 @@ const SignInButton = () => {
     }
   };
 
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
-  if (session && session.user) {
-    const userImage = session.user.image || "";
-    const userName = session.user.name || "";
-    const userEmail = session.user.email || "";
+  if (user) {
+    const userImage = user.photoURL || "";
+    const userName = user.displayName || "";
+    const userEmail = user.email || "";
 
     return (
       <>
@@ -47,7 +65,7 @@ const SignInButton = () => {
             </div>
             <div>
                 <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
                 </svg>
             </div>
           </button>
@@ -78,7 +96,7 @@ const SignInButton = () => {
               <div className="py-2 w-full">
                 <button
                   type="button"
-                  onClick={() => signOut()}
+                  onClick={handleLogOut}
                   className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Sign out
@@ -92,7 +110,7 @@ const SignInButton = () => {
   }
 
   return (
-    <button type="button" onClick={() => signIn()}>
+    <button type="button" onClick={handleSignIn}>
       <div className="lg:flexBetween hidden cursor-pointer">
         <div
           className={`py-4 px-8 flexCenter gap-3 rounded-full tracking-wider border bg-[#f14310]`}

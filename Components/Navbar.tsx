@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import SignInButton from './SignInButton'
+import {UserAuth} from "@/context/AuthContext";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -48,13 +49,19 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <div className='lg:flexBetween hidden'>
-                    <SignInButton></SignInButton>
-                </div>
+                {/*{!user ? (*/}
+                    <div  className='lg:flexBetween'>
+                        <SignInButton></SignInButton>
+                    </div>
+                {/*) : (*/}
+                {/*    <div>{user.displayName}</div>*/}
+                {/*)*/}
+                {/*}*/}
+
 
                 {/* Tombol Burger / Menu */}
                 <button onClick={toggleNavbar} className='inline-block lg:hidden'>
-                    {isOpen ? (
+                {isOpen ? (
                         <Image src={'/xmark.svg'} width={32} height={32} alt='menu'/>
                     ) : (
                         <Image src={'/menu.svg'} width={32} height={32} alt='menu'/>
@@ -64,7 +71,7 @@ const Navbar = () => {
 
             {isOpen && 
                 <ul className='mt-3 h-full gap-12 lg:hidden'>
-                    <SignInButton></SignInButton>
+                    {/*<SignInButton></SignInButton>*/}
 
                     <div className='mt-2'>
                         {NAV_LINKS.map((link) => (
