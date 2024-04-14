@@ -30,7 +30,7 @@ export default function Paket() {
     }, []);
     console.log(data)
 
-    const currentPage = data.find((paket) => paket.key === params.title);
+    const currentPage = data[0];
     // const currentPage = PACKAGE_DATA.find((paket) => paket.key === params.title)
     
     // @ts-ignore
