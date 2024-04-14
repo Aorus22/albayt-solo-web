@@ -1,8 +1,8 @@
 "use client"
-import { PACKAGE_DATA } from '@/constants'
+// import { PACKAGE_DATA } from '@/constants'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react';
-import SeatBar from "@/Components/SeatBar";
+// import SeatBar from "@/Components/SeatBar";
 import RemainingDays from "@/Components/remainingdays";
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -30,8 +30,8 @@ export default function Paket() {
     }, []);
     console.log(data)
 
-    // const currentPage = data.find((paket) => paket.key === params.title);
-    const currentPage = PACKAGE_DATA.find((paket) => paket.key === params.title)
+    const currentPage = data.find((paket) => paket.key === params.title);
+    // const currentPage = PACKAGE_DATA.find((paket) => paket.key === params.title)
     
     // @ts-ignore
   return (
