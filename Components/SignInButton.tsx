@@ -10,8 +10,10 @@ const SignInButton = () => {
   };
 
   const closeDropdown = (event: any) => {
+
     if (
       dropdownRef.current &&
+        // @ts-ignore
       !dropdownRef.current.contains(event.relatedTarget)
     ) {
       setIsOpen(false);

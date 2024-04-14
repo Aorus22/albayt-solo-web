@@ -10,10 +10,12 @@ let client = new MongoClient(URI, option)
 let clientPromise
 
 if(process.env.NODE_ENV !== 'production'){
+    // @ts-ignore
     if(!global._mongoClientPromise){
+        // @ts-ignore
         global._mongoClientPromise = client.connect()
     }
-
+    // @ts-ignore
     clientPromise = global._mongoClientPromise
 } else{
     clientPromise = client.connect()

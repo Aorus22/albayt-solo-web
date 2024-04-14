@@ -24,7 +24,7 @@ function RemainingDays({Input_Date} : any) {
         months -= 1;
         const tempDate = new Date(today);
         tempDate.setMonth(today.getMonth() + months + 1);
-        days = Math.floor((Target_Date - tempDate) / (1000 * 60 * 60 * 24));
+        days = Math.floor((Target_Date.getDate() - tempDate.getDate()) / (1000 * 60 * 60 * 24));
       }
 
       setMonthsLeft(months);
