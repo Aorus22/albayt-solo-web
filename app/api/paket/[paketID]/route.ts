@@ -3,8 +3,7 @@ import client from "@/db/db";
 import { NextApiRequest} from "next";
 const dbName = "albayt-solo";
 
-'ts-ignore'
-export async function GET(request: NextApiRequest, context:any)  {
+export async function GET(request: Request, context:any)  {
   await client.connect();
   console.log("Connected successfully to server");
   const db = client.db(dbName);
