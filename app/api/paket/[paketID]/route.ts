@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import client from "@/db/db";
-import { NextApiRequest} from "next";
+// import client from "@/db/db";
+// import { NextApiRequest} from "next";
 const dbName = "albayt-solo";
 
 export async function GET(request: Request, context:any)  {
-  await client.connect();
+  // await client.connect();
   console.log("Connected successfully to server");
-  const db = client.db(dbName);
-  const collection = db.collection("paket");
+  // const db = client.db(dbName);
+  // const collection = db.collection("paket");
 
   const { params } = context
 
@@ -19,7 +19,8 @@ export async function GET(request: Request, context:any)  {
     query = { key: params.paketID };
   }
 
-  const data = await collection.find(query).toArray();
+  // const data = await collection.find(query).toArray();
+  const data = {}
 
   return NextResponse.json(data);
 }
