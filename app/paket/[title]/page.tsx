@@ -30,10 +30,11 @@ export default function Paket() {
           setData(data);
         } catch (Error) {
           console.error('Error fetching data:', Error);
+        } finally {
+            setLoading(false);
         }
       };
       fetchData();
-      setLoading(false);
     }, []);
 
     useEffect(() => {
