@@ -8,6 +8,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import PaketAlbayt from '@/Components/PaketAlbayt';
 import OrderButton from '@/Components/OrderButton';
+import SeatBar from '@/Components/SeatBar';
 
 export default function Paket() {
     const params = useParams();
@@ -31,6 +32,7 @@ export default function Paket() {
     console.log(data)
 
     const currentPage = data[0];
+    const hargaArr = currentPage?.harga
     // const currentPage = PACKAGE_DATA.find((paket) => paket.key === params.title)
     
     // @ts-ignore
@@ -90,8 +92,8 @@ export default function Paket() {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: "#f14310" }}>
                         <path d="M3.414 13.778 2 15.192l4.949 2.121 2.122 4.95 1.414-1.414-.707-3.536L13.091 14l3.61 7.704 1.339-1.339-1.19-10.123 2.828-2.829a2 2 0 1 0-2.828-2.828l-2.903 2.903L3.824 6.297 2.559 7.563l7.644 3.67-3.253 3.253-3.536-.708z"></path>
                     </svg>
-                        <div>Pesawat</div>
-                        <div className="text-2xl font-semibold mt-2">Lion Air</div>
+                        <div>Maskapai</div>
+                        <div className="text-2xl font-semibold mt-2">{currentPage?.maskapai}</div>
                     </div>
                     <div className="border rounded-3xl p-4 flex flex-col items-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: "#f14310" }}>
@@ -250,34 +252,26 @@ export default function Paket() {
               <div className="text-slate h-vh md:w-[40%] xl:w-[30%] pt-10 hidden md:block ">
                 <div className='sticky top-24 z-1000'>
                   <div className="bg-white border-[rgba(0,0,0,0.16)] shadow-2xl flex flex-col justify-center items-center rounded-2xl w-[100%] h-fit p-10">
-                    <RemainingDays Input_Date={"2024-10-17"}></RemainingDays>
+                    <RemainingDays Input_Date={currentPage?.jadwal}></RemainingDays>
                     <div className='border-gray-20 rounded-2xl px-4 my-3 w-full bg-slate-100 mb-6'>
                       <div className='flex items-center my-2'>
                         <div className='flexBetween w-full text-2xl font-bold text-yellow-600'>
                           <p>Dp </p>
-                          <p>Rp 10.000.000</p>
+                          <p>{currentPage?.harga_dp}</p>
                         </div>
                       </div>
-                      <div className='flex w-full items-center my-2'>
-                        <div className='flexBetween w-full text-sm font-medium'>
-                          <p>Quad </p>
-                          <p>{currentPage?.harga}</p>
-                        </div>
-                      </div>
-                      <div className='flex w-full items-center my-2'>
-                        <div className='flexBetween w-full text-sm font-medium'>
-                          <p>Tripple </p>
-                          <p>Rp 30.000.000</p>
-                        </div>
-                      </div>
-                      <div className='flex w-full items-center my-2'>
-                        <div className='flexBetween w-full text-sm font-medium'>
-                          <p>Double </p>
-                          <p>Rp 30.000.000</p>
-                        </div>
+                      <div>
+                        {hargaArr?.map((item: any) => (
+                            <div className='flex w-full items-center my-2'>
+                              <div className='flexBetween w-full text-sm font-medium'>
+                                <p>{item.tipe}</p>
+                                <p>{item.nominal}</p>
+                              </div>
+                            </div>
+                        ))}
                       </div>
                     </div>
-                    {/*<SeatBar totalSeats={currentPage?.totalseat} remainingSeats={currentPage?.remainingseat}></SeatBar>*/}
+                    <SeatBar totalSeats={currentPage?.totalseat} remainingSeats={currentPage?.remainingseat}></SeatBar>
                     <div className="mt-4 h-1 w-[60%] rounded opacity-40 bg-slate-950"></div>
                     <a href='https://wa.me/+6289636843541' className='w-full' target='_blank' rel="noopener noreferrer">
                       <div className="flex bg-[#208942] text-gray font-semibold py-2 px-4 rounded justify-center space-x-4 text-zinc-50 w-full mt-3">

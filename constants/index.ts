@@ -3,8 +3,8 @@ export const NAV_LINKS = [
   { href: '/', key: 'beranda', label: 'Beranda' },
   { href: '/profil-page', key: 'tentang_kami', label: 'Tentang Kami' },
   { href: '/paketpage', key: 'paket_albayt', label: 'Paket ALBAYT' },
-  { href: '/galeri', key: 'galeri', label: 'Galeri' },
-  { href: '/blogpage', key: 'blog', label: 'Blog' },
+  // { href: '/galeri', key: 'galeri', label: 'Galeri' },
+  // { href: '/blogpage', key: 'blog', label: 'Blog' },
 ];
 
   export const HERO_SLIDE = [

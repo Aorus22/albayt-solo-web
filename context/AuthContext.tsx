@@ -1,7 +1,8 @@
 'use client'
 import React, { useContext, createContext, useState, ReactNode, useEffect } from "react";
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User } from "firebase/auth";
-import { auth } from "@/db/firebase";
+import { auth, firestore } from "@/db/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 interface AuthContextType {
     user: User | null;
@@ -14,11 +15,17 @@ const AuthContext = createContext<AuthContextType>({ user: null, googleSignIn: (
 export const AuthContextProvider = ({ children }: { children: ReactNode; }) => {
     const [user, setUser] = useState<User | null>(null);
 
-    const googleSignIn = () => {
+    const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
-            .catch(error => console.error("Error signing in:", error));
-    }
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            await addUserData(user);
+
+        } catch (error) {
+            console.error("Error signing in with Google:", error);
+        }
+    };
 
     const logOut = () => {
         signOut(auth)
@@ -26,7 +33,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode; }) => {
     }
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
         });
         return () => unsubscribe();
@@ -38,6 +45,22 @@ export const AuthContextProvider = ({ children }: { children: ReactNode; }) => {
         </AuthContext.Provider>
     );
 };
+
+async function addUserData(user: User) {
+    const userRef = doc(firestore, "users", user.uid);
+    const userSnapshot = await getDoc(userRef);
+
+    if (!userSnapshot.exists()) {
+        await setDoc(userRef, {
+            name: user.displayName || "",
+            email: user.email || "",
+            photo: user.photoURL || ""
+        });
+        alert("Data added successfully!");
+    } else {
+        alert("User data already exists in Firestore!");
+    }
+}
 
 export const UserAuth = () => {
     const context = useContext(AuthContext);
