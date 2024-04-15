@@ -31,7 +31,7 @@ export default function Paket() {
         } catch (Error) {
           console.error('Error fetching data:', Error);
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
       };
       fetchData();
