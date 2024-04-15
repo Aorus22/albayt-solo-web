@@ -11,7 +11,7 @@ const Footer = () => {
           <div className='flex flex-col items-start justify-center gap-[10%] md:flex-row mt-5'>
             <Link href={'/'} className='mb-10'>
               <div className='w-40'>
-                <Image src={'/images/logo.png'} alt='logo' width={200} height={200} />
+                <Image src={'/images/Logo.png'} alt='logo' width={200} height={200} />
               </div>
             </Link>
 
