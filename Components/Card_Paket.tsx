@@ -25,7 +25,7 @@ const Card_Paket = ({paket_id, img, harga, title, jadwalBerangkat, durasi, hotel
   return (
     <Link href={`paket/${paket_id}`}>
         <>
-            <div key={paket_id} className='bg-white border shadow-lg h-fit rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
+            <div key={paket_id} className='bg-white border shadow-lg h-full rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
                 <div className='flexCenter'>
                     <Image src={img} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
                 </div>

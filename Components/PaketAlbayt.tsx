@@ -8,6 +8,7 @@ import Link from 'next/link'
 const PaketAlbayt = () => {
 
   const [data, setData] = useState<any[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,22 +53,22 @@ const PaketAlbayt = () => {
         {/* ISI KONTEN / CARD */}
         <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
           {data.slice(0,6).map((paket) => (
-            <Card_Paket 
-              key={paket.key} 
-              paket_id={paket.key} 
-              img={paket.img} 
+            <Card_Paket
+              key={paket.key}
+              paket_id={paket.key}
+              img={paket.img}
               harga={paket.harga}
-              title={paket.title} 
-              jadwalBerangkat={paket.jadwal} 
-              durasi={paket.durasi} 
-              hotel={paket.hotel} 
-              totalseat={paket.totalseat} 
-              remainingseat={paket.remainingseat} 
-              lokasiberangkat={paket.lokasiberangkat} 
+              title={paket.title}
+              jadwalBerangkat={paket.jadwal}
+              durasi={paket.durasi}
+              hotel={paket.hotel}
+              totalseat={paket.totalseat}
+              remainingseat={paket.remainingseat}
+              lokasiberangkat={paket.lokasiberangkat}
             />
           ))}
         </div>
-        
+
         <Link href={'/paketpage'}>
           <div className='flexCenter my-8'>
             <button className='font-bold text-white  text-[16px] lg:text-xl bg-[#f14310] px-4 py-3 rounded-full border duration-200 ease-in-out hover:bg-white hover:text-[#f14310] hover:border hover:border-[#f14310]'>

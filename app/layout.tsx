@@ -5,6 +5,7 @@ import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Providers from "@/Components/Providers";
 import {AuthContextProvider} from "@/context/AuthContext";
+import {LoadingProvider} from "@/context/LoadingContext";
 
 const roboto = Roboto({ weight: ['100', '300', '400', '700'], subsets: ["latin"], display: 'swap' });
 
@@ -19,7 +20,9 @@ export default function RootLayout({children}: {  children: React.ReactNode;}) {
       <body>
         <AuthContextProvider>
           <Navbar />
+          <LoadingProvider>
             {children}
+          </LoadingProvider>
           <Footer />
         </AuthContextProvider>
       </body>
