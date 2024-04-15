@@ -254,8 +254,8 @@ export default function Paket() {
                 <div>
                   {boxPemesanan()}
                   <div
-                      className="z-50 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                      id="PemesananMobile">
+                      className="z-50 absolute left-1/2 top-3/4 transform -translate-x-1/2 -translate-y-1/2"
+                      id="PemesananMobile"> test
                   </div>
                 </div>
               </div>
