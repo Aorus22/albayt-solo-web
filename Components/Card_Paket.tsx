@@ -3,11 +3,15 @@ import Link from 'next/link'
 import React from 'react'
 import Seatbar_Alt from './Seatbar_Alt';
 
+type hargaProps = {
+    tipe:string,
+    nominal:number
+}
+
 type CardProps = {
     paket_id: string;
     img: string;
-    harga: string;
-    tipe: string;
+    harga: hargaProps[]
     title: string;
     jadwalBerangkat: string;
     durasi: string;
@@ -17,7 +21,7 @@ type CardProps = {
     lokasiberangkat: string;
 }
 
-const Card_Paket = ({paket_id, img, harga,tipe, title, jadwalBerangkat, durasi, hotel, totalseat, remainingseat, lokasiberangkat}: CardProps) => {
+const Card_Paket = ({paket_id, img, harga, title, jadwalBerangkat, durasi, hotel, totalseat, remainingseat, lokasiberangkat}: CardProps) => {
   return (
     <Link href={`paket/${paket_id}`}>
         <>
@@ -25,11 +29,7 @@ const Card_Paket = ({paket_id, img, harga,tipe, title, jadwalBerangkat, durasi, 
                 <div className='flexCenter'>
                     <Image src={img} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
                 </div>
-                <div className='mx-4'>
-                    <div className='flexBetween mt-3 mb-2'>
-                        <p className='font-bold text-[#f14310]'>{harga}</p>
-                        <p className='font-medium text-[#f14310]'>{tipe}</p>
-                    </div>
+                <div className='mx-4 mt-4'>
                     <div className='text-center items-center'>
                         <h1 className='font-bold text-[16px] text-[#89060b]'>{title}</h1>
                     </div>
@@ -88,6 +88,12 @@ const Card_Paket = ({paket_id, img, harga,tipe, title, jadwalBerangkat, durasi, 
 
                         <Seatbar_Alt totalSeat={totalseat} remainingSeat={remainingseat} />
 
+                        {harga?.map((item: hargaProps) => (
+                            <div className='flexBetween mt-3 mb-2'>
+                                <p className='font-bold text-[#f14310]'>{item.nominal.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
+                                <p className='font-medium text-[#f14310]'>{item.tipe}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

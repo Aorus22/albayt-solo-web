@@ -255,9 +255,9 @@ export default function Paket() {
                     <RemainingDays Input_Date={currentPage?.jadwal}></RemainingDays>
                     <div className='border-gray-20 rounded-2xl px-4 my-3 w-full bg-slate-100 mb-6'>
                       <div className='flex items-center my-2'>
-                        <div className='flexBetween w-full text-2xl font-bold text-yellow-600'>
-                          <p>Dp </p>
-                          <p>{currentPage?.harga_dp}</p>
+                        <div className='w-full text-2xl font-bold text-yellow-600 text-center'>
+                          <p>DP </p>
+                          <p>{currentPage?.harga_dp.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
                         </div>
                       </div>
                       <div>
@@ -265,7 +265,7 @@ export default function Paket() {
                             <div className='flex w-full items-center my-2'>
                               <div className='flexBetween w-full text-sm font-medium'>
                                 <p>{item.tipe}</p>
-                                <p>{item.nominal}</p>
+                                <p>{item.nominal.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
                               </div>
                             </div>
                         ))}

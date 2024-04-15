@@ -2,30 +2,30 @@
 import React, { useEffect, useState } from 'react';
 import Card_Paket from './Card_Paket'
 import Template_form from './Template_form'
-import Card_Paket_Alt from './Card_Paket_Alt'
 import Link from 'next/link'
-import {PACKAGE_DATA} from "@/constants";
+// import {PACKAGE_DATA} from "@/constants";
 
 const PaketAlbayt = () => {
 
-  // const [data, setData] = useState<any[]>([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch('/api/paket/full');
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch data');
-  //       }
-  //       const data = await response.json();
-  //       setData(data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  const [data, setData] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/paket/`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+  console.log(data)
 
-  const data = PACKAGE_DATA
+  // const data = PACKAGE_DATA
 
   return (
     <>
@@ -56,8 +56,7 @@ const PaketAlbayt = () => {
               key={paket.key} 
               paket_id={paket.key} 
               img={paket.img} 
-              harga={paket.harga} 
-              tipe={paket.tipe} 
+              harga={paket.harga}
               title={paket.title} 
               jadwalBerangkat={paket.jadwal} 
               durasi={paket.durasi} 

@@ -4,26 +4,28 @@ import Card_Paket from '@/Components/Card_Paket';
 import { LocationMarkerIcon, CalendarIcon, CurrencyDollarIcon } from '@heroicons/react/solid';
 import {PACKAGE_DATA} from "@/constants";
 import "../globals.css";
+import {useParams} from "next/navigation";
 
-function SearchForm() {
-  // const [data, setData] = useState<any[]>([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch('/api/paket/full');
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch data');
-  //       }
-  //       const data = await response.json();
-  //       setData(data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+function PaketPage() {
+  const [data, setData] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/paket/`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+  console.log(data)
 
-  const data = PACKAGE_DATA
+  // const data = PACKAGE_DATA
 
   return (
     <div className="px-4 sm:px-8 md:px-12 lg:px-20 py-10 md:py-20"> 
@@ -80,13 +82,12 @@ function SearchForm() {
 
       <section className="max-container padding-container py-7 bg-gradient-to-t rounded-xl from-white to-[#ffc750]">
         <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
-          {data.map((paket) => (
+          {data.map((paket: any) => (
             <Card_Paket 
               key={paket.key} 
               paket_id={paket.key} 
               img={paket.img} 
-              harga={paket.harga} 
-              tipe={paket.tipe} 
+              harga={paket.harga}
               title={paket.title} 
               jadwalBerangkat={paket.jadwal} 
               durasi={paket.durasi} 
@@ -102,4 +103,4 @@ function SearchForm() {
   );
 }
 
-export default SearchForm;
+export default PaketPage;
