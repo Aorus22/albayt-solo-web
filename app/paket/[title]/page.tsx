@@ -1,27 +1,24 @@
 "use client"
-// import { PACKAGE_DATA } from '@/constants'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react';
-// import SeatBar from "@/Components/SeatBar";
+import React, {useEffect, useRef, useState} from 'react';
 import RemainingDays from "@/Components/remainingdays";
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import PaketAlbayt from '@/Components/PaketAlbayt';
 import OrderButton from '@/Components/OrderButton';
 import SeatBar from '@/Components/SeatBar';
-import {useLoading} from "@/context/LoadingContext";
 import LoadingBar from '@/Components/LoadingBar';
 
 export default function Paket() {
     const params = useParams();
 
     const [data, setData] = useState<any[]>([]);
+    const boxPemesananMobileRef = useRef<HTMLDivElement>(null);
     const [boxPemesananVisible, setBoxPemesananVisible] = useState<boolean>(false);
-    const [isScrolled, setIsScrolled] = useState(false);
-    const { isLoading, setLoading } = useLoading();
+    const [isScrolled, setIsScrolled] = useState<boolean>(false);
+    const [isLoading, setLoading ] = useState<boolean>(true)
 
     useEffect(() => {
-      setLoading(true);
       const fetchData = async () => {
         try {
           const response = await fetch(`/api/paket/${params.title}`);
@@ -29,15 +26,17 @@ export default function Paket() {
             throw new Error('Failed to fetch data');
           }
           const data = await response.json();
+
           setData(data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        } finally {
-          setLoading(false);
+        } catch (Error) {
+          console.error('Error fetching data:', Error);
         }
       };
       fetchData();
+      setLoading(false);
+    }, []);
 
+    useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -47,9 +46,8 @@ export default function Paket() {
           }
         });
       });
-
-      const boxPemesananMobile = document.getElementById('PemesananMobile');
-
+      const boxPemesananMobile = boxPemesananMobileRef?.current;
+      console.log(boxPemesananMobile)
       if (boxPemesananMobile) {
         observer.observe(boxPemesananMobile);
       }
@@ -59,7 +57,7 @@ export default function Paket() {
           observer.unobserve(boxPemesananMobile);
         }
       };
-    }, []);
+    }, [boxPemesananMobileRef, isLoading]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,7 +78,6 @@ export default function Paket() {
 
     const currentPage = data[0];
     const hargaArr = currentPage?.harga
-    // const currentPage = PACKAGE_DATA.find((paket) => paket.key === params.title)
 
   const boxPemesanan = () => {
       return (
@@ -145,7 +142,6 @@ export default function Paket() {
       )
   }
 
-  // @ts-ignore
   return (
       <div>
       {isLoading ? (<LoadingBar />) : (
@@ -264,7 +260,7 @@ export default function Paket() {
                       {boxPemesanan()}
                       <div
                           className="z-50 absolute left-1/2 top-3/4 transform -translate-x-1/2 -translate-y-1/2"
-                          id="PemesananMobile">
+                          ref={boxPemesananMobileRef}>
                       </div>
                     </div>
                   </div>
