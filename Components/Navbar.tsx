@@ -49,15 +49,9 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                {/*{!user ? (*/}
-                    <div  className='lg:flexBetween'>
-                        <SignInButton></SignInButton>
-                    </div>
-                {/*) : (*/}
-                {/*    <div>{user.displayName}</div>*/}
-                {/*)*/}
-                {/*}*/}
-
+                <div  className='lg:flexBetween hidden lg:block'>
+                    <SignInButton></SignInButton>
+                </div>
 
                 {/* Tombol Burger / Menu */}
                 <button onClick={toggleNavbar} className='inline-block lg:hidden'>
@@ -71,11 +65,14 @@ const Navbar = () => {
 
             {isOpen && 
                 <ul className='mt-3 h-full gap-12 lg:hidden'>
-                    {/*<SignInButton></SignInButton>*/}
+                    <div className={'w-full justify-center flex'}>
+                        <SignInButton></SignInButton>
+                    </div>
+
 
                     <div className='mt-2'>
                         {NAV_LINKS.map((link) => (
-                            <div className=' py-3 hover:bg-gray-10'>
+                            <div className=' py-3 hover:bg-gray-10 flex justify-center'>
                                 <Link href={link.href} key={link.key} onClick={toggleNavbar} className='medium-18 text-gray-50 m-2 flexStart cursor-pointer transition-all hover:font-bold hover:text-black'>
                                     {link.label}
                                 </Link>

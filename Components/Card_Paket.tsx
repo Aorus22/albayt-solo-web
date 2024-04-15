@@ -51,7 +51,7 @@ const Card_Paket = ({paket_id, img, harga, title, jadwalBerangkat, durasi, hotel
                                 <p>Durasi Perjalanan</p>
                             </div>
                             <div className='font-bold'>
-                                <p>{durasi}</p>
+                                <p>{durasi} hari</p>
                             </div>
                         </div>
 

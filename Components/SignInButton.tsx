@@ -111,7 +111,7 @@ const SignInButton = () => {
 
   return (
     <button type="button" onClick={handleSignIn}>
-      <div className="lg:flexBetween hidden cursor-pointer">
+      <div className="lg:flexBetween cursor-pointer">
         <div
           className={`py-4 px-8 flexCenter gap-3 rounded-full tracking-wider border bg-[#f14310]`}
         >

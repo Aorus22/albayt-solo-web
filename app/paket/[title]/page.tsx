@@ -86,7 +86,7 @@ export default function Paket() {
                           <path d="M13 7h-2v6h6v-2h-4z"></path>
                         </svg>
                         <div>Durasi Perjalanan</div>
-                        <div className="text-2xl font-semibold mt-2">{currentPage?.durasi}</div>
+                        <div className="text-2xl font-semibold mt-2">{currentPage?.durasi} hari</div>
                     </div>
                     <div className="border rounded-3xl p-4 flex flex-col items-center h-36 bg-white">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style={{ fill: "#f14310" }}>
@@ -181,7 +181,7 @@ export default function Paket() {
                 </div>
                 <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
                   <p className="text-[#f14310] font-bold text-2xl mb-4">
-                    Penilaian
+                    Testimoni 
                   </p>
                   <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
                   <div className='border-b-2 pb-10 pl-4 mt-4'>
