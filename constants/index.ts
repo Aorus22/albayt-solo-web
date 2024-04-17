@@ -255,16 +255,13 @@ export const NAV_LINKS = [
       title: 'VISI',
       content: [
         {
-          label: 'visi1', value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ipsam nulla suscipit tempore odio ipsa provident, tempora pariatur illum ducimus voluptatem voluptas alias, officiis aperiam nobis, nisi modi similique? Molestiae.',
+          label: 'visi1', value: 'Meraih keberkahan dalam berwisata.',
         },
         {
-          label: 'visi2', value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ipsam nulla suscipit tempore odio ipsa provident, tempora pariatur illum ducimus voluptatem voluptas alias, officiis aperiam nobis, nisi modi similique? Molestiae.',
+          label: 'visi2', value: 'Menjadi perusahaan jasa tour & travel muslim secara komprehensif & profesional dengan berorientasi kepada kepuasan pelanggan.',
         },
         {
-          label: 'visi3', value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ipsam nulla suscipit tempore odio ipsa provident, tempora pariatur illum ducimus voluptatem voluptas alias, officiis aperiam nobis, nisi modi similique? Molestiae.',
-        },
-        {
-          label: 'visi4', value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ipsam nulla suscipit tempore odio ipsa provident, tempora pariatur illum ducimus voluptatem voluptas alias, officiis aperiam nobis, nisi modi similique? Molestiae.',
+          label: 'visi3', value: 'Menjadi biro perjalanan umrah & haji yang mengedepankan bimbingan ibadah yang khusuk dengan pelayanan maksimal, harga terjangkau, dan amanah.',
         },
       ],
     },
@@ -273,16 +270,25 @@ export const NAV_LINKS = [
       title: 'MISI',
       content: [
         {
-          label: 'misi1', value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ipsam nulla suscipit tempore odio ipsa provident, tempora pariatur illum ducimus voluptatem voluptas alias, officiis aperiam nobis, nisi modi similique? Molestiae.',
+          label: 'misi1', value: 'Membantu memudahkan perencanaan perjalanan wisata yang ekonomis dan nyaman.',
         },
         {
-          label: 'misi2', value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ipsam nulla suscipit tempore odio ipsa provident, tempora pariatur illum ducimus voluptatem voluptas alias, officiis aperiam nobis, nisi modi similique? Molestiae.',
+          label: 'misi2', value: 'Memberikan harga yang sangat terjangkau dengan pilihan paket yang variatif.',
         },
         {
-          label: 'misi3', value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ipsam nulla suscipit tempore odio ipsa provident, tempora pariatur illum ducimus voluptatem voluptas alias, officiis aperiam nobis, nisi modi similique? Molestiae.',
+          label: 'misi3', value: 'Memberikan kenyamanan dan bimbingan beribadah umrah dan haji untuk mencapai mabrur.',
         },
         {
-          label: 'misi4', value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ipsam nulla suscipit tempore odio ipsa provident, tempora pariatur illum ducimus voluptatem voluptas alias, officiis aperiam nobis, nisi modi similique? Molestiae.',
+          label: 'misi4', value: 'Membina komunikasi yang baik dengan semua pelanggan.',
+        },
+        {
+          label: 'misi5', value: 'Menjalin kerjasama dalam bidang pariwisata dengan semua pihak terkait.'
+        },
+        {
+          label: 'misi6', value: 'Menggunakan SDM / tenaga kerja yang terlatih, bersertifikat, dan profesional.'
+        },
+        {
+          label: 'misi7', value: 'Meningkatkan pelayanan yang terbaik demi kepuasan pelanggan.'
         },
       ],
     },
