@@ -9,17 +9,17 @@ const Hero = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 items-center'>
 
                 {/* grid Hero Kiri */}
-                <div className='flexStart'>
+                <div className='flexCenter md:flexStart'>
                     <Image src={'/images/pemilik.png'} alt='pemilik' width={475} height={475} className='h-auto'/>        
                 </div>    
 
                 {/* Grid Hero Kanan */}
                 <div className='text-center items-center my-5 lg:my-0'>
                     <h3 className='font-bold text-lg lg:text-3xl text-white tracking-wide'>
-                        <span className='text-[#f14310]'>CEO</span> at Albayt Wisata Universal
+                        <span className='text-[#f14310]'>CEO</span> at Albayt Solo
                     </h3>
-                    <h1 className='font-bold text-4xl lg:text-6xl text-white mt-1 mb-2 lg:mt-3 lg:mb-2 whitespace-nowrap'>
-                        <span className='text-[#f14310]'>Nining</span> Kartiningsih
+                    <h1 className='font-bold text-4xl lg:text-7xl text-white mt-1 mb-2 lg:mt-3 lg:mb-2 whitespace-nowrap'>
+                        <span className='text-[#f14310]'>Nur</span> Hidayati
                     </h1>
                     <Link href={'/'} target='blank'>
                         <div className='flexCenter mt-4 lg:mt-8'>
