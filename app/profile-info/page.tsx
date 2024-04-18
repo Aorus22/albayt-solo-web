@@ -26,28 +26,28 @@ const page = () => {
 
             <div>
               <h3 className='font-semibold text-lg'>NAMA PERTAMA</h3>
-              <input type='text' placeholder='Nama' name='name' className='px-4 py-2 w-[70%] border border-gray-30 rounded-lg focus:outline-gray-30 focus:outline-2'/>
+              <input type='text' placeholder='Nama' name='name' className='px-4 py-2 w-full border border-gray-30 rounded-lg focus:outline-gray-30 focus:outline-2'/>
             </div>
 
             <div>
               <h3 className='font-semibold text-lg'>NOMOR TELEPON</h3>
-              <input type='text' placeholder='Nomor Telepon' name='telp' className='px-4 py-2 w-[70%] border border-gray-30 rounded-lg focus:outline-gray-30 focus:outline-2' />
+              <input type='text' placeholder='Nomor Telepon' name='telp' className='px-4 py-2 w-full border border-gray-30 rounded-lg focus:outline-gray-30 focus:outline-2' />
             </div>
 
             <div>
               <h3 className='font-semibold text-lg'>ALAMAT</h3>
-              <input type='text' placeholder='Alamat' name='telp' className='px-4 py-2 w-[70%] border border-gray-30 rounded-lg focus:outline-gray-30 focus:outline-2' />
+              <input type='text' placeholder='Alamat' name='alamat' className='px-4 py-2 w-full border border-gray-30 rounded-lg focus:outline-gray-30 focus:outline-2' />
             </div>
 
             <div>
               <h3 className='font-semibold text-lg'>TENTANG ANDA</h3>
-              <textarea placeholder='Tentang Anda' name='about_me' rows={7} className='px-2 py-2 w-[70%] resize-none border border-gray-30 rounded-lg focus:outline-gray-30 focus:outline-2'/>
+              <textarea placeholder='Tentang Anda' name='about_me' rows={7} className='px-2 py-2 w-full resize-none border border-gray-30 rounded-lg focus:outline-gray-30 focus:outline-2'/>
             </div>
-            
+
             <div className='flex justify-end'>
-              <button className='flex items-center gap-2 px-4 py-2 bg-[#f13410] text-white rounded-lg duration-200 hover:bg-black'>
-                <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" height={24} width={24} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className='fill-white'><path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" fill-rule="nonzero"/></svg>
-                <p className='font-semibold'>Edit Profil</p>
+              <button className='flex gap-2 items-center px-4 py-2 bg-[#f14310] text-white rounded-lg duration-200 hover:bg-black'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" className='fill-white'><path d="M14 3h2.997v5h-2.997v-5zm9 1v20h-22v-24h17.997l4.003 4zm-17 5h12v-7h-12v7zm14 4h-16v9h16v-9z"/></svg>
+                <p>Simpan Perubahan</p>
               </button>
             </div>
           </div>
