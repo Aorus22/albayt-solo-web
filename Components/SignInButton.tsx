@@ -81,23 +81,31 @@ const SignInButton = () => {
                 <div className="font-medium truncate">{userEmail}</div>
               </div>
               <ul
-                className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                className="text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownInformationButton"
               >
                 <li>
                   <a
                     href="/RiwayatPembelian"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="block px-4 py-2 border-b border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Riwayat Pembelian
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="/profile-info"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Informasi Profil
+                  </a>
+                </li>
               </ul>
-              <div className="py-2 w-full">
+              <div className="w-full">
                 <button
                   type="button"
                   onClick={handleLogOut}
-                  className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  className="w-full text-left block px-4 py-2 text-sm rounded-b-lg text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
                   Sign out
                 </button>
