@@ -554,3 +554,27 @@ export const NAV_LINKS = [
       `,
     },
   ];
+
+  export const RIWAYAT_PEMBELIAN = [
+    {
+      id: 1,
+      tanggal: '9 Feb 2024',
+      status: 'Berhasil',
+      keterangan: 'Umroh Eksekutif Akhir Desember 2024 Plus City tour UIM + Museum Wahyu',
+      total: 22001500,
+    },
+    {
+      id: 2,
+      tanggal: '9 Feb 2024',
+      status: 'Berhasil',
+      keterangan: 'Umroh Eksekutif Akhir Desember 2024 Plus City tour UIM + Museum Wahyu',
+      total: 22001500,
+    },
+    {
+      id: 3,
+      tanggal: '9 Feb 2024',
+      status: 'Berhasil',
+      keterangan: 'Umroh Eksekutif Akhir Desember 2024 Plus City tour UIM + Museum Wahyu',
+      total: 20125500,
+    },
+  ];
