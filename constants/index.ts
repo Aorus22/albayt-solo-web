@@ -3,7 +3,7 @@
 
 export const NAV_LINKS = [
   { href: '/', key: 'beranda', label: 'Beranda' },
-  { href: '/profil-page', key: 'tentang_kami', label: 'Tentang Kami' },
+  { href: '/about-us', key: 'tentang_kami', label: 'Tentang Kami' },
   { href: '/paketpage', key: 'paket_albayt', label: 'Paket ALBAYT' },
   // { href: '/galeri', key: 'galeri', label: 'Galeri' },
   // { href: '/blogpage', key: 'blog', label: 'Blog' },
@@ -114,21 +114,21 @@ export const NAV_LINKS = [
       title: 'HEMAT',
       icon: '/hemat.svg',
       description:
-        'We provide a solution for you to be able to use our application when climbing, yes offline maps you can use at any time there is no signal at the location',
+        'Memberikan harga terjangkau dengan pilihan paket yang variatif. Serta Promo dan Diskon menarik lainnya, yang ga bikin tabungan kamu jadi kurus.',
     },
     {
       key: 'nyaman',
       title: 'NYAMAN',
       icon: '/nyaman.svg',
       description:
-        "Schedule an adventure with friends. On holidays, there are many interesting offers from Hilink. That way, there's no more discussion",
+        "Melayani Calon Jamaah dan Jama’ah dengen tulus. Memberikan tips-tips serta bimbingan dari Staf yang terlatih agar anda merasa nyaman dalam berbagai traveling, kuliner halal bersama dengan Albayt Wisata.",
     },
     {
       key: 'aman',
       title: 'AMAN',
       icon: '/aman.svg',
       description:
-        'Technology uses augmented reality as a guide to your hiking trail in the forest to the top of the mountain. Already supported by the latest technology without an internet connection',
+        'Albayt memastikan kepada Jama’ah dan Calon Jama’ah, bahwa kami adalah Travel yang Berizin dan Amanah. Dengan Jadwal yang Pasti, Sehingga Anda merasa aman memilih kami sebagai Travel Perjalanan anda.',
     },
   ];
 
