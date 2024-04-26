@@ -8,6 +8,7 @@ import PaketAlbayt from '@/Components/PaketAlbayt';
 import OrderButton from '@/Components/OrderButton';
 import SeatBar from '@/Components/SeatBar';
 import LoadingBar from '@/Components/LoadingBar';
+import { FASILITAS_PAKET } from '@/constants';
 
 export default function Paket() {
     const params = useParams();
@@ -266,52 +267,23 @@ export default function Paket() {
                     </div>
                   </div>
 
-                  <div
-                      className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 justify-center bg-white p-6 shadow">
-                    <p className="font-bold text-2xl mb-4 text-[#f14310]">
-                      Deskripsi
-                    </p>
+                  <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
+
+                    <h3 className='font-bold text-3xl text-[#f14310] mb-4'>Fasilitas</h3>
                     <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                      occaecat cupidatat non proident, sunt in culpa qui officia
-                      deserunt mollit anim id est laborum.
-                    </p>
-                  </div>
-                  <div
-                      className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
-                    <p className="text-[#f14310] font-bold text-2xl mb-4">
-                      Syarat dan Ketentuan
-                    </p>
-                    <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
-                    <ul className="pl-5 list-disc">
-                      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                      <li>Excepteur sint occaecat cupidatat non proident, sunt in</li>
-                      <li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</li>
-                    </ul>
-                  </div>
-                  <div
-                      className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
-                    <p className="text-[#f14310] font-bold text-2xl mb-4">
-                      Fasilitas
-                    </p>
-                    <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
-                    <ul className="pl-5 list-disc">
-                      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                      <li>Excepteur sint occaecat cupidatat non proident, sunt in</li>
-                      <li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</li>
-                      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                      <li>Excepteur sint occaecat cupidatat non proident, sunt in</li>
-                      <li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</li>
-                      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                      <li>Excepteur sint occaecat cupidatat non proident, sunt in</li>
-                      <li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</li>
-                    </ul>
+
+                    {FASILITAS_PAKET.map((fasilitas) => (
+                      <div key={fasilitas.id_fasilitas} className='mb-8'>
+                        <p className="text-[#f14310] font-bold text-2xl mb-3">
+                          {fasilitas.title}
+                        </p>
+                        <ul className="pl-5 list-disc">
+                          {fasilitas.contents.map((ket_fasilitas) => (
+                            <li className='font-medium my-2 text-gray-700' key={ket_fasilitas.label}>{ket_fasilitas.value}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
                   <div
                       className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
