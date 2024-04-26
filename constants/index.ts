@@ -578,3 +578,73 @@ export const NAV_LINKS = [
       total: 20125500,
     },
   ];
+
+  export const FASILITAS_PAKET = [
+    {
+      id_fasilitas: "include",
+      title: "Include",
+      contents: [
+        {
+          label: "tiket",
+          value: "Tiket Pesawat PP Kelas Ekonomi",
+        },
+        {
+          label: "visa",
+          value: "Visa Umrah",
+        },
+        {
+          label: "hotel_madinah",
+          value: "Hotel Madinah *3/4 Setaraf (QUAD)",
+        },
+        {
+          label: "hotel_mekah",
+          value: "Hotel Makkah *3/4 Setaraf (Quad)",
+        },
+        {
+          label: "makan",
+          value: "Makan Fullboard",
+        },
+        {
+          label: "transport",
+          value: "Transportasi dan Akomodasi",
+        },
+        {
+          label: "muthawif",
+          value: "Muthawif dan TL",
+        },
+        {
+          label: "handlinh",
+          value: "Handlinh dan Perlengkapan",
+        },
+        {
+          label: "manasik",
+          value: "Manasik",
+        },
+      ], 
+    },
+    {
+      id_fasilitas: "exclude",
+      title: "Exclude",
+      contents: [
+        {label: "biaya", value: "Biaya Pembuatan Passport"},
+        {label: "suntik", value: "Suntik Meningitis"},
+        {label: "biaya_kirim", value: "Biaya Pengiriman Perlengkapan ke Daerah"},
+        {label: "upgrade_1", value: "Biaya Upgrade Double Program 9-11 Hari: Double Room 3,5jt/PA, Triple 2jt/PAX"},
+        {label: "upgrade_2", value: "Biaya Upgrade Double Program 12-16 Hari: Double Room 6jt/PA, Triple 3,5jt/PAX"},
+        {label: "tipping", value: "Tipping Guide Turki/Cairo/Dubai (8USD Per Orang Per Hari)"},
+        {label: "biaya_lain", value: "Biaya Lain Apabila Ada Ketentuan Kebijakan Pemerintah Indonesia / Saudi Arabia"},
+        {label: "biaya_tiket", value: "Biaya Tiket Domestik"},
+      ],
+    },
+    {
+      id_fasilitas: "note",
+      title: "Note",
+      contents: [
+        {label: "depo", value: "Deposit 5.000.000 / PAX (Non Refundable)"},
+        {label: "pelunasan", value: "Pelunasan H-40"},
+        {label: "harga_program", value: "Harga dan Program Sewaktu-waktu Bisa Berubah Tanpa Pemberitahuan"},
+        {label: "penyesuaian", value: "Disesuaikan Dengan Situasi dan Kondisi Tanpa Mengurangi Kekhusukan Ibadah"},
+        {label: "teman_kamar", value: "Jika Tidak Ada Teman Sekamar, Maka Wajib Membayar Upgrade Kamar"},
+      ],
+    },
+  ]
