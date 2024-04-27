@@ -4,6 +4,16 @@ import {UserAuth} from "@/context/AuthContext";
 import {useParams} from "next/navigation";
 import {PackageProps} from "@/Components/Card_Paket";
 
+interface Anak {
+  nama: string;
+  tgl_lahir: string;
+}
+
+interface Dewasa {
+  nama: string;
+  telp: string;
+}
+
 export interface PurchaseDetail {
   UserID: string;
   purchaseID: string;
@@ -13,6 +23,10 @@ export interface PurchaseDetail {
   metodePembayaran: string;
   tanggalPemesanan: string;
   email: string;
+  detailJamaah: {
+    anak?: Anak[];
+    dewasa?: Dewasa[];
+  };
 }
 
 export interface PurchaseHistory {
@@ -59,7 +73,7 @@ const page = () => {
 
             <div>
               <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Status</h3>
-              <p className='font-semibold text-[14px] md:text-[16px]'>{riwayatPembelian?.detailPembelian?.statusPembayaran}</p>
+              <p className={`py-1 px-2 font-bold w-fit ${riwayatPembelian?.detailPembelian.statusPembayaran === 'Berhasil' ? 'text-green-600 bg-green-100' : riwayatPembelian?.detailPembelian.statusPembayaran === 'Menunggu Konfirmasi' ? 'text-yellow-600 bg-yellow-100' : 'text-red-600 bg-red-100'}`}>{riwayatPembelian?.detailPembelian.statusPembayaran}</p>
             </div>
 
             <div>
@@ -98,6 +112,40 @@ const page = () => {
                 })}</p>
               </div>
             </div>
+          </div>
+
+          <div className='border-b rounded-full my-7'/>
+
+          <div>
+            <h3 className='font-semibold text-[16px] lg:text-lg'>Detail Jamaah</h3>
+            
+            {riwayatPembelian?.detailPembelian?.detailJamaah?.dewasa && (
+              <div>
+                <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Dewasa</h4>
+                {riwayatPembelian.detailPembelian.detailJamaah.dewasa.map((dewasa) => (
+                  <div className='flex gap-5'>
+                    <div className='flex gap-8'>
+                      <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {dewasa.nama}</p>
+                      <p className='font-semibold text-[13px] md:text-[14px]'>Telepon: {dewasa.telp}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {riwayatPembelian?.detailPembelian?.detailJamaah?.anak && (
+              <div className='my-4'>
+                <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Anak-anak</h4>
+                {riwayatPembelian.detailPembelian.detailJamaah.anak.map((anak) => (
+                  <div className='flex gap-5'>
+                    <div className='flex gap-8'>
+                      <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {anak.nama}</p>
+                      <p className='font-semibold text-[13px] md:text-[14px]'>Tanggal Lahir: {anak.tgl_lahir}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className='border-b rounded-full my-7'/>
