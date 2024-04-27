@@ -94,21 +94,21 @@ body {
   opacity: 1;
 }
 
-.text-shadow-1 {
-  text-Shadow: 0.1px 3.5px orangered;
-}
+/*.text-shadow-1 {*/
+/*  text-Shadow: 0.1px 3.5px orangered;*/
+/*}*/
 
-.text-shadow-2 {
-  text-Shadow: 0.1px 4px orangered;
-}
+/*.text-shadow-2 {*/
+/*  text-Shadow: 0.1px 4px orangered;*/
+/*}*/
 
-.text-shadow-3 {
-  text-Shadow: 0.1px 2.5px orangered;
-}
+/*.text-shadow-3 {*/
+/*  text-Shadow: 0.1px 2.5px orangered;*/
+/*}*/
 
-.text-shadow-4 {
-  text-Shadow: 0.1px 7px orangered;
-}
+/*.text-shadow-4 {*/
+/*  text-Shadow: 0.1px 7px orangered;*/
+/*}*/
 
 @layer utilities {
   /* CAROUSEL */

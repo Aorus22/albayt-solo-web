@@ -86,7 +86,9 @@ export async function addPurchase(dataPembelian: any) {
             email : dataPembelian.email|| "",
             detailJamaah : dataPembelian.detailJamaah|| "",
             metodePembayaran: dataPembelian.metodePembayaran,
-            statusPembayaran: "Belum Dibayar"
+            statusPembayaran: "Belum Dibayar",
+            totalPembayaran: dataPembelian.totalPembayaran,
+            tanggalPemesanan: dataPembelian.tanggalPemesanan
         });
         await addPurchaseToHistory(dataPembelian.UID, dataPembelian.purchaseID)
         alert("Data added successfully!");

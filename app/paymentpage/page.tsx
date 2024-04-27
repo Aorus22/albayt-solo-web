@@ -32,6 +32,7 @@ const Order = () => {
 
     const dewasaCount = dewasaData.length
     const anakCount = anakData.length
+    const totalHarga = (paketData?.harga_dp ?? 0) * (dewasaCount + anakCount)
 
     const handleRadioChange = (event) => {
         setSelectedValue(event.target.value);
@@ -56,7 +57,9 @@ const Order = () => {
                         dewasa: dewasaData,
                         anak: anakData
                     },
-                    metodePembayaran: selectedPembayaran
+                    metodePembayaran: selectedPembayaran,
+                    totalPembayaran: totalHarga,
+                    tanggalPemesanan: new Date().toISOString()
                 };
 
                 await addPurchase(dataPembelian)
@@ -139,7 +142,7 @@ const Order = () => {
                             <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] text-center lg:text-[16px]"
                                 colSpan={2}>Total Biaya
                             </td>
-                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{((paketData?.harga_dp ?? 0) * (dewasaCount + anakCount)).toLocaleString('id-ID', {
+                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{totalHarga.toLocaleString('id-ID', {
                                 style: 'currency',
                                 currency: 'IDR'
                             })}</td>

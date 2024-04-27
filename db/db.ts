@@ -2,8 +2,8 @@
 
 import "server-only";
 
-import { initializeApp, getApps, cert } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+import {cert, getApps, initializeApp} from "firebase-admin/app";
+import {getFirestore} from "firebase-admin/firestore";
 
 export const firebaseApp =
   getApps().find((it) => it.name === "firebase-admin-app") ||
@@ -31,7 +31,6 @@ export async function getPakets() {
 }
 
 export async function getPaket(namaPaket: string) {
-  console.log(namaPaket)
   if (!namaPaket?.length) return;
   const doc = await firestore.collection("paket").doc(namaPaket).get()
   return doc.data()
@@ -41,4 +40,46 @@ export async function getUser(UID: string) {
     if (!UID?.length) return;
     const doc = await firestore.collection("users").doc(UID).get()
     return doc.data()
+}
+
+export const fetchDetailPurchase = async(purchaseID: string) => {
+    const purchaseDoc = await firestore.collection("pembelian").doc(purchaseID).get()
+    if (!purchaseDoc.exists) {
+        return null ;
+    }
+
+    const purchaseData = purchaseDoc.data()
+    const paketID = purchaseData ? purchaseData["paketID"] : ""
+    const paketDoc = await getPaket(paketID)
+
+    return {
+        detailPembelian: purchaseData,
+        detailPaket: paketDoc
+    }
+}
+
+export const fetchUserPurchaseDetail = async (userID: string) => {
+    try {
+        const userDoc = await firestore.collection("users").doc(userID).get()
+
+        if (userDoc.exists) {
+            const userData = userDoc.data();
+            const riwayatPembelian = userData ? userData['riwayat-pembelian'] || [] : [];
+
+            const purchaseDetails = []
+            for (const purchaseID of riwayatPembelian) {
+                const data = await fetchDetailPurchase(purchaseID)
+                if (data !== null){
+                    purchaseDetails.push(data)
+                }
+            }
+            return purchaseDetails
+        } else {
+            console.log("Dokumen pengguna tidak ditemukan!");
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching user purchase detail:", error);
+        throw error;
+    }
 }
