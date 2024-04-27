@@ -47,7 +47,7 @@ const Order = () => {
     const router = useRouter()
     const handleBayarSekarang = async () => {
         if (selectedPembayaran) {
-            if (paketData && dewasaData.length > 0 && anakData.length > 0) {
+            if (paketData && dewasaData.length > 0) {
                 const dataPembelian = {
                     purchaseID: generatePurchaseID(),
                     paketID: paketData.paket_id,
