@@ -7,7 +7,7 @@ import {addPurchase, UserAuth} from "@/context/AuthContext";
 import {useRouter} from "next/navigation";
 
 const Order = () => {
-
+    const router = useRouter();
    const { user } = UserAuth()
    const [paketData, setPaketData] = useState<PackageProps>();
    const [dewasaData, setDewasaData] = useState<Array<{ nama: string; telp: string }>>([]);
@@ -44,12 +44,12 @@ const Order = () => {
         return `${timestamp}-${randomString}`;
     };
 
-    const router = useRouter()
     const handleBayarSekarang = async () => {
         if (selectedPembayaran) {
             if (paketData && dewasaData.length > 0) {
+                const purchaseID = generatePurchaseID()
                 const dataPembelian = {
-                    purchaseID: generatePurchaseID(),
+                    purchaseID: purchaseID,
                     paketID: paketData.paket_id,
                     UID: user?.uid,
                     email: user?.email,
@@ -64,7 +64,7 @@ const Order = () => {
 
                 await addPurchase(dataPembelian)
                 sessionStorage.setItem('pilihanPembayaran', selectedPembayaran);
-                router.push('/final-payment');
+                router.push(`/final-payment/${purchaseID}`)
             } else {
                 alert('Data pembelian tidak lengkap');
             }

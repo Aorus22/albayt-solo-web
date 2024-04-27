@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import {DATA_BANK} from "@/constants";
 import Link from "next/link";
 import {PackageProps} from "@/Components/Card_Paket";
-import {useRouter} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 
 const Order = () => {
 
@@ -13,21 +13,7 @@ const Order = () => {
     const [anakData, setAnakData] = useState<Array<{ nama: string; tanggalLahir: string }>>([]);
     const [selectedPembayaran, setSelectedValue] = React.useState('');
 
-    const router = useRouter();
-    const isFinalPaymentPage = router.pathname === '/final-payment';
-
-    useEffect(() => {
-        const handleBackNavigation = () => {
-            if (isFinalPaymentPage) {
-                window.history.replaceState({}, '', '/'); // Redirect to homepage
-            }
-        };
-
-        window.addEventListener('popstate', handleBackNavigation);
-
-        return () => window.removeEventListener('popstate', handleBackNavigation);
-    }, [isFinalPaymentPage]);
-
+    const params = useParams()
 
     useEffect(() => {
         const data_paket = sessionStorage.getItem('selectedPackage');
@@ -53,7 +39,9 @@ const Order = () => {
     const anakCount = anakData.length
     const currentBank = DATA_BANK.find((bank) => bank.nama === selectedPembayaran);
 
+    const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [imageLink, setImageLink] = useState(null);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -63,6 +51,17 @@ const Order = () => {
             setPreviewUrl(url);
         }
     };
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        try {
+            const directImageLink = await uploadPhotoToGoogleDrive(file.path);
+            console.log('Direct Image Link:', directImageLink);
+            setImageLink(directImageLink);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     return (
         <div className="flex flex-col md:flex-row py-4 max-container padding-container">
@@ -93,10 +92,10 @@ const Order = () => {
                         )}
                     </div>
 
-                    <div className="my-8 w-full flex justify-end">
-                        <Link href={'/paymentpage'}>
+                    <div className="my-8 w-full flex justify-end" onClick={handleSubmit}>
+                        <Link href={`detailTransaksi/${params.purchaseID}`}>
                             <div className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4">
-                                Cek Pemesanan Saya
+                                Submit
                             </div>
                         </Link>
                     </div>

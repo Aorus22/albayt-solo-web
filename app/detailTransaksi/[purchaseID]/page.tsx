@@ -43,7 +43,7 @@ const page = () => {
     if (user != null) {
       fetchData().then();
     }
-  }, [user, riwayatPembelian]);
+  }, [user]);
 
   return (
     <>

@@ -19,14 +19,24 @@ import {getFirestore} from "firebase/firestore";
 //     measurementId: "G-E2JCN5SB73"
 // };
 
+// const firebaseConfig = {
+//     apiKey: "AIzaSyDb3sRiJRrkHRcLmJbKM14eie7HESEfmHY",
+//     authDomain: "albayt-backup-test.firebaseapp.com",
+//     projectId: "albayt-backup-test",
+//     storageBucket: "albayt-backup-test.appspot.com",
+//     messagingSenderId: "915555809111",
+//     appId: "1:915555809111:web:964f35365aaf24637b3012",
+//     measurementId: "G-J8XBZ45C98"
+// };
+
 const firebaseConfig = {
-    apiKey: "AIzaSyDb3sRiJRrkHRcLmJbKM14eie7HESEfmHY",
-    authDomain: "albayt-backup-test.firebaseapp.com",
-    projectId: "albayt-backup-test",
-    storageBucket: "albayt-backup-test.appspot.com",
-    messagingSenderId: "915555809111",
-    appId: "1:915555809111:web:964f35365aaf24637b3012",
-    measurementId: "G-J8XBZ45C98"
+    apiKey: "AIzaSyC2vIIO7StU16dXiIRHVzxFSKsjiGrHrcI",
+    authDomain: "albayt-backup-test1.firebaseapp.com",
+    projectId: "albayt-backup-test1",
+    storageBucket: "albayt-backup-test1.appspot.com",
+    messagingSenderId: "833290945096",
+    appId: "1:833290945096:web:dcaf60ef4c1589ac8ace7d",
+    measurementId: "G-0WY793FBQY"
 };
 
 // Initialize Firebase
