@@ -51,6 +51,12 @@ const page = () => {
         <h1 className='font-bold text-[#f14310] text-4xl lg:text-5xl text-center'>DETAIL TRANSAKSI</h1>
         <div className='lg:mx-72 p-6 border rounded-xl my-10'>
           <div className='flex flex-col gap-5 mx-50'>
+
+            <div>
+              <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>ID Pembelian</h3>
+              <p className='font-semibold text-[14px] md:text-[16px]'>{riwayatPembelian?.detailPembelian?.purchaseID}</p>
+            </div>
+
             <div>
               <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Status</h3>
               <p className='font-semibold text-[14px] md:text-[16px]'>{riwayatPembelian?.detailPembelian?.statusPembayaran}</p>
