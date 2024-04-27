@@ -2,14 +2,13 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import {DATA_BANK} from "@/constants";
-import Link from "next/link";
 import {PackageProps} from "@/Components/Card_Paket";
 import {addPurchase, UserAuth} from "@/context/AuthContext";
 import {useRouter} from "next/navigation";
 
 const Order = () => {
 
-   const { user, googleSignIn, logOut } = UserAuth()
+   const { user } = UserAuth()
    const [paketData, setPaketData] = useState<PackageProps>();
    const [dewasaData, setDewasaData] = useState<Array<{ nama: string; telp: string }>>([]);
    const [anakData, setAnakData] = useState<Array<{ nama: string; tanggalLahir: string }>>([]);

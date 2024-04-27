@@ -73,14 +73,6 @@ export const UserAuth = () => {
     return context;
 };
 
-export const getUserID = () => {
-    const { user } = useContext(AuthContext);
-    if (!user) {
-        throw new Error("User is not signed in.");
-    }
-    console.log(user)
-    return user.uid;
-};
 
 export async function addPurchase(dataPembelian: any) {
     const userRef = doc(firestore, "pembelian", dataPembelian.purchaseID);

@@ -17,8 +17,8 @@ function RemainingDays({ Input_Date }: any) {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const today = new Date();
-      const diffInMs = Target_Date.getTime() - today.getTime();
-      const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+      // const diffInMs = Target_Date.getTime() - today.getTime();
+      // const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
 
       const targetMonth = Target_Date.getMonth();
       const targetYear = Target_Date.getFullYear();

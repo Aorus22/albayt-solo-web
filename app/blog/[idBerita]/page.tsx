@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
-import { useParams, useRouter } from 'next/navigation';
+import React from "react";
+import { useParams } from 'next/navigation';
 import { BERITA_ARTIKEL } from "@/constants";
 import ArtikelLain from "@/Components/Artikel_Lain";
 

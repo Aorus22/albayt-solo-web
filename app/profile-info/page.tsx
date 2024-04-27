@@ -1,12 +1,11 @@
 'use client'
 import React, {useEffect, useState} from 'react'
-import {getUserID, UserAuth} from "@/context/AuthContext";
-import {getSession} from "next-auth/react";
+import {UserAuth} from "@/context/AuthContext";
 
 const page = () => {
 
   const [data, setData] = useState<any[]>([]);
-  const { user, googleSignIn, logOut } = UserAuth()
+  const { user} = UserAuth()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +13,7 @@ const page = () => {
         const uid = user?.uid
         const response = await fetch(`/api/user/${uid}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          console.log('Failed to fetch data');
         }
         const data = await response.json();
         setData(data);
@@ -23,7 +22,7 @@ const page = () => {
       }
     };
     if (user != null) {
-      fetchData();
+      fetchData().then();
     }
   }, [user]);
 

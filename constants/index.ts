@@ -37,86 +37,86 @@ export const DATA_BANK = [
   ]
   
   // DUMMY PACKAGE DATA
-  export const PACKAGE_DATA = [{
-    "_id": {
-      "$oid": "660f52bd9a7feaedf622ac38"
-    },
-    "key": "paket_1",
-    "img": "/Poster/paket_1.jpeg",
-    "harga": "Rp24.500.000,~",
-    "tipe": "Quad",
-    "title": "Napak Tilas Bumi Para Rasul",
-    "jadwal": "11 Agustus 24",
-    "durasi": "9 Hari",
-    "hotel": 4,
-    "totalseat": 40,
-    "remainingseat": 10,
-    "lokasiberangkat": "Surakarta"
-  },
-    {
-      "_id": {
-        "$oid": "660f52bd9a7feaedf622ac39"
-      },
-      "key": "paket_2",
-      "img": "/Poster/paket_2.jpeg",
-      "harga": "Rp24.500.000,~",
-      "tipe": "Quad",
-      "title": "Program Umroh Awal Musim 2024 ",
-      "jadwal": "27 Dec 24",
-      "durasi": "9 Hari",
-      "hotel": 5,
-      "totalseat": 40,
-      "remainingseat": 30,
-      "lokasiberangkat": "Surakarta"
-    },
-    {
-      "_id": {
-        "$oid": "660f52bd9a7feaedf622ac3a"
-      },
-      "key": "paket_3",
-      "img": "/Poster/paket_3.jpeg",
-      "harga": "Rp24.500.000,~",
-      "tipe": "Quad",
-      "title": "Umroh Eksekutif Akhir Desember 2024 Plus City tour UIM + Museum Wahyu",
-      "jadwal": "27 Dec 24",
-      "durasi": "9 Hari",
-      "hotel": 5,
-      "totalseat": 40,
-      "remainingseat": 10,
-      "lokasiberangkat": "Surakarta"
-    },
-    {
-      "_id": {
-        "$oid": "660f52bd9a7feaedf622ac3b"
-      },
-      "key": "paket_4",
-      "img": "/Poster/paket_4.jpeg",
-      "harga": "Rp24.500.000,~",
-      "tipe": "Quad",
-      "title": "Umroh Eksekutif Akhir Desember 2024 Plus City tour UIM + Museum Wahyu",
-      "jadwal": "27 Dec 24",
-      "durasi": "9 Hari",
-      "hotel": 4,
-      "totalseat": 40,
-      "remainingseat": 20,
-      "lokasiberangkat": "Surakarta"
-    },
-    {
-      "_id": {
-        "$oid": "660f52bd9a7feaedf622ac3c"
-      },
-      "key": "paket_5",
-      "img": "/Poster/paket_5.jpeg",
-      "harga": "Rp24.500.000,~",
-      "tipe": "Quad",
-      "title": "Umroh Eksekutif Akhir Desember 2024 Plus City tour UIM + Museum Wahyu",
-      "jadwal": "27 Dec 24",
-      "durasi": "9 Hari",
-      "hotel": 4,
-      "totalseat": 40,
-      "remainingseat": 5,
-      "lokasiberangkat": "Surakarta"
-    }]
+  // export const PACKAGE_DATA = [{
+  //   "_id": {
+  //     "$oid": "660f52bd9a7feaedf622ac38"
+  //   },
+  //   "key": "paket_1",
+  //   "img": "/Poster/paket_1.jpeg",
+  //   "harga": "Rp24.500.000,~",
+  //   "tipe": "Quad",
+  //   "title": "Napak Tilas Bumi Para Rasul",
+  //   "jadwal": "11 Agustus 24",
+  //   "durasi": "9 Hari",
+  //   "hotel": 4,
+  //   "totalseat": 40,
+  //   "remainingseat": 10,
+  //   "lokasiberangkat": "Surakarta"
+  // },
+  //   {
+  //     "_id": {
+  //       "$oid": "660f52bd9a7feaedf622ac39"
+  //     },
+  //     "key": "paket_2",
+  //     "img": "/Poster/paket_2.jpeg",
+  //     "harga": "Rp24.500.000,~",
+  //     "tipe": "Quad",
+  //     "title": "Program Umroh Awal Musim 2024 ",
+  //     "jadwal": "27 Dec 24",
+  //     "durasi": "9 Hari",
+  //     "hotel": 5,
+  //     "totalseat": 40,
+  //     "remainingseat": 30,
+  //     "lokasiberangkat": "Surakarta"
+  //   },
+  //   {
+  //     "_id": {
+  //       "$oid": "660f52bd9a7feaedf622ac3a"
+  //     },
+  //     "key": "paket_3",
+  //     "img": "/Poster/paket_3.jpeg",
+  //     "harga": "Rp24.500.000,~",
+  //     "tipe": "Quad",
+  //     "title": "Umroh Eksekutif Akhir Desember 2024 Plus City tour UIM + Museum Wahyu",
+  //     "jadwal": "27 Dec 24",
+  //     "durasi": "9 Hari",
+  //     "hotel": 5,
+  //     "totalseat": 40,
+  //     "remainingseat": 10,
+  //     "lokasiberangkat": "Surakarta"
+  //   },
+  //   {
+  //     "_id": {
+  //       "$oid": "660f52bd9a7feaedf622ac3b"
+  //     },
+  //     "key": "paket_4",
+  //     "img": "/Poster/paket_4.jpeg",
+  //     "harga": "Rp24.500.000,~",
+  //     "tipe": "Quad",
+  //     "title": "Umroh Eksekutif Akhir Desember 2024 Plus City tour UIM + Museum Wahyu",
+  //     "jadwal": "27 Dec 24",
+  //     "durasi": "9 Hari",
+  //     "hotel": 4,
+  //     "totalseat": 40,
+  //     "remainingseat": 20,
+  //     "lokasiberangkat": "Surakarta"
+  //   },
+  //   {
+  //     "_id": {
+  //       "$oid": "660f52bd9a7feaedf622ac3c"
+  //     },
+  //     "key": "paket_5",
+  //     "img": "/Poster/paket_5.jpeg",
+  //     "harga": "Rp24.500.000,~",
+  //     "tipe": "Quad",
+  //     "title": "Umroh Eksekutif Akhir Desember 2024 Plus City tour UIM + Museum Wahyu",
+  //     "jadwal": "27 Dec 24",
+  //     "durasi": "9 Hari",
+  //     "hotel": 4,
+  //     "totalseat": 40,
+  //     "remainingseat": 5,
+  //     "lokasiberangkat": "Surakarta"
+  //   }]
   
   // KENAPA KAMI
   export const KENAPA_KAMI = [
@@ -307,36 +307,36 @@ export const DATA_BANK = [
     },
   ]
 
-  export const AGEN_PERWAKILAN = [
-    {
-      key: 'agen1',
-      title: 'KALIMANTAN BARAT' ,
-      lokasi: 'Jln. Lorem Ipsum Dolor Sit Amet No 7 Gang 18',
-      pj: 'Bapak Lorem Ipsum',
-      telp: '123-456-789',
-    },
-    {
-      key: 'agen2',
-      title: 'KARESIDENAN MADIUN' ,
-      lokasi: 'Jln. Lorem Ipsum Dolor Sit Amet No 7 Gang 18',
-      pj: 'Bapak Lorem Ipsum',
-      telp: '123-456-789',
-    },
-    {
-      key: 'agen3',
-      title: 'BEKASI PUSAT' ,
-      lokasi: 'Jln. Lorem Ipsum Dolor Sit Amet No 7 Gang 18',
-      pj: 'Bapak Lorem Ipsum',
-      telp: '123-456-789',
-    },
-    {
-      key: 'agen4',
-      title: 'SURAKARTA' ,
-      lokasi: 'Jln. Lorem Ipsum Dolor Sit Amet No 7 Gang 18',
-      pj: 'Bapak Lorem Ipsum',
-      telp: '123-456-789',
-    },
-  ]
+  // export const AGEN_PERWAKILAN = [
+  //   {
+  //     key: 'agen1',
+  //     title: 'KALIMANTAN BARAT' ,
+  //     lokasi: 'Jln. Lorem Ipsum Dolor Sit Amet No 7 Gang 18',
+  //     pj: 'Bapak Lorem Ipsum',
+  //     telp: '123-456-789',
+  //   },
+  //   {
+  //     key: 'agen2',
+  //     title: 'KARESIDENAN MADIUN' ,
+  //     lokasi: 'Jln. Lorem Ipsum Dolor Sit Amet No 7 Gang 18',
+  //     pj: 'Bapak Lorem Ipsum',
+  //     telp: '123-456-789',
+  //   },
+  //   {
+  //     key: 'agen3',
+  //     title: 'BEKASI PUSAT' ,
+  //     lokasi: 'Jln. Lorem Ipsum Dolor Sit Amet No 7 Gang 18',
+  //     pj: 'Bapak Lorem Ipsum',
+  //     telp: '123-456-789',
+  //   },
+  //   {
+  //     key: 'agen4',
+  //     title: 'SURAKARTA' ,
+  //     lokasi: 'Jln. Lorem Ipsum Dolor Sit Amet No 7 Gang 18',
+  //     pj: 'Bapak Lorem Ipsum',
+  //     telp: '123-456-789',
+  //   },
+  // ]
 
   export const FOLDER_GALERI = [
     {

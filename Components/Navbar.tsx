@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import SignInButton from './SignInButton'
-import {UserAuth} from "@/context/AuthContext";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);

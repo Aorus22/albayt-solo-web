@@ -1,5 +1,4 @@
 import React from "react";
-import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import {UserAuth} from "@/context/AuthContext";
 

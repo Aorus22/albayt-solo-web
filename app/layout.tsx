@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import {AuthContextProvider} from "@/context/AuthContext";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Project Albayt",

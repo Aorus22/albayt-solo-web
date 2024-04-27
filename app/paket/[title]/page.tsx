@@ -24,10 +24,9 @@ export default function Paket() {
         try {
           const response = await fetch(`/api/paket/${params.title}`);
           if (!response.ok) {
-            throw new Error('Failed to fetch data');
+            console.log('Failed to fetch data');
           }
           const data = await response.json();
-
           setData(data);
         } catch (Error) {
           console.error('Error fetching data:', Error);
@@ -35,7 +34,7 @@ export default function Paket() {
           setLoading(false);
         }
       };
-      fetchData();
+      fetchData().then();
     }, []);
 
     useEffect(() => {

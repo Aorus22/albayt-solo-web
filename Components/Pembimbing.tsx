@@ -2,7 +2,6 @@
 
 import React, { useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import Image from 'next/image';
 import { DUMMY_PEMBIMBING } from '@/constants';
 import Card_Pembimbing from './Card_Pembimbing';
 

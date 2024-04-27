@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Card_Paket from '@/Components/Card_Paket';
 import { LocationMarkerIcon, CalendarIcon, CurrencyDollarIcon } from '@heroicons/react/solid';
-import {PACKAGE_DATA} from "@/constants";
 import "../globals.css";
-import {useParams} from "next/navigation";
 
 function PaketPage() {
   const [data, setData] = useState<any[]>([]);
@@ -13,7 +11,7 @@ function PaketPage() {
       try {
         const response = await fetch(`/api/paket/`);
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          console.log('Failed to fetch data');
         }
         const data = await response.json();
         setData(data);
@@ -21,7 +19,7 @@ function PaketPage() {
         console.error('Error fetching data:', error);
       }
     };
-    fetchData();
+    fetchData().then();
   }, []);
   console.log(data)
 

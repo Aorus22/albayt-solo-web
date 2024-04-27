@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link'
-import React, {useEffect} from 'react'
+import React from 'react'
 import Seatbar_Alt from './Seatbar_Alt';
 
 type hargaProps = {
