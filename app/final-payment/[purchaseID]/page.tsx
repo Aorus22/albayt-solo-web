@@ -4,42 +4,71 @@ import React, { useEffect, useState } from "react";
 import {DATA_BANK} from "@/constants";
 import Link from "next/link";
 import {PackageProps} from "@/Components/Card_Paket";
-import {useParams, useRouter} from "next/navigation";
+import {useParams} from "next/navigation";
+import {UserAuth} from "@/context/AuthContext";
+import {PurchaseHistory} from "@/app/detailTransaksi/[purchaseID]/page";
 
 const Order = () => {
 
-    const [paketData, setPaketData] = useState<PackageProps>();
-    const [dewasaData, setDewasaData] = useState<Array<{ nama: string; telp: string }>>([]);
-    const [anakData, setAnakData] = useState<Array<{ nama: string; tanggalLahir: string }>>([]);
-    const [selectedPembayaran, setSelectedValue] = React.useState('');
+    // const [paketData, setPaketData] = useState<PackageProps>();
+    // const [dewasaData, setDewasaData] = useState<Array<{ nama: string; telp: string }>>([]);
+    // const [anakData, setAnakData] = useState<Array<{ nama: string; tanggalLahir: string }>>([]);
+    // const [selectedPembayaran, setSelectedValue] = React.useState('');
 
-    const params = useParams()
+    const [riwayatPembelian, setRiwayatPembelian] = useState<PurchaseHistory>();
+
+    const params = useParams();
+    const { user } = UserAuth()
 
     useEffect(() => {
-        const data_paket = sessionStorage.getItem('selectedPackage');
-        if (data_paket) {
-            const parsedData = JSON.parse(data_paket);
-            setPaketData(parsedData);
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`/api/detail_transaksi/${params.purchaseID}`);
+                if (!response.ok) {
+                    console.log('Failed to fetch data');
+                }
+                const data = await response.json();
+                if (user?.uid == data.detailPembelian.UserID){
+                    setRiwayatPembelian(data);
+                }
+            } catch (Error) {
+                console.error('Error fetching data:', Error);
+            }
+        };
+        if (user != null) {
+            fetchData().then();
         }
+    }, [user]);
 
-        const data_jamaah = sessionStorage.getItem('jamaahData')
-        if (data_jamaah) {
-            const parsedData = JSON.parse(data_jamaah);
-            setDewasaData(parsedData.dewasa)
-            setAnakData(parsedData.anak)
-        }
-        const metode_pembayaran = sessionStorage.getItem('pilihanPembayaran')
-        if (metode_pembayaran) {
-            setSelectedValue(metode_pembayaran)
-        }
 
-    }, []);
+    // useEffect(() => {
+    //     const data_paket = sessionStorage.getItem('selectedPackage');
+    //     if (data_paket) {
+    //         const parsedData = JSON.parse(data_paket);
+    //         setPaketData(parsedData);
+    //     }
+    //
+    //     const data_jamaah = sessionStorage.getItem('jamaahData')
+    //     if (data_jamaah) {
+    //         const parsedData = JSON.parse(data_jamaah);
+    //         setDewasaData(parsedData.dewasa)
+    //         setAnakData(parsedData.anak)
+    //     }
+    //     const metode_pembayaran = sessionStorage.getItem('pilihanPembayaran')
+    //     if (metode_pembayaran) {
+    //         setSelectedValue(metode_pembayaran)
+    //     }
+    //
+    // }, []);
 
-    const dewasaCount = dewasaData.length
-    const anakCount = anakData.length
-    const currentBank = DATA_BANK.find((bank) => bank.nama === selectedPembayaran);
+    const dewasaData = riwayatPembelian?.detailPembelian.detailJamaah.dewasa
+    const dewasaCount = dewasaData?.length
+    const anakData = riwayatPembelian?.detailPembelian.detailJamaah.anak
+    const anakCount = anakData?.length
+    const currentBank = DATA_BANK.find((bank) => bank.nama === riwayatPembelian?.detailPembelian.metodePembayaran);
+    const paketData = riwayatPembelian?.detailPaket
 
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState<File>(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [imageLink, setImageLink] = useState(null);
 
@@ -47,21 +76,38 @@ const Order = () => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
         if (selectedFile) {
-            const url = URL.createObjectURL(selectedFile);
-            setPreviewUrl(url);
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64URL = reader.result;
+                setPreviewUrl(base64URL);
+            };
+            reader.readAsDataURL(selectedFile);
         }
     };
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-        try {
-            const directImageLink = await uploadPhotoToGoogleDrive(file.path);
-            console.log('Direct Image Link:', directImageLink);
-            setImageLink(directImageLink);
-        } catch (error) {
-            console.error('Error:', error);
+    const handleSubmit = async (e) => {
+        if (!previewUrl) {
+            alert('No file selected');
+            return;
         }
-    }
+        try {
+            const response = await fetch(`/api/upload_image`, {
+                method: "POST",
+                body: previewUrl
+            });
+
+            if (!response.ok) {
+                console.log('Failed to upload file');
+            }
+
+            const data = await response.json();
+
+            console.log('Upload successful:', data.id);
+            setImageLink(`/api/images/${data.id}`);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+    };
 
     return (
         <div className="flex flex-col md:flex-row py-4 max-container padding-container">
@@ -92,12 +138,12 @@ const Order = () => {
                         )}
                     </div>
 
-                    <div className="my-8 w-full flex justify-end" onClick={handleSubmit}>
-                        <Link href={`detailTransaksi/${params.purchaseID}`}>
-                            <div className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4">
-                                Submit
-                            </div>
-                        </Link>
+                    <div className="my-8 w-full flex justify-end">
+                        {/*<Link href={`/detailTransaksi/${params.purchaseID}`}>*/}
+                        <div onClick={handleSubmit} className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4">
+                            Submit
+                        </div>
+                        {/*</Link>*/}
                     </div>
                 </div>
             </div>
@@ -144,7 +190,7 @@ const Order = () => {
                             <p className={"font-bold"}>Dewasa</p>
                             <table className="w-full border-collapse mb-4">
                                 <tbody>
-                                {dewasaData.map((person) => (
+                                {dewasaData?.map((person) => (
                                     <tr>
                                         <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
                                         <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.telp}</td>
@@ -155,7 +201,7 @@ const Order = () => {
                             <p className={"font-bold"}>Anak-anak</p>
                             <table className="w-full border-collapse">
                                 <tbody>
-                                {anakData.map((person) => (
+                                {anakData?.map((person) => (
                                     <tr>
                                         <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
                                         <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.tgl_lahir}</td>

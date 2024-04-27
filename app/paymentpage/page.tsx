@@ -59,7 +59,8 @@ const Order = () => {
                     },
                     metodePembayaran: selectedPembayaran,
                     totalPembayaran: totalHarga,
-                    tanggalPemesanan: new Date().toISOString()
+                    tanggalPemesanan: new Date().toISOString(),
+                    urlBuktiPembayaran: ""
                 };
 
                 await addPurchase(dataPembelian)
