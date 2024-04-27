@@ -39,7 +39,7 @@ const page = () => {
                   <p className='font-semibold whitespace-nowrap md:whitespace-normal'>Uang Elektronik</p>
                 </div>
                 <p className='font-medium justify-self-end'>{new Date(beli.detailPembelian.tanggalPemesanan).toLocaleDateString() }</p>
-                <p className='py-1 px-2 font-bold text-green-600 bg-green-100 text-center'>{beli.detailPembelian.statusPembayaran}</p>
+                <p className={`py-1 px-2 font-bold text-center ${beli.detailPembelian.statusPembayaran === 'Berhasil' ? 'text-green-600 bg-green-100' : beli.detailPembelian.statusPembayaran === 'Menunggu Konfirmasi' ? 'text-yellow-600 bg-yellow-100' : 'text-red-600 bg-red-100'}`}>{beli.detailPembelian.statusPembayaran}</p>
               </div>
 
               <div className='mt-2 mb-6 md:mb-1'>
