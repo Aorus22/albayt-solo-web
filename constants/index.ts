@@ -9,6 +9,17 @@ export const NAV_LINKS = [
   // { href: '/blogpage', key: 'blog', label: 'Blog' },
 ];
 
+export const DATA_BANK = [
+  {
+      nama: 'BNI',
+      rekening: "1484881240"
+  },
+  {
+    nama: 'BRI',
+    rekening: "1234"
+  }
+]
+
   export const HERO_SLIDE = [
     {
       key: 'slide1',

@@ -2,7 +2,7 @@
 import React, { useContext, createContext, useState, ReactNode, useEffect } from "react";
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User } from "firebase/auth";
 import { auth, firestore } from "@/db/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 
 interface AuthContextType {
     user: User | null;
@@ -54,7 +54,10 @@ async function addUserData(user: User) {
         await setDoc(userRef, {
             name: user.displayName || "",
             email: user.email || "",
-            photo: user.photoURL || ""
+            photo: user.photoURL || "",
+            telp : user.phoneNumber || "",
+            address : "",
+            desc : ""
         });
         alert("Data added successfully!");
     } else {
@@ -68,4 +71,57 @@ export const UserAuth = () => {
         throw new Error("useAuth must be used within an AuthContextProvider");
     }
     return context;
+};
+
+export const getUserID = () => {
+    const { user } = useContext(AuthContext);
+    if (!user) {
+        throw new Error("User is not signed in.");
+    }
+    console.log(user)
+    return user.uid;
+};
+
+export async function addPurchase(dataPembelian: any) {
+    const userRef = doc(firestore, "pembelian", dataPembelian.purchaseID);
+    const userSnapshot = await getDoc(userRef);
+
+    if (!userSnapshot.exists()) {
+        await setDoc(userRef, {
+            purchaseID: dataPembelian.purchaseID || "",
+            paketID: dataPembelian.paketID || "",
+            UserID: dataPembelian.UID || "",
+            email : dataPembelian.email|| "",
+            detailJamaah : dataPembelian.detailJamaah|| "",
+            metodePembayaran: dataPembelian.metodePembayaran,
+            statusPembayaran: "Belum Dibayar"
+        });
+        await addPurchaseToHistory(dataPembelian.UID, dataPembelian.purchaseID)
+        alert("Data added successfully!");
+    } else {
+        alert("User data already exists in Firestore!");
+    }
+}
+
+const addPurchaseToHistory = async (userID: string, purchaseID:string) => {
+    const userRef = doc(firestore, "users", userID);
+
+    try {
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+            const existingHistory = userDoc.data()["riwayat-pembelian"] || [];
+
+            const updatedHistory = [...existingHistory, purchaseID];
+
+            await updateDoc(userRef, {
+                "riwayat-pembelian": updatedHistory
+            });
+
+            console.log("Riwayat pembelian berhasil diperbarui untuk user dengan ID:", userID);
+        } else {
+            console.error("User dengan ID yang diberikan tidak ditemukan");
+        }
+    } catch (error) {
+        console.error("Error updating user purchase history:", error);
+    }
 };

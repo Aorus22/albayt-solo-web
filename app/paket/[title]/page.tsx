@@ -49,7 +49,6 @@ export default function Paket() {
         });
       });
       const boxPemesananMobile = boxPemesananMobileRef?.current;
-      console.log(boxPemesananMobile)
       if (boxPemesananMobile) {
         observer.observe(boxPemesananMobile);
       }

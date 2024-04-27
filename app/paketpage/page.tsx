@@ -94,7 +94,8 @@ function PaketPage() {
               hotel={paket.hotel} 
               totalseat={paket.totalseat} 
               remainingseat={paket.remainingseat} 
-              lokasiberangkat={paket.lokasiberangkat} 
+              lokasiberangkat={paket.lokasiberangkat}
+              harga_dp={paket.harga_dp}
             />
           ))}
         </div>

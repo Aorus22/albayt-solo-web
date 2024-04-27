@@ -36,3 +36,9 @@ export async function getPaket(namaPaket: string) {
   const doc = await firestore.collection("paket").doc(namaPaket).get()
   return doc.data()
 }
+
+export async function getUser(UID: string) {
+    if (!UID?.length) return;
+    const doc = await firestore.collection("users").doc(UID).get()
+    return doc.data()
+}
