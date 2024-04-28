@@ -179,7 +179,7 @@ export default function Paket() {
             <div className="mt-4 w-screen h-[55vh] bg-white bg-fixed mx-auto px-4 bg-cover"
                  style={{backgroundImage: "url('/images/background1.jpg')"}}>
               <div className="h-[55vh] flex justify-start items-center sm:p-2 md:p-10">
-                <h1 className="mb-4 text-gray-100 text-4xl md:text-6xl font-extrabold ">
+                <h1 className="mb-4 text-gray-100 text-2xl md:text-4xl lg:text-6xl font-extrabold ">
               <span style={{
                 backgroundImage: "linear-gradient(90deg, white, #f14310)",
                 WebkitBackgroundClip: "text",
@@ -276,17 +276,17 @@ export default function Paket() {
 
                   <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
 
-                    <h3 className='font-bold text-3xl text-[#f14310] mb-4'>Fasilitas</h3>
+                    <h3 className='font-bold text-2xl lg:text-3xl text-[#f14310] mb-4'>Fasilitas</h3>
                     <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
 
                     {FASILITAS_PAKET.map((fasilitas) => (
                       <div key={fasilitas.id_fasilitas} className='mb-8'>
-                        <p className="text-[#f14310] font-bold text-2xl mb-3">
+                        <p className="text-[#f14310] font-bold text-lg lg:text-2xl mb-3">
                           {fasilitas.title}
                         </p>
                         <ul className="pl-5 list-disc">
                           {fasilitas.contents.map((ket_fasilitas) => (
-                            <li className='font-medium my-2 text-gray-700' key={ket_fasilitas.label}>{ket_fasilitas.value}</li>
+                            <li className='font-medium my-2 text-gray-700 text-[14px] lg:text-[16px]' key={ket_fasilitas.label}>{ket_fasilitas.value}</li>
                           ))}
                         </ul>
                       </div>
