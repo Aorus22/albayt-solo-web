@@ -83,17 +83,18 @@ function PaketPage() {
           {data.map((paket: any) => (
             <Card_Paket 
               key={paket.key} 
-              paket_id={paket.key} 
+              paketID={paket.key}
               img={paket.img} 
               harga={paket.harga}
               title={paket.title} 
-              jadwalBerangkat={paket.jadwal} 
+              jadwal={paket.jadwal}
               durasi={paket.durasi} 
               hotel={paket.hotel} 
               totalseat={paket.totalseat} 
               remainingseat={paket.remainingseat} 
               lokasiberangkat={paket.lokasiberangkat}
               harga_dp={paket.harga_dp}
+              maskapai={paket.maskapai}
             />
           ))}
         </div>

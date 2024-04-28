@@ -1,28 +1,16 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import Card_Paket from './Card_Paket'
+import Card_Paket, {PackageProps} from './Card_Paket'
 import Template_form from './Template_form'
 import Link from 'next/link'
-// import {PACKAGE_DATA} from "@/constants";
 
 const PaketAlbayt = () => {
 
-  const [data, setData] = useState<any[]>([]);
-
+  const [data, setData] = useState<PackageProps[]>([]);
+  //
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/paket/`);
-        if (!response.ok) {
-          console.log('Failed to fetch data');
-        }
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData().then();
+       const paket = sessionStorage.getItem("paket") || ""
+       setData(JSON.parse(paket))
   }, []);
 
   return (
@@ -51,18 +39,19 @@ const PaketAlbayt = () => {
         <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
           {data.slice(0,6).map((paket) => (
             <Card_Paket
-              key={paket.key}
-              paket_id={paket.key}
+              key={paket.paketID}
+              paketID={paket.paketID}
               img={paket.img}
               harga={paket.harga}
               title={paket.title}
-              jadwalBerangkat={paket.jadwal}
+              jadwal={paket.jadwal}
               durasi={paket.durasi}
               hotel={paket.hotel}
               totalseat={paket.totalseat}
               remainingseat={paket.remainingseat}
               lokasiberangkat={paket.lokasiberangkat}
               harga_dp={paket.harga_dp}
+              maskapai={paket.maskapai}
             />
           ))}
         </div>

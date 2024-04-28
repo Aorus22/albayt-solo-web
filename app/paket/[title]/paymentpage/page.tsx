@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import {DATA_BANK} from "@/constants";
 import {PackageProps} from "@/Components/Card_Paket";
 import {addPurchase, UserAuth} from "@/context/AuthContext";
-import {useRouter} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 
 const Order = () => {
    const router = useRouter();
+   const params = useParams()
    const { user } = UserAuth()
    const [paketData, setPaketData] = useState<PackageProps>();
    const [dewasaData, setDewasaData] = useState<Array<{ nama: string; telp: string }>>([]);
@@ -15,10 +16,11 @@ const Order = () => {
    const [selectedPembayaran, setSelectedValue] = React.useState('');
 
     useEffect(() => {
-        const data_paket = sessionStorage.getItem('selectedPackage');
+        const data_paket = sessionStorage.getItem('paket');
         if (data_paket) {
             const parsedData = JSON.parse(data_paket);
-            setPaketData(parsedData);
+            const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
+            setPaketData(currentPaket);
         }
 
         const data_jamaah = sessionStorage.getItem('jamaahData')

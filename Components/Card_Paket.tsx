@@ -9,44 +9,25 @@ type hargaProps = {
 }
 
 export type PackageProps = {
-    paket_id: string;
+    paketID: string;
     img: string;
     harga: hargaProps[]
     title: string;
-    jadwalBerangkat: string;
+    jadwal: string;
     durasi: string;
     hotel: number;
     totalseat: number;
     remainingseat: number;
     lokasiberangkat: string;
     harga_dp: number;
+    maskapai: string;
 }
 
-const Card_Paket = ({paket_id, img, harga, title, jadwalBerangkat, durasi, hotel, totalseat, remainingseat, lokasiberangkat, harga_dp}: PackageProps) => {
-
-    const handleClick = () => {
-        const selectedPackage = {
-            paket_id,
-            img,
-            harga,
-            title,
-            jadwalBerangkat,
-            durasi,
-            hotel,
-            totalseat,
-            remainingseat,
-            lokasiberangkat,
-            harga_dp
-        };
-
-        sessionStorage.setItem('selectedPackage', JSON.stringify(selectedPackage));
-    };
-
-
+const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalseat, remainingseat, lokasiberangkat, harga_dp}: PackageProps) => {
     return (
-    <Link href={`paket/${paket_id}`}>
-        <div onClick={handleClick}>
-            <div key={paket_id} className='bg-white border shadow-lg h-full rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
+    <Link href={`paket/${paketID}`}>
+        <div>
+            <div key={paketID} className='bg-white border shadow-lg h-full rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
                 <div className='flexCenter'>
                     <Image src={img} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
                 </div>
@@ -62,7 +43,7 @@ const Card_Paket = ({paket_id, img, harga, title, jadwalBerangkat, durasi, hotel
                                 <p>Jadwal Keberangkatan</p>
                             </div>
                             <div className='font-bold'>
-                                <p>{jadwalBerangkat}</p>
+                                <p>{jadwal}</p>
                             </div>
                         </div>
 

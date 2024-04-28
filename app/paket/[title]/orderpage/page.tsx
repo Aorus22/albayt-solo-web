@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {UserAuth} from "@/context/AuthContext";
 import {PackageProps} from "@/Components/Card_Paket";
+import {useParams} from "next/navigation";
 
 const Order = () => {
 
@@ -13,14 +14,15 @@ const Order = () => {
     const [dewasaData, setDewasaData] = useState<Array<{ nama: string; telp: string }>>([]);
     const [anakData, setAnakData] = useState<Array<{ nama: string; tanggalLahir: string }>>([]);
 
-
     const {user} = UserAuth()
+    const params = useParams()
 
     useEffect(() => {
-        const data = sessionStorage.getItem('selectedPackage');
+        const data = sessionStorage.getItem('paket');
         if (data) {
             const parsedData = JSON.parse(data);
-            setPaketData(parsedData);
+            const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
+            setPaketData(currentPaket);
         }
     }, []);
 
@@ -297,7 +299,7 @@ const Order = () => {
                     </div>
                 </div>
                 <div className="my-8 w-full flex justify-end" onClick={handleLanjutkanPembayaran}>
-                    <Link href={'/paymentpage'}>
+                    <Link href={'paymentpage'}>
                         <div
                             className="flex bg-[#89060b] font-bold text-white text-[14px] lg:text-[16px] w-fit rounded-lg p-4">
                             Lanjutkan ke Pembayaran

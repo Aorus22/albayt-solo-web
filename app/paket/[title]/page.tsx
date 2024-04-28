@@ -5,36 +5,45 @@ import RemainingDays from "@/Components/remainingdays";
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import PaketAlbayt from '@/Components/PaketAlbayt';
-import OrderButton from '@/Components/OrderButton';
+import OrderButton from '@/app/paket/[title]/OrderButton';
 import SeatBar from '@/Components/SeatBar';
 import LoadingBar from '@/Components/LoadingBar';
 import { FASILITAS_PAKET } from '@/constants';
+import {PackageProps} from "@/Components/Card_Paket";
 
 export default function Paket() {
     const params = useParams();
 
-    const [data, setData] = useState<any[]>([]);
+    const [paketData, setPaketData] = useState<PackageProps>();
     const boxPemesananMobileRef = useRef<HTMLDivElement>(null);
     const [boxPemesananVisible, setBoxPemesananVisible] = useState<boolean>(false);
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isLoading, setLoading ] = useState<boolean>(true)
 
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(`/api/paket/${params.title}`);
-          if (!response.ok) {
-            console.log('Failed to fetch data');
-          }
-          const data = await response.json();
-          setData(data);
-        } catch (Error) {
-          console.error('Error fetching data:', Error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData().then();
+      const data_paket = sessionStorage.getItem('paket');
+      if (data_paket) {
+        const parsedData = JSON.parse(data_paket);
+        const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
+        setPaketData(currentPaket);
+        setLoading(false);
+      }
+
+      // const fetchData = async () => {
+      //   try {
+      //     const response = await fetch(`/api/paket/${params.title}`);
+      //     if (!response.ok) {
+      //       console.log('Failed to fetch paketData');
+      //     }
+      //     const paketData = await response.json();
+      //     setData(paketData);
+      //   } catch (Error) {
+      //     console.error('Error fetching paketData:', Error);
+      //   } finally {
+      //     setLoading(false);
+      //   }
+      // };
+      // fetchData().then();
     }, []);
 
     useEffect(() => {
@@ -76,7 +85,7 @@ export default function Paket() {
     };
   }, []);
 
-    const currentPage = data[0];
+    const currentPage = paketData;
     const hargaArr = currentPage?.harga
 
   const boxPemesanan = () => {
@@ -102,7 +111,7 @@ export default function Paket() {
                   ))}
                 </div>
               </div>
-              <SeatBar totalSeats={currentPage?.totalseat} remainingSeats={currentPage?.remainingseat}></SeatBar>
+              <SeatBar totalSeats={currentPage?.totalseat || 0 } remainingSeats={currentPage?.remainingseat || 0 }></SeatBar>
               <div className="mt-4 h-1 w-[60%] rounded opacity-40 bg-slate-950"></div>
               <a href='https://wa.me/+6289636843541' className='w-full' target='_blank' rel="noopener noreferrer">
                 <div
