@@ -43,8 +43,8 @@ const page = () => {
                 <PaketAlbayt />
                 <WhyUs />
                 <Testimoni />
-                <PreviewGaleri />
-                <PreviewArtikel />
+                {/* <PreviewGaleri />
+                <PreviewArtikel /> */}
                 <KonsultasiBar />
             </>
         )}
