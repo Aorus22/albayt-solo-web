@@ -93,7 +93,7 @@ export default function Paket() {
                 </div>
                 <div>
                   {hargaArr?.map((item: any) => (
-                      <div className='flex w-full items-center my-2'>
+                      <div key={item.tipe} className='flex w-full items-center my-2'>
                         <div className='flexBetween w-full text-sm font-medium'>
                           <p>{item.tipe}</p>
                           <p>{item.nominal.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})}</p>

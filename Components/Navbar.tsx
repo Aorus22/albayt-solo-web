@@ -71,8 +71,8 @@ const Navbar = () => {
 
                     <div className='mt-2'>
                         {NAV_LINKS.map((link) => (
-                            <div className=' py-3 hover:bg-gray-10 flex justify-center'>
-                                <Link href={link.href} key={link.key} onClick={toggleNavbar} className='medium-18 text-gray-50 m-2 flexStart cursor-pointer transition-all hover:font-bold hover:text-black'>
+                            <div key={link.key} className=' py-3 hover:bg-gray-10 flex justify-center'>
+                                <Link href={link.href} onClick={toggleNavbar} className='medium-18 text-gray-50 m-2 flexStart cursor-pointer transition-all hover:font-bold hover:text-black'>
                                     {link.label}
                                 </Link>
                             </div>

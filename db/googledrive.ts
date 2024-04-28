@@ -1,4 +1,4 @@
-import {drive_v3, google} from 'googleapis';
+import { google } from 'googleapis';
 import * as stream from "node:stream";
 
 const AUTH = new google.auth.GoogleAuth({

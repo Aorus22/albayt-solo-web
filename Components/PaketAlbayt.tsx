@@ -24,9 +24,6 @@ const PaketAlbayt = () => {
     };
     fetchData().then();
   }, []);
-  console.log(data)
-
-  // const data = PACKAGE_DATA
 
   return (
     <>

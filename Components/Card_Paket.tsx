@@ -110,7 +110,7 @@ const Card_Paket = ({paket_id, img, harga, title, jadwalBerangkat, durasi, hotel
                         <Seatbar_Alt totalSeat={totalseat} remainingSeat={remainingseat} />
 
                         {harga?.map((item: hargaProps) => (
-                            <div className='flexBetween mt-3 mb-2'>
+                            <div key={item.tipe} className='flexBetween mt-3 mb-2'>
                                 <p className='font-bold text-[#f14310]'>{item.nominal.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</p>
                                 <p className='font-medium text-[#f14310]'>{item.tipe}</p>
                             </div>

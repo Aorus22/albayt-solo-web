@@ -22,7 +22,7 @@ const WhyUs = () => {
         {/* ISI KONTEN / CARD */}
         <div id='normal_content' className='hidden md:grid md:grid-cols-3 gap-6 mt-16 mb-10 justify-items-center'>
           {KENAPA_KAMI.map((why) => (
-            <Card_Why why_key={why.key} img={why.icon} title={why.title} desc={why.description}/>
+            <Card_Why key={why.key} why_key={why.key} img={why.icon} title={why.title} desc={why.description}/>
           ))}
         </div>
         
@@ -31,7 +31,7 @@ const WhyUs = () => {
             <div className='embla__viewport mx-auto' ref={emblaRef}>
               <div className='embla__container h-full'>
                 {KENAPA_KAMI.map((why) => (
-                  <Card_Why_sm why_key={why.key} img={why.icon} title={why.title} desc={why.description}/>
+                  <Card_Why_sm key={why.key} why_key={why.key} img={why.icon} title={why.title} desc={why.description}/>
                 ))}
               </div>
             </div>

@@ -38,7 +38,7 @@ const page = () => {
 
                 <div className='grid grid-cols-1 gap-8 my-10'>
                     {riwayatPembelian.map((beli) => (
-                        <div className='flex flex-col gap-2 border rounded-lg p-6'>
+                        <div key={beli.detailPembelian.purchaseID} className='flex flex-col gap-2 border rounded-lg p-6'>
                             <div
                                 className='grid grid-cols-2 grid-flow gap-3 md:flex items-center text-[14px] md:text-[16px]'>
                                 <div className='flex gap-2 items-center'>

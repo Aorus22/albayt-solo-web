@@ -92,7 +92,7 @@ const Order = () => {
                     Metode Pembayaran
                 </p>
                 {DATA_BANK.map((value, index) => (
-                    <label htmlFor={`bayar${index}`} className="items-center">
+                    <label key={index} htmlFor={`bayar${index}`} className="items-center">
                         <div className="rounded-md mr-4">
                             <div className="flex justify-between p-4 font-bold text-[#552719]">
                                 <div className="">
@@ -162,7 +162,7 @@ const Order = () => {
                         <table className="w-full border-collapse mb-4">
                             <tbody>
                             {dewasaData.map((person) => (
-                                <tr>
+                                <tr key={person.nama}>
                                     <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
                                     <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.telp}</td>
                                 </tr>
@@ -173,7 +173,7 @@ const Order = () => {
                         <table className="w-full border-collapse">
                             <tbody>
                             {anakData.map((person) => (
-                                <tr>
+                                <tr key={person.nama}>
                                     <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
                                     <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.tgl_lahir}</td>
                                 </tr>

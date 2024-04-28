@@ -38,8 +38,8 @@ const page = () => {
 
             {/* GRID FOTO YANG DITAMPILKAN */}
             <div id='foto' className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4'>
-                {GALERI_2024.map((foto) => (
-                    <div onClick={() => viewImage(foto.link, foto.key)}>
+                {GALERI_2024.map((foto, index) => (
+                    <div key={index} onClick={() => viewImage(foto.link, foto.key)}>
                         <Card_Galery foto_id={foto.key} img={foto.link} title={foto.title} />
                     </div>
                 ))}

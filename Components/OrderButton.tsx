@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React from "react";
 import Link from "next/link";
 import {UserAuth} from "@/context/AuthContext";
 import {useRouter} from "next/navigation";

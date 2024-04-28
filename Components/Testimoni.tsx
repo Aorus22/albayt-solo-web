@@ -31,7 +31,7 @@ const Testimoni = () => {
                     <div className='embla__container h-full'>
 
                         {TESTIMONI.map((testimoni) => (
-                            <Card_Testi_Alt testi_id={testimoni.key} img={testimoni.img} nama={testimoni.nama} desc={testimoni.review} />
+                            <Card_Testi_Alt key={testimoni.key} testi_id={testimoni.key} img={testimoni.img} nama={testimoni.nama} desc={testimoni.review} />
                         ))}
                         
                     </div>

@@ -124,8 +124,8 @@ const page = () => {
             {riwayatPembelian?.detailPembelian?.detailJamaah?.dewasa && (
                 <div>
                   <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Dewasa</h4>
-                  {riwayatPembelian.detailPembelian.detailJamaah.dewasa.map((dewasa) => (
-                      <div className='flex gap-5'>
+                  {riwayatPembelian.detailPembelian.detailJamaah.dewasa.map((dewasa, index) => (
+                      <div key={index} className='flex gap-5'>
                         <div className='flex gap-8'>
                           <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {dewasa.nama}</p>
                           <p className='font-semibold text-[13px] md:text-[14px]'>Telepon: {dewasa.telp}</p>
@@ -138,8 +138,8 @@ const page = () => {
             {riwayatPembelian?.detailPembelian?.detailJamaah?.anak && (
                 <div className='my-4'>
                   <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Anak-anak</h4>
-                  {riwayatPembelian.detailPembelian.detailJamaah.anak.map((anak) => (
-                      <div className='flex gap-5'>
+                  {riwayatPembelian.detailPembelian.detailJamaah.anak.map((anak, index) => (
+                      <div key={index} className='flex gap-5'>
                         <div className='flex gap-8'>
                           <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {anak.nama}</p>
                           <p className='font-semibold text-[13px] md:text-[14px]'>Tanggal Lahir: {anak.tgl_lahir}</p>
@@ -161,7 +161,7 @@ const page = () => {
                 </Link>
             ) : (
                 <div>
-                  <img src={riwayatPembelian?.detailPembelian.urlBuktiPembayaran} />
+                  <img src={riwayatPembelian?.detailPembelian.urlBuktiPembayaran}  alt={"Foto Bukti Pembayaran"}/>
                 </div>
             )}
           </div>
