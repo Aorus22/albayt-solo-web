@@ -205,45 +205,45 @@ export default function Paket() {
                     </p>
                     <img alt="poster" className="block object-cover w-100% rounded-2xl" src={currentPage?.img}>
                     </img>
-                    <div className="mt-5 gap-4 grid sm:grid-cols-1 xl:grid-cols-3 h-fit text-center text-gray">
-                      <div className="border rounded-3xl p-4 flex flex-col items-center h-36 bg-white">
+                    <div className="mt-5 gap-4 grid grid-cols-2 xl:grid-cols-3 h-fit text-center text-gray">
+                      <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                              style={{fill: "#f14310"}}>
                           <path
                               d="M21 20V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2zM9 18H7v-2h2v2zm0-4H7v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm2-5H5V7h14v2z"></path>
                         </svg>
-                        <div>Tanggal Keberangkatan</div>
-                        <div className="text-2xl font-semibold mt-2">{currentPage?.jadwal}</div>
+                        <div className='text-[14px] lg:text-lg'>Tanggal Keberangkatan</div>
+                        <div className="text-[16px] lg:text-2xl font-semibold mt-2">{currentPage?.jadwal}</div>
                       </div>
-                      <div className="border rounded-3xl p-4 flex flex-col items-center h-36 bg-white">
+                      <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                              style={{fill: '#f14310'}}>
                           <path
                               d="M12 2C7.589 2 4 5.589 4 9.995 3.971 16.44 11.696 21.784 12 22c0 0 8.029-5.56 8-12 0-4.411-3.589-8-8-8zM9.799 14.987H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 6l1.799 1.799-1.372 1.371z"></path>
                         </svg>
-                        <div>Lokasi Keberangkatan</div>
-                        <div className="text-2xl font-semibold mt-2">{currentPage?.lokasiberangkat}</div>
+                        <div className='text-[14px] lg:text-lg' >Lokasi Keberangkatan</div>
+                        <div className="text-[16px] lg:text-2xl font-semibold mt-2">{currentPage?.lokasiberangkat}</div>
                       </div>
-                      <div className="border rounded-3xl p-4 flex flex-col items-center h-36 bg-white">
+                      <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                              style={{fill: '#f14310'}}>
                           <path
                               d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
                           <path d="M13 7h-2v6h6v-2h-4z"></path>
                         </svg>
-                        <div>Durasi Perjalanan</div>
-                        <div className="text-2xl font-semibold mt-2">{currentPage?.durasi} hari</div>
+                        <div className='text-[14px] lg:text-lg'>Durasi Perjalanan</div>
+                        <div className="text-[16px] lg:text-2xl font-semibold mt-2">{currentPage?.durasi} hari</div>
                       </div>
-                      <div className="border rounded-3xl p-4 flex flex-col items-center h-36 bg-white">
+                      <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                              style={{fill: "#f14310"}}>
                           <path
                               d="M3.414 13.778 2 15.192l4.949 2.121 2.122 4.95 1.414-1.414-.707-3.536L13.091 14l3.61 7.704 1.339-1.339-1.19-10.123 2.828-2.829a2 2 0 1 0-2.828-2.828l-2.903 2.903L3.824 6.297 2.559 7.563l7.644 3.67-3.253 3.253-3.536-.708z"></path>
                         </svg>
-                        <div>Maskapai</div>
-                        <div className="text-2xl font-semibold mt-2">{currentPage?.maskapai}</div>
+                        <div className='text-[14px] lg:text-lg'>Maskapai</div>
+                        <div className="text-[16px] lg:text-2xl font-semibold mt-2">{currentPage?.maskapai}</div>
                       </div>
-                      <div className="border rounded-3xl p-4 flex flex-col items-center h-36 bg-white">
+                      <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                              style={{fill: "#f14310"}}>
                           <path
@@ -251,7 +251,7 @@ export default function Paket() {
                           <path
                               d="M8 6h3v2H8zm5 0h3v2h-3zm-5 4h3v2H8zm5 .031h3V12h-3zM8 14h3v2H8zm5 0h3v2h-3z"></path>
                         </svg>
-                        <div>Hotel</div>
+                        <div className='text-[14px] lg:text-lg'>Hotel</div>
                         <div className="text-2xl flex font-semibold mt-2">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                style={{fill: 'gold', transform: '', msFilter: ''}}>

@@ -26,7 +26,7 @@ function PaketPage() {
   // const data = PACKAGE_DATA
 
   return (
-    <div className="px-4 sm:px-8 md:px-12 lg:px-20 py-10 md:py-20"> 
+    <div className="max-container padding-container py-10 md:py-20 bg-gradient-to-b from-white to-[#ffc750]"> 
       <div className='flex justify-center items-center bg-slate-800 rounded-xl p-5 mb-10'>
         <form action="#" className="flex flex-col md:flex-row md:items-end">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -78,7 +78,7 @@ function PaketPage() {
         </form>
       </div>
 
-      <section className="max-container padding-container py-7 bg-gradient-to-t rounded-xl from-white to-[#ffc750]">
+      <section className="py-7">
         <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
           {data.map((paket: any) => (
             <Card_Paket 
