@@ -99,7 +99,7 @@ const Order = () => {
 
             console.log('Upload successful:', data.id);
             await addBuktiPembelian(riwayatPembelian?.detailPembelian.purchaseID, `/api/images/${data.id}`)
-            router.push(`/detailTransaksi/${purchaseID}`)
+            router.push(`/detailTransaksi/${riwayatPembelian?.detailPembelian.purchaseID}`)
         } catch (error) {
             console.error('Error uploading file:', error);
         }

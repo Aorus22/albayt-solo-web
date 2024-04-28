@@ -57,7 +57,7 @@ export default function Paket() {
           observer.unobserve(boxPemesananMobile);
         }
       };
-    }, [boxPemesananMobileRef, isLoading]);
+    }, [boxPemesananMobileRef]);
 
   useEffect(() => {
     const handleScroll = () => {
