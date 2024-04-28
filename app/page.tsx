@@ -28,7 +28,11 @@ const page = () => {
                 console.error('Error fetching data:', error);
             }
         };
-        fetchData().then();
+        if (!sessionStorage.getItem("paket")) {
+            fetchData().then();
+        } else {
+            setLoading(false);
+        }
     }, []);
 
   return (
