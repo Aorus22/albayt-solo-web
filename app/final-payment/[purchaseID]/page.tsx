@@ -67,6 +67,7 @@ const Order = () => {
     const paketData = riwayatPembelian?.detailPaket
 
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [file, setFile] = useState<File>()
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -77,18 +78,23 @@ const Order = () => {
                 setPreviewUrl(base64URL);
             };
             reader.readAsDataURL(selectedFile);
+            setFile(selectedFile)
         }
     };
 
     const handleSubmit = async () => {
-        if (!previewUrl) {
+        if (!file) {
             alert('No file selected');
             return;
         }
         try {
-            const response = await fetch(`/api/upload_image`, {
-                method: "POST",
-                body: previewUrl
+            const url = `https://google-drive-storage.solo-albayt.workers.dev/user_data/${riwayatPembelian?.detailPembelian?.email}/${riwayatPembelian?.detailPembelian?.purchaseID}.png`
+            const response = await fetch(url, {
+                method: "PUT",
+                body: file,
+                headers: {
+                    "Content-Type": file.type
+                }
             });
 
             if (!response.ok) {
@@ -98,7 +104,7 @@ const Order = () => {
             const data = await response.json();
 
             console.log('Upload successful:', data.id);
-            await addBuktiPembelian(riwayatPembelian?.detailPembelian.purchaseID, `/api/images/${data.id}`)
+            await addBuktiPembelian(riwayatPembelian?.detailPembelian.purchaseID, url)
             router.push(`/detailTransaksi/${riwayatPembelian?.detailPembelian.purchaseID}`)
         } catch (error) {
             console.error('Error uploading file:', error);
