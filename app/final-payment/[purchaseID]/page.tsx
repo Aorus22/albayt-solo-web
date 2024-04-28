@@ -2,10 +2,8 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import {DATA_BANK} from "@/constants";
-import Link from "next/link";
-import {PackageProps} from "@/Components/Card_Paket";
-import {useParams} from "next/navigation";
-import {UserAuth} from "@/context/AuthContext";
+import {useParams, useRouter} from "next/navigation";
+import {UserAuth, addBuktiPembelian} from "@/context/AuthContext";
 import {PurchaseHistory} from "@/app/detailTransaksi/[purchaseID]/page";
 
 const Order = () => {
@@ -16,7 +14,7 @@ const Order = () => {
     // const [selectedPembayaran, setSelectedValue] = React.useState('');
 
     const [riwayatPembelian, setRiwayatPembelian] = useState<PurchaseHistory>();
-
+    const router = useRouter();
     const params = useParams();
     const { user } = UserAuth()
 
@@ -68,13 +66,10 @@ const Order = () => {
     const currentBank = DATA_BANK.find((bank) => bank.nama === riwayatPembelian?.detailPembelian.metodePembayaran);
     const paketData = riwayatPembelian?.detailPaket
 
-    const [file, setFile] = useState<File>(null);
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [imageLink, setImageLink] = useState(null);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
-        setFile(selectedFile);
         if (selectedFile) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -85,7 +80,7 @@ const Order = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async () => {
         if (!previewUrl) {
             alert('No file selected');
             return;
@@ -103,7 +98,8 @@ const Order = () => {
             const data = await response.json();
 
             console.log('Upload successful:', data.id);
-            setImageLink(`/api/images/${data.id}`);
+            await addBuktiPembelian(riwayatPembelian?.detailPembelian.purchaseID, `/api/images/${data.id}`)
+            router.push(`/detailTransaksi/${purchaseID}`)
         } catch (error) {
             console.error('Error uploading file:', error);
         }
@@ -139,11 +135,9 @@ const Order = () => {
                     </div>
 
                     <div className="my-8 w-full flex justify-end">
-                        {/*<Link href={`/detailTransaksi/${params.purchaseID}`}>*/}
-                        <div onClick={handleSubmit} className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4">
+                        <button onClick={handleSubmit} className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4">
                             Submit
-                        </div>
-                        {/*</Link>*/}
+                        </button>
                     </div>
                 </div>
             </div>

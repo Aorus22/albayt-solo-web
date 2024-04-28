@@ -7,7 +7,7 @@ import {addPurchase, UserAuth} from "@/context/AuthContext";
 import {useRouter} from "next/navigation";
 
 const Order = () => {
-    const router = useRouter();
+   const router = useRouter();
    const { user } = UserAuth()
    const [paketData, setPaketData] = useState<PackageProps>();
    const [dewasaData, setDewasaData] = useState<Array<{ nama: string; telp: string }>>([]);

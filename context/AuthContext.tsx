@@ -88,7 +88,8 @@ export async function addPurchase(dataPembelian: any) {
             metodePembayaran: dataPembelian.metodePembayaran,
             statusPembayaran: "Belum Dibayar",
             totalPembayaran: dataPembelian.totalPembayaran,
-            tanggalPemesanan: dataPembelian.tanggalPemesanan
+            tanggalPemesanan: dataPembelian.tanggalPemesanan,
+            urlBuktiPembayaran: dataPembelian.urlBuktiPembayaran
         });
         await addPurchaseToHistory(dataPembelian.UID, dataPembelian.purchaseID)
         alert("Data added successfully!");
@@ -117,5 +118,22 @@ const addPurchaseToHistory = async (userID: string, purchaseID:string) => {
         }
     } catch (error) {
         console.error("Error updating user purchase history:", error);
+    }
+};
+
+export const addBuktiPembelian = async (purchaseID:string, urlBuktiPembayaran:string) => {
+    const userRef = doc(firestore, "pembelian", purchaseID);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+            await updateDoc(userRef, {
+                "statusPembayaran": "Menunggu Konfirmasi",
+                "urlBuktiPembayaran": urlBuktiPembayaran
+            });
+        } else {
+            console.error("Pembelian dengan ID yang diberikan tidak ditemukan");
+        }
+    } catch (error) {
+        console.error("Error updating pruchase status:", error);
     }
 };

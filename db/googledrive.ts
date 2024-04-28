@@ -2,7 +2,7 @@ import {drive_v3, google} from 'googleapis';
 import * as stream from "node:stream";
 
 const AUTH = new google.auth.GoogleAuth({
-    keyFile: "./albayt-backup-test-421613-a1ce720ebed3.json",
+    keyFile: "./google_credentials.json",
     scopes: ['https://www.googleapis.com/auth/drive'],
 });
 

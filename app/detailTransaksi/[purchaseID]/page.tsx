@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {UserAuth} from "@/context/AuthContext";
 import {useParams} from "next/navigation";
 import {PackageProps} from "@/Components/Card_Paket";
+import Link from "next/link";
 
 interface Anak {
   nama: string;
@@ -26,7 +27,8 @@ export interface PurchaseDetail {
   detailJamaah: {
     anak?: Anak[];
     dewasa?: Dewasa[];
-  };
+  };
+  urlBuktiPembayaran: string
 }
 
 export interface PurchaseHistory {
@@ -118,37 +120,51 @@ const page = () => {
 
           <div>
             <h3 className='font-semibold text-[16px] lg:text-lg'>Detail Jamaah</h3>
-            
+
             {riwayatPembelian?.detailPembelian?.detailJamaah?.dewasa && (
-              <div>
-                <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Dewasa</h4>
-                {riwayatPembelian.detailPembelian.detailJamaah.dewasa.map((dewasa) => (
-                  <div className='flex gap-5'>
-                    <div className='flex gap-8'>
-                      <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {dewasa.nama}</p>
-                      <p className='font-semibold text-[13px] md:text-[14px]'>Telepon: {dewasa.telp}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                <div>
+                  <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Dewasa</h4>
+                  {riwayatPembelian.detailPembelian.detailJamaah.dewasa.map((dewasa) => (
+                      <div className='flex gap-5'>
+                        <div className='flex gap-8'>
+                          <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {dewasa.nama}</p>
+                          <p className='font-semibold text-[13px] md:text-[14px]'>Telepon: {dewasa.telp}</p>
+                        </div>
+                      </div>
+                  ))}
+                </div>
             )}
 
             {riwayatPembelian?.detailPembelian?.detailJamaah?.anak && (
-              <div className='my-4'>
-                <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Anak-anak</h4>
-                {riwayatPembelian.detailPembelian.detailJamaah.anak.map((anak) => (
-                  <div className='flex gap-5'>
-                    <div className='flex gap-8'>
-                      <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {anak.nama}</p>
-                      <p className='font-semibold text-[13px] md:text-[14px]'>Tanggal Lahir: {anak.tgl_lahir}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                <div className='my-4'>
+                  <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Anak-anak</h4>
+                  {riwayatPembelian.detailPembelian.detailJamaah.anak.map((anak) => (
+                      <div className='flex gap-5'>
+                        <div className='flex gap-8'>
+                          <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {anak.nama}</p>
+                          <p className='font-semibold text-[13px] md:text-[14px]'>Tanggal Lahir: {anak.tgl_lahir}</p>
+                        </div>
+                      </div>
+                  ))}
+                </div>
             )}
           </div>
 
           <div className='border-b rounded-full my-7'/>
+
+          <div>
+            <h3 className='font-semibold text-[16px] lg:text-lg'>Detail Pembayaran</h3>
+
+            {riwayatPembelian?.detailPembelian.statusPembayaran === "Belum Dibayar" ? (
+                <Link href={`/final-payment/${riwayatPembelian?.detailPembelian.purchaseID}`}>
+                  <button className='mt-2 py-2 px-4 font-semibold text-white text-[12px] lg:text-[14px] bg-[#f14310] rounded-lg duration-200 hover:bg-black'>Ke Halaman Pembayaran</button>
+                </Link>
+            ) : (
+                <div>
+                  <img src={riwayatPembelian?.detailPembelian.urlBuktiPembayaran} />
+                </div>
+            )}
+          </div>
 
         </div>
       </section>
