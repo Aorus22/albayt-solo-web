@@ -14,6 +14,7 @@ const Order = () => {
    const [dewasaData, setDewasaData] = useState<Array<{ nama: string; telp: string }>>([]);
    const [anakData, setAnakData] = useState<Array<{ nama: string; tanggalLahir: string }>>([]);
    const [selectedPembayaran, setSelectedValue] = React.useState('');
+   const [showConfirmation, setShowConfirmation] = useState(false);
 
     useEffect(() => {
         const data_paket = sessionStorage.getItem('paket');
@@ -46,31 +47,37 @@ const Order = () => {
         return `${timestamp}-${randomString}`;
     };
 
-    const handleBayarSekarang = async () => {
-        if (selectedPembayaran) {
-            if (paketData && dewasaData.length > 0) {
-                const purchaseID = generatePurchaseID()
-                const dataPembelian = {
-                    purchaseID: purchaseID,
-                    paketID: paketData.paket_id,
-                    UID: user?.uid,
-                    email: user?.email,
-                    detailJamaah: {
-                        dewasa: dewasaData,
-                        anak: anakData
-                    },
-                    metodePembayaran: selectedPembayaran,
-                    totalPembayaran: totalHarga,
-                    tanggalPemesanan: new Date().toISOString(),
-                    urlBuktiPembayaran: ""
-                };
+    const handleBayarSekarang = () => {
+        setShowConfirmation(true);
+    }
 
-                await addPurchase(dataPembelian)
-                sessionStorage.setItem('pilihanPembayaran', selectedPembayaran);
-                router.push(`/final-payment/${purchaseID}`)
-            } else {
-                alert('Data pembelian tidak lengkap');
-            }
+    const handleKonfirmasiPembayaran = async (confirm) => {
+        if (selectedPembayaran) {
+            if (confirm) {
+                if (paketData && dewasaData.length > 0) {
+                    const purchaseID = generatePurchaseID()
+                    const dataPembelian = {
+                        purchaseID: purchaseID,
+                        paketID: paketData.paket_id,
+                        UID: user?.uid,
+                        email: user?.email,
+                        detailJamaah: {
+                            dewasa: dewasaData,
+                            anak: anakData
+                        },
+                        metodePembayaran: selectedPembayaran,
+                        totalPembayaran: totalHarga,
+                        tanggalPemesanan: new Date().toISOString(),
+                        urlBuktiPembayaran: ""
+                    };
+
+                    await addPurchase(dataPembelian)
+                    sessionStorage.setItem('pilihanPembayaran', selectedPembayaran);
+                    router.push(`/final-payment/${purchaseID}`)
+                } else {
+                    alert('Data pembelian tidak lengkap');
+                }
+            } setShowConfirmation(false)
         } else {
             alert('Pilih metode pembayaran terlebih dahulu');
         }
@@ -186,6 +193,18 @@ const Order = () => {
                 </div>
             </div>
         </div>
+
+        {showConfirmation && (
+            <div className="fixed inset-0 z-10 overflow-y-auto bg-gray-500 bg-opacity-50 flex justify-center items-center">
+                <div className="bg-white p-8 rounded-md shadow-md">
+                    <p className="text-lg font-bold mb-4">Apakah Anda yakin ingin melakukan pembayaran?</p>
+                    <div className="flex justify-end">
+                        <button onClick={() => handleKonfirmasiPembayaran(true)} className="px-4 py-2 bg-green-500 hover:bg-green-800 text-white rounded-md mr-4">Ya</button>
+                        <button onClick={() => handleKonfirmasiPembayaran(false)} className="px-4 py-2 bg-red-500 hover:bg-red-800 text-white rounded-md">Tidak</button>
+                    </div>
+                </div>
+            </div>
+        )}
     </div>
 
   );
