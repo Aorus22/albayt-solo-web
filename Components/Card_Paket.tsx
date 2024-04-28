@@ -25,7 +25,7 @@ export type PackageProps = {
 
 const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalseat, remainingseat, lokasiberangkat, harga_dp}: PackageProps) => {
     return (
-    <Link href={`paket/${paketID}`}>
+    <Link href={`/paket/${paketID}`}>
         <div>
             <div key={paketID} className='bg-white border shadow-lg h-full rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
                 <div className='flexCenter'>

@@ -58,7 +58,7 @@ const Order = () => {
                     const purchaseID = generatePurchaseID()
                     const dataPembelian = {
                         purchaseID: purchaseID,
-                        paketID: paketID.paket_id,
+                        paketID: paketData.paketID,
                         UID: user?.uid,
                         email: user?.email,
                         detailJamaah: {
