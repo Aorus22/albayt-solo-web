@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import PaketAlbayt from '@/Components/PaketAlbayt';
 import OrderButton from '@/app/paket/[title]/OrderButton';
-import SeatBar from '@/Components/SeatBar';
+import Seatbar_Alt from '@/Components/Seatbar_Alt';
 import LoadingBar from '@/Components/LoadingBar';
 import { FASILITAS_PAKET } from '@/constants';
 import {PackageProps} from "@/Components/Card_Paket";
@@ -111,7 +111,7 @@ export default function Paket() {
                   ))}
                 </div>
               </div>
-              <SeatBar totalSeats={currentPage?.totalseat || 0 } remainingSeats={currentPage?.remainingseat || 0 }></SeatBar>
+              <Seatbar_Alt totalSeat={currentPage?.totalseat || 0 } remainingSeat={currentPage?.remainingseat || 0 }></Seatbar_Alt>
               <div className="mt-4 h-1 w-[60%] rounded opacity-40 bg-slate-950"></div>
               <a href='https://wa.me/+6289636843541' className='w-full' target='_blank' rel="noopener noreferrer">
                 <div
