@@ -276,9 +276,6 @@ const Order = () => {
             </div>
             <div className="sticky md:w-[40%] justify-center my-4 md:my-2">
                 <div className="bg-white rounded-md text-black w-full h-fit shadow-md">
-                    <div>
-                        {JSON.stringify(dewasaData)}
-                    </div>
                     <div className=" text-center font-bold text-2xl my-4 pt-4 text-[#f14310]">
                         Detail Pemesanan
                     </div>
