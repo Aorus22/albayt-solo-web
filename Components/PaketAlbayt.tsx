@@ -37,7 +37,7 @@ const PaketAlbayt = () => {
 
         {/* ISI KONTEN / CARD */}
         <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
-          {data.slice(0,6).map((paket) => (
+          {data.filter(paket => paket.remainingseat > 0).slice(0, 6).map((paket) => (
             <Card_Paket
               key={paket.paketID}
               paketID={paket.paketID}

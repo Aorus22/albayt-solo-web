@@ -87,7 +87,7 @@ function PaketPage() {
 
       <section className="py-7">
         <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
-          {data.map((paket: any) => (
+          {data.filter(paket => paket.remainingseat > 0).map((paket: any) => (
             <Card_Paket
               key={paket.paketID}
               paketID={paket.paketID}
