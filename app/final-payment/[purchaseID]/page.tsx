@@ -130,7 +130,7 @@ const Order = () => {
                                 <div>{currentBank?.rekening}</div>
                             </div>
                             <div className="border rounded border-[rgba(0,0,0,0.16)] mt-4 justify-center bg-white p-6 shadow">
-                                <p htmlFor="upload" className="font-bold block text-2xl mb-4 text-[#f14310]">
+                                <p className="font-bold block text-2xl mb-4 text-[#f14310]">
                                     Upload Bukti Transfer
                                 </p>
                                 <div className="border border-gray-20 border-opacity-50 h-fit p-6 rounded-md">
