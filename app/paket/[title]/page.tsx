@@ -92,7 +92,8 @@ export default function Paket() {
       return (
           <div>
             <div className="bg-white border-[rgba(0,0,0,0.16)] shadow-2xl flex flex-col justify-center items-center rounded-2xl w-[100%] h-fit p-10">
-              <RemainingDays Input_Date={currentPage?.jadwal}></RemainingDays>
+              <h1 className='font-bold text-[#f14310] text-center text-lg mb-5'>{currentPage?.title}</h1>
+              <Seatbar_Alt totalSeat={currentPage?.totalseat || 0 } remainingSeat={currentPage?.remainingseat || 0 }></Seatbar_Alt>
               <div className='border-gray-20 rounded-2xl px-4 my-3 w-full bg-slate-100 mb-6'>
                 <div className='flex items-center my-2'>
                   <div className='w-full text-2xl font-bold text-yellow-600 text-center'>
@@ -111,11 +112,10 @@ export default function Paket() {
                   ))}
                 </div>
               </div>
-              <Seatbar_Alt totalSeat={currentPage?.totalseat || 0 } remainingSeat={currentPage?.remainingseat || 0 }></Seatbar_Alt>
               <div className="mt-4 h-1 w-[60%] rounded opacity-40 bg-slate-950"></div>
               <a href='https://wa.me/+6289636843541' className='w-full' target='_blank' rel="noopener noreferrer">
                 <div
-                    className="flex bg-[#208942] text-gray font-semibold py-2 px-4 rounded justify-center space-x-4 text-zinc-50 w-full mt-3">
+                    className="flex items-center bg-[#208942] text-gray font-semibold py-2 px-4 rounded justify-center space-x-4 text-zinc-50 w-full mt-3 duration-200 hover:bg-black">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                        className="bi bi-whatsapp" viewBox="0 0 16 16">
                     <path
@@ -152,7 +152,7 @@ export default function Paket() {
   }
 
   return (
-      <div>
+    <section>
       {isLoading ? (<LoadingBar />) : (
           <div>
             {!boxPemesananVisible && isScrolled &&
@@ -176,7 +176,7 @@ export default function Paket() {
                 </div>
             }
 
-            <div className="mt-4 w-screen h-[55vh] bg-white bg-fixed mx-auto px-4 bg-cover"
+            <div className="mt-4 w-full h-[55vh] bg-white bg-fixed mx-auto px-4 bg-cover"
                  style={{backgroundImage: "url('/images/background1.jpg')"}}>
               <div className="h-[55vh] flex justify-start items-center sm:p-2 md:p-10">
                 <h1 className="mb-4 text-gray-100 text-2xl md:text-4xl lg:text-6xl font-extrabold ">
@@ -200,8 +200,8 @@ export default function Paket() {
                       <Link href={"/"}>Beranda </Link>
                       <span>&gt;</span>
                       <Link href={"/paketpage"}> Paket Umroh </Link>
-                      <span>&gt;</span>
-                      {params.title}
+                      <span className='mr-1'>&gt;</span>
+                      <span className='font-semibold'>{currentPage?.title}</span>
                     </p>
                     <img alt="poster" className="block object-cover w-100% rounded-2xl" src={currentPage?.img}>
                     </img>
@@ -437,7 +437,7 @@ export default function Paket() {
           </div>
       )
       }
-      </div>
+    </section>
   );
 }
   
