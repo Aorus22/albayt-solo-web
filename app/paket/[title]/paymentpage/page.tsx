@@ -48,39 +48,40 @@ const Order = () => {
     };
 
     const handleBayarSekarang = () => {
+        if (!selectedPembayaran) {
+            alert('Pilih metode pembayaran terlebih dahulu');
+            return
+        }
         setShowConfirmation(true);
     }
 
     const handleKonfirmasiPembayaran = async (confirm) => {
-        if (selectedPembayaran) {
-            if (confirm) {
-                if (paketData && dewasaData.length > 0) {
-                    const purchaseID = generatePurchaseID()
-                    const dataPembelian = {
-                        purchaseID: purchaseID,
-                        paketID: paketData.paketID,
-                        UID: user?.uid,
-                        email: user?.email,
-                        detailJamaah: {
-                            dewasa: dewasaData,
-                            anak: anakData
-                        },
-                        metodePembayaran: selectedPembayaran,
-                        totalPembayaran: totalHarga,
-                        tanggalPemesanan: new Date().toISOString(),
-                        urlBuktiPembayaran: ""
-                    };
+        if (confirm) {
+            if (paketData && dewasaData.length > 0) {
+                const purchaseID = generatePurchaseID()
+                const dataPembelian = {
+                    purchaseID: purchaseID,
+                    paketID: paketData.paketID,
+                    UID: user?.uid,
+                    email: user?.email,
+                    detailJamaah: {
+                        dewasa: dewasaData,
+                        anak: anakData
+                    },
+                    metodePembayaran: selectedPembayaran,
+                    totalPembayaran: totalHarga,
+                    tanggalPemesanan: new Date().toISOString(),
+                    urlBuktiPembayaran: ""
+                };
 
-                    await addPurchase(dataPembelian)
-                    sessionStorage.setItem('pilihanPembayaran', selectedPembayaran);
-                    router.push(`/final-payment/${purchaseID}`)
-                } else {
-                    alert('Data pembelian tidak lengkap');
-                }
-            } setShowConfirmation(false)
-        } else {
-            alert('Pilih metode pembayaran terlebih dahulu');
-        }
+                await addPurchase(dataPembelian)
+                sessionStorage.setItem('pilihanPembayaran', selectedPembayaran);
+                router.push(`/final-payment/${purchaseID}`)
+            } else {
+                alert('Data pembelian tidak lengkap');
+            }
+        } 
+        setShowConfirmation(false)
     };
 
   return (

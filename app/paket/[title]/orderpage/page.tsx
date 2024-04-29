@@ -1,9 +1,8 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import {UserAuth} from "@/context/AuthContext";
 import {PackageProps} from "@/Components/Card_Paket";
-import {useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 
 const Order = () => {
 
@@ -16,6 +15,7 @@ const Order = () => {
 
     const {user} = UserAuth()
     const params = useParams()
+    const router = useRouter()
 
     useEffect(() => {
         const data = sessionStorage.getItem('paket');
@@ -55,6 +55,19 @@ const Order = () => {
     };
 
     const handleLanjutkanPembayaran = () => {
+        if (dewasaCount == 0 ) {
+            alert("Pastikan terisi minimal satu jamaah dewasa")
+            return;
+          } else if (
+            dewasaData.length !== dewasaCount ||
+            anakData.length !== anakCount ||
+            !dewasaData.every((dewasa) => dewasa.nama !== "" && dewasa.telp !== "" && Object.keys(dewasa).length === 2) ||
+            !anakData.every((anak) => anak.nama !== "" && anak.tanggalLahir !== "" && Object.keys(anak).length === 2)
+          ) {
+            alert("Lengkapi semua form terlebih dahulu");
+            return;
+          }
+
         const jamaahData = {
             dewasa: dewasaData,
             anak: anakData
@@ -62,6 +75,7 @@ const Order = () => {
 
         // Menyimpan data jamaah ke session storage
         sessionStorage.setItem('jamaahData', JSON.stringify(jamaahData));
+        router.push("paymentpage")
     };
 
     if (user) {
@@ -199,7 +213,7 @@ const Order = () => {
                         <form>
                             <fieldset>
                                 <h1 className="font-bold mb-4">Dewasa</h1>
-                                {[...Array(dewasaCount)].map((_, index) => (
+                                {[...Array(dewasaCount || 0)].map((_, index) => (
                                     <div key={`dewasa_${index}`} className="grid grid-cols-2 mb-4">
                                         <label className="block h-10" htmlFor={`nama_dewasa_${index}`}>
                                             Nama
@@ -229,7 +243,7 @@ const Order = () => {
 
                             <fieldset>
                                 <h1 className="font-bold mb-4">Anak-anak</h1>
-                                {[...Array(anakCount)].map((_, index) => (
+                                {[...Array(anakCount || 0)].map((_, index) => (
                                     <div key={`anak_${index}`} className="grid grid-cols-2 mb-4">
                                         <label className="block h-10" htmlFor={`nama_anak_${index}`}>
                                             Nama
@@ -262,6 +276,9 @@ const Order = () => {
             </div>
             <div className="sticky md:w-[40%] justify-center my-4 md:my-2">
                 <div className="bg-white rounded-md text-black w-full h-fit shadow-md">
+                    <div>
+                        {JSON.stringify(dewasaData)}
+                    </div>
                     <div className=" text-center font-bold text-2xl my-4 pt-4 text-[#f14310]">
                         Detail Pemesanan
                     </div>
@@ -270,16 +287,17 @@ const Order = () => {
                     </p>
                     <div className="p-4">
                         <table className="w-full border-collapse">
-                            <tbody>
+                            <tbody className="text-center">
                             <tr>
-                                <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">DP
-                                    Paket
+                                <td className="border-b w-24 border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">
+                                    DP
                                 </td>
-                                <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{dewasaCount + anakCount} Orang</td>
+                                <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{dewasaCount + anakCount || 0} Orang</td>
                                 <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{paketData?.harga_dp.toLocaleString('id-ID', {
                                     style: 'currency',
                                     currency: 'IDR'
-                                })}</td>
+                                })}
+                                </td>
                             </tr>
                             {/*<tr>*/}
                             {/*    <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">Harga Paket Anak-anak (x1)</td>*/}
@@ -289,7 +307,7 @@ const Order = () => {
                                 <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] text-center lg:text-[16px]"
                                     colSpan={2}>Total Biaya
                                 </td>
-                                <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{((paketData?.harga_dp ?? 0) * (dewasaCount + anakCount)).toLocaleString('id-ID', {
+                                <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{((paketData?.harga_dp ?? 0) * (dewasaCount + anakCount) || 0).toLocaleString('id-ID', {
                                     style: 'currency',
                                     currency: 'IDR'
                                 })}</td>
@@ -299,12 +317,10 @@ const Order = () => {
                     </div>
                 </div>
                 <div className="my-8 w-full flex justify-end" onClick={handleLanjutkanPembayaran}>
-                    <Link href={'paymentpage'}>
-                        <div
-                            className="flex bg-[#89060b] font-bold text-white text-[14px] lg:text-[16px] w-fit rounded-lg p-4">
-                            Lanjutkan ke Pembayaran
-                        </div>
-                    </Link>
+                    <button
+                        className="flex bg-[#89060b] font-bold text-white text-[14px] lg:text-[16px] w-fit rounded-lg p-4">
+                        Lanjutkan ke Pembayaran
+                    </button>
                 </div>
             </div>
         </div>

@@ -1,27 +1,34 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import Card_Paket from '@/Components/Card_Paket';
+import Card_Paket, {PackageProps} from '@/Components/Card_Paket'
 import { LocationMarkerIcon, CalendarIcon, CurrencyDollarIcon } from '@heroicons/react/solid';
 import "../globals.css";
 
 function PaketPage() {
-  const [data, setData] = useState<any[]>([]);
+
+  const [data, setData] = useState<PackageProps[]>([]);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/paket/`);
-        if (!response.ok) {
-          console.log('Failed to fetch data');
-        }
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData().then();
+       const paket = sessionStorage.getItem("paket") || ""
+       setData(JSON.parse(paket))
   }, []);
-  console.log(data)
+
+  // const [data, setData] = useState<any[]>([]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(`/api/paket/`);
+  //       if (!response.ok) {
+  //         console.log('Failed to fetch data');
+  //       }
+  //       const data = await response.json();
+  //       setData(data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+  //   fetchData().then();
+  // }, []);
+  // console.log(data)
 
   // const data = PACKAGE_DATA
 
@@ -81,21 +88,21 @@ function PaketPage() {
       <section className="py-7">
         <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
           {data.map((paket: any) => (
-            <Card_Paket 
-              key={paket.key} 
-              paketID={paket.key}
-              img={paket.img} 
+            <Card_Paket
+              key={paket.paketID}
+              paketID={paket.paketID}
+              img={paket.img}
               harga={paket.harga}
-              title={paket.title} 
+              title={paket.title}
               jadwal={paket.jadwal}
-              durasi={paket.durasi} 
-              hotel={paket.hotel} 
-              totalseat={paket.totalseat} 
-              remainingseat={paket.remainingseat} 
+              durasi={paket.durasi}
+              hotel={paket.hotel}
+              totalseat={paket.totalseat}
+              remainingseat={paket.remainingseat}
               lokasiberangkat={paket.lokasiberangkat}
               harga_dp={paket.harga_dp}
               maskapai={paket.maskapai}
-            />
+          />
           ))}
         </div>
       </section>
