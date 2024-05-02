@@ -46,7 +46,7 @@ export default function Paket() {
           setLoading(false);
         }
       };
-      // fetchData().then();
+      // fetchData().then();//
     }, []);
 
     useEffect(() => {
