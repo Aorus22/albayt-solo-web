@@ -226,9 +226,9 @@ export const DATA_BANK = [
       key: 'learn_more',
       title: 'Learn More',
       links: [
-        {label: 'about', value: 'About Albayt Solo'},
-        {label: 'privacy', value: 'Privacy Policy'},
-        {label: 'contact', value: 'Contact Us'},
+        {label: 'about', value: 'About Albayt Solo', link: '/about-us'},
+        {label: 'privacy', value: 'Privacy Policy', link: '/'},
+        {label: 'contact', value: 'Contact Us', link: 'https://wa.me/628122586045'},
       ],
     },
   ];
@@ -237,8 +237,8 @@ export const DATA_BANK = [
     key: 'footer_contact',
     title: 'Contact Us',
     links: [
-      { label: 'Admin Officer', value: '123-456-7890' },
-      { label: 'Email Officer', value: 'albaytsolo@gmail.com' },
+      { label: 'Admin Officer', value: '+62-812-2586-045', link: 'https://wa.me/628122586045' },
+      { label: 'Email Officer', value: 'albaytsolo@gmail.com', link: 'mailto:albaytsolo@gmail.com' },
     ],
   };
   
