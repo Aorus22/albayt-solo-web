@@ -2,23 +2,25 @@
 import Image from 'next/image'
 import React, {useEffect, useRef, useState} from 'react';
 import RemainingDays from "@/Components/remainingdays";
-import { useParams } from 'next/navigation';
+import {useParams, useRouter} from 'next/navigation';
 import Link from 'next/link';
 import PaketAlbayt from '@/Components/PaketAlbayt';
 import OrderButton from '@/app/paket/[title]/OrderButton';
 import Seatbar_Alt from '@/Components/Seatbar_Alt';
 import LoadingBar from '@/Components/LoadingBar';
 import { FASILITAS_PAKET } from '@/constants';
-import {PackageProps} from "@/Components/Card_Paket";
+import {HargaProps, HotelProps, PackageProps} from "@/Components/Card_Paket";
 
 export default function Paket() {
     const params = useParams();
+    const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
 
     const [paketData, setPaketData] = useState<PackageProps>();
     const boxPemesananMobileRef = useRef<HTMLDivElement>(null);
     const [boxPemesananVisible, setBoxPemesananVisible] = useState<boolean>(false);
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isLoading, setLoading ] = useState<boolean>(true)
+    const [exchangeRate, setExchangeRate] = useState(null);
 
     useEffect(() => {
       const data_paket = sessionStorage.getItem('paket');
@@ -85,6 +87,20 @@ export default function Paket() {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchExchangeRate = async () => {
+      try {
+        const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+        const data = await response.json();
+        setExchangeRate(data.rates.IDR);
+      } catch (error) {
+        console.error('Failed to fetch exchange rate:', error);
+      }
+    };
+
+    fetchExchangeRate().then();
+  }, []);
+
     const currentPage = paketData;
     const hargaArr = currentPage?.harga
 
@@ -102,13 +118,31 @@ export default function Paket() {
                   </div>
                 </div>
                 <div>
-                  {hargaArr?.map((item: any) => (
-                      <div key={item.tipe} className='flex w-full items-center my-2'>
-                        <div className='flexBetween w-full text-sm font-medium'>
-                          <p>{item.tipe}</p>
-                          <p>{item.nominal.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})}</p>
+                  {hargaArr?.map((item: HargaProps) => (
+                      <div className={"mt-2 mb-2"}>
+                        <div key={item.tipe} className='flexBetween'>
+                          {item.currency?.toLowerCase() === 'idr' && (
+                              <p className='font-bold text-[#f14310]'>
+                                {item.nominal.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})}
+                              </p>
+                          )}
+                          {item.currency?.toLowerCase() === 'usd' && (
+                              <p className='font-bold text-[#f14310]'>
+                                {item.nominal.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}
+                              </p>
+                          )}
+                          <p className='font-medium text-[#f14310]'>{item.tipe}</p>
+                        </div>
+                        <div>
+                          {item.currency === 'usd' && exchangeRate && (
+                              <p className='font-bold text-[12px] text-green-50'>
+                                {(item.nominal * exchangeRate).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })} (*kurs saat ini)
+                              </p>
+                          )}
                         </div>
                       </div>
+
+
                   ))}
                 </div>
               </div>
@@ -141,9 +175,15 @@ export default function Paket() {
               <p className='mb-2 text-gray-50 text-end'>Bagikan</p>
               <div className='flex flex-col gap-5 items-end'>
                 <ul className='regular-14 flex gap-4 text-gray-30'>
-                  <Image src={"/instagram.svg"} alt='logo' width={24} height={24}/>
-                  <Image src={"/facebook.svg"} alt='logo' width={24} height={24}/>
-                  <Image src={"/whatsapp.svg"} alt='logo' width={24} height={24}/>
+                  <Link href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}>
+                    <Image src={"/facebook.svg"} alt='logo' width={24} height={24}/>
+                  </Link>
+                  <Link href={""}>
+                    <Image src={"/instagram.svg"} alt='logo' width={24} height={24}/>
+                  </Link>
+                  <Link href={""}>
+                    <Image src={"/whatsapp.svg"} alt='logo' width={24} height={24}/>
+                  </Link>
                 </ul>
               </div>
             </div>
@@ -258,7 +298,7 @@ export default function Paket() {
                             <path
                                 d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
                           </svg>
-                          {currentPage?.hotel}
+                          {/*{currentPage?.hotel}*/}
                         </div>
                       </div>
                     </div>
@@ -298,28 +338,28 @@ export default function Paket() {
                       Hotel
                     </p>
                     <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
-                    <p className='font-bold mb-2'>Hotel Lorem Ipsum</p>
-                    <div className='flex mb-4'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                           style={{fill: '#f14310'}}>
-                        <path
-                            d="M12 2C7.589 2 4 5.589 4 9.995 3.971 16.44 11.696 21.784 12 22c0 0 8.029-5.56 8-12 0-4.411-3.589-8-8-8zM9.799 14.987H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 6l1.799 1.799-1.372 1.371z"></path>
-                      </svg>
-                      <p>200m dari lorem ipsum</p>
-                    </div>
-                    <div className='grid xl:grid-cols-3 sm:grid-cols-1 gap-4'>
-                      <div>
-                        <img className='xl:w-full h-auto' alt="hotel"
-                             src='https://asset-a.grid.id/crop/0x0:0x0/945x630/photo/2023/06/18/staycationjpg-20230618013836.jpg'></img>
-                      </div>
-                      <div>
-                        <img className='xl:w-full h-auto' alt="hotel"
-                             src='https://asset-a.grid.id/crop/0x0:0x0/945x630/photo/2023/06/18/staycationjpg-20230618013836.jpg'></img>
-                      </div>
-                      <div>
-                        <img className='xl:w-full h-auto' alt="hotel"
-                             src='https://asset-a.grid.id/crop/0x0:0x0/945x630/photo/2023/06/18/staycationjpg-20230618013836.jpg'></img>
-                      </div>
+                    {/*<p className='font-bold mb-2'>Hotel Lorem Ipsum</p>*/}
+                    {/*<div className='flex mb-4'>*/}
+                      {/*<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"*/}
+                      {/*     style={{fill: '#f14310'}}>*/}
+                      {/*  <path*/}
+                      {/*      d="M12 2C7.589 2 4 5.589 4 9.995 3.971 16.44 11.696 21.784 12 22c0 0 8.029-5.56 8-12 0-4.411-3.589-8-8-8zM9.799 14.987H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 6l1.799 1.799-1.372 1.371z"></path>*/}
+                      {/*</svg>*/}
+                      {/*<p>200m dari lorem ipsum</p>*/}
+                    {/*</div>*/}
+
+                    <div className='w-full'>
+                      {currentPage?.hotel.map((item: HotelProps, index: number) => (
+                          <div key={index}>
+                            <p className='font-bold mb-2'>{item.nama_hotel}</p>
+                            <div className='grid xl:grid-cols-3 sm:grid-cols-1 gap-4'>
+                              {item.url_hotel?.map((imageUrl: string, i) => (
+                                  <img key={i} className='xl:w-full h-auto' alt={`hotel ${index}`}
+                                       src={"https://asset-a.grid.id/crop/0x0:0x0/945x630/photo/2023/06/18/staycationjpg-20230618013836.jpg"}></img>
+                              ))}
+                            </div>
+                          </div>
+                      ))}
                     </div>
 
                   </div>
