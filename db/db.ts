@@ -23,12 +23,13 @@ export const firebaseApp =
 export const firestore = getFirestore(firebaseApp);
 
 export async function getPakets() {
-  const docs = await firestore.collection("paket").listDocuments()
-  let res: any[] = []
-  for (const doc of docs) {
-    res.push((await doc.get()).data())
-  }
-  return res
+    try {
+        const snapshot = await firestore.collection("paket").get();
+        return snapshot.docs.map(doc => doc.data());
+    } catch (error) {
+        console.error("Error getting documents: ", error);
+        throw error;
+    }
 }
 
 export async function getPaket(namaPaket: string) {
