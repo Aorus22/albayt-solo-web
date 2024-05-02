@@ -1,3 +1,4 @@
+export const fetchCache = 'force-no-store';
 import { NextResponse } from "next/server";
 import {fetchDetailPurchase} from "@/db/db";
 
