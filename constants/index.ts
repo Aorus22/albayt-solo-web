@@ -231,15 +231,6 @@ export const DATA_BANK = [
         {label: 'contact', value: 'Contact Us'},
       ],
     },
-    {
-      key: 'our_community',
-      title: 'Our Community',
-      links: [
-        {label: 'community_lor', value: 'Lorem Ipsum Dolor Sit'}, 
-        {label: 'community_em', value: 'Lorem Ipsum Dolor Sit'},  
-        {label: 'community_ip', value: 'Lorem Ipsum Dolor Sit'}, 
-      ],
-    },
   ];
   
   export const FOOTER_CONTACT_INFO = {
