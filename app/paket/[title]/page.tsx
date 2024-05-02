@@ -1,8 +1,7 @@
 "use client"
 import Image from 'next/image'
 import React, {useEffect, useRef, useState} from 'react';
-import RemainingDays from "@/Components/remainingdays";
-import {useParams, useRouter} from 'next/navigation';
+import {useParams} from 'next/navigation';
 import Link from 'next/link';
 import PaketAlbayt from '@/Components/PaketAlbayt';
 import OrderButton from '@/app/paket/[title]/OrderButton';
@@ -118,9 +117,9 @@ export default function Paket() {
                   </div>
                 </div>
                 <div>
-                  {hargaArr?.map((item: HargaProps) => (
-                      <div className={"mt-2 mb-2"}>
-                        <div key={item.tipe} className='flexBetween'>
+                  {hargaArr?.map((item: HargaProps, index) => (
+                      <div key={index} className={"mt-2 mb-2"}>
+                        <div className='flexBetween'>
                           {item.currency?.toLowerCase() === 'idr' && (
                               <p className='font-bold text-[#f14310]'>
                                 {item.nominal.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})}

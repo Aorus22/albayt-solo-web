@@ -34,7 +34,7 @@ const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalsea
     return (
     <Link href={`/paket/${paketID}`}>
         <div>
-            <div key={paketID} className='bg-white border shadow-lg h-full rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
+            <div className='bg-white border shadow-lg h-full rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
                 <div className='flexCenter'>
                     <Image src={img} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
                 </div>
@@ -97,8 +97,8 @@ const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalsea
 
                         <Seatbar_Alt totalSeat={totalseat} remainingSeat={remainingseat} />
 
-                        {harga?.map((item: HargaProps) => (
-                            <div key={item.tipe} className='flexBetween mt-2 mb-2'>
+                        {harga?.map((item: HargaProps, index) => (
+                            <div key={index} className='flexBetween mt-2 mb-2'>
                                 {item.currency === 'idr' && (
                                     <p className='font-bold text-[#f14310]'>
                                         {item.nominal.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}

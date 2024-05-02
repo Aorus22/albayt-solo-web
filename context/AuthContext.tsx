@@ -92,6 +92,7 @@ export async function addPurchase(dataPembelian: any) {
             urlBuktiPembayaran: dataPembelian.urlBuktiPembayaran
         });
         await addPurchaseToHistory(dataPembelian.UID, dataPembelian.purchaseID)
+        await ubahSisaSeat(dataPembelian.paketID)
         alert("Data added successfully!");
     } else {
         alert("User data already exists in Firestore!");
@@ -135,5 +136,27 @@ export const addBuktiPembelian = async (purchaseID:string, urlBuktiPembayaran:st
         }
     } catch (error) {
         console.error("Error updating pruchase status:", error);
+    }
+};
+
+export const ubahSisaSeat = async (paketID: string) => {
+    const userRef = doc(firestore, "paket", paketID);
+    try {
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+            const currentSeat = userDoc.data().remainingseat || 0;
+            if (currentSeat > 0) {
+                await updateDoc(userRef, {
+                    remainingseat: currentSeat - 1,
+                });
+                console.log("Sisa kursi berhasil diperbarui.");
+            } else {
+                console.error("Sisa kursi sudah habis.");
+            }
+        } else {
+            console.error("Paket dengan ID yang diberikan tidak ditemukan");
+        }
+    } catch (error) {
+        console.error("Error updating purchase status:", error);
     }
 };

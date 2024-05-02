@@ -13,13 +13,21 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {  children: React.ReactNode;}) {
   return (
     <html lang="en">
-      <body>
-        <AuthContextProvider>
-          <Navbar />
-            {children}
-          <Footer />
-        </AuthContextProvider>
-      </body>
+    <head>
+        {/*<script*/}
+        {/*    id = "meta-pixel"*/}
+        {/*    dangerouslySetInnerHTML={*/}
+        {/*        __html: ``*/}
+        {/*    }*/}
+        {/*/>*/}
+    </head>
+    <body>
+    <AuthContextProvider>
+        <Navbar/>
+        {children}
+        <Footer/>
+    </AuthContextProvider>
+    </body>
     </html>
   );
 }
