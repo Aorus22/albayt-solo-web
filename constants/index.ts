@@ -15,11 +15,11 @@ export const DATA_BANK = [
       rekening: "1484881240",
       img: '/logo-bni.jpg',
   },
-  {
-    nama: 'BRI',
-    rekening: "1234",
-    img: '/logo-bri.png',
-  }
+  // {
+  //   nama: 'BRI',
+  //   rekening: "1234",
+  //   img: '/logo-bri.png',
+  // }
 ]
 
   export const HERO_SLIDE = [
