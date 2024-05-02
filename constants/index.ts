@@ -12,11 +12,13 @@ export const NAV_LINKS = [
 export const DATA_BANK = [
   {
       nama: 'BNI',
-      rekening: "1484881240"
+      rekening: "1484881240",
+      img: '/logo-bni.jpg',
   },
   {
     nama: 'BRI',
-    rekening: "1234"
+    rekening: "1234",
+    img: '/logo-bri.png',
   }
 ]
 

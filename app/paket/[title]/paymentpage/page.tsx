@@ -5,6 +5,7 @@ import {DATA_BANK} from "@/constants";
 import {PackageProps} from "@/Components/Card_Paket";
 import {addPurchase, UserAuth} from "@/context/AuthContext";
 import {useParams, useRouter} from "next/navigation";
+import Image from "next/image";
 
 const Order = () => {
    const router = useRouter();
@@ -105,7 +106,8 @@ const Order = () => {
                     <label key={index} htmlFor={`bayar${index}`} className="items-center">
                         <div className="rounded-md mr-4">
                             <div className="flex justify-between p-4 font-bold text-[#552719]">
-                                <div className="">
+                                <div className="flex gap-2 items-center">
+                                    <Image src={value.img} alt="logo-bank" width={24} height={24} />
                                     <p className="mr-4">{value.nama}</p>
                                 </div>
                                 <input
