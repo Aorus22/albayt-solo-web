@@ -12,11 +12,13 @@ export const NAV_LINKS = [
 export const DATA_BANK = [
   {
       nama: 'BNI',
-      rekening: "1484881240"
+      rekening: "1484881240",
+      img: '/logo-bni.jpg',
   },
   {
     nama: 'BRI',
-    rekening: "1234"
+    rekening: "1234",
+    img: '/logo-bri.png',
   }
 ]
 
@@ -191,32 +193,32 @@ export const DATA_BANK = [
     {
       key: 'testi1',
       img: '/images/sample-hajj1.png',
-      nama: 'Ibu Fulanah',
-      review: 'Saya sangat Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+      nama: 'Ibu Eti',
+      review: 'Perjalanan wisata ke Aqsa dengan Ibu saya bersama ALBAYT sangat berkesan. Dengan Staff yang berpengalaman, saya dan Ibu saya merasa tenang dan nyaman.',
     },
     {
       key: 'testi2',
       img: '/images/sample-hajj2.png',
-      nama: 'Ibu Fulani',
-      review: 'Menurut saya Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+      nama: 'Eyang Nirlam & Eyang Unay',
+      review: 'Terima Kasih untuk panitia Albayt & Pak Ust Jazuli yang telah membimbing kami. Pak Ust Jazuli sangat mengayomi & membimbing eyang dengan sangat baik, penuh kesabaran.',
     },
     {
       key: 'testi3',
       img: '/images/sample-hajj3.png',
-      nama: 'Ibu Fulanita',
-      review: 'Pengalaman yang sangat Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+      nama: 'Eyang Omayanti',
+      review: 'Terima Kasih kepada panitia perjalanan umroh milad, sudah memberikan pelayanan terbaik kepada eyang omayanti. sangat membantu kami dari mulai persiapan keberangkatan. Dan kepada Ustad H. Jazuli yang telah membimbing eyang dengan baik , sabar.',
     },
     {
       key: 'testi4',
       img: '/images/sample-hajj1.png',
-      nama: 'Bapak Fulan',
-      review: 'Saya sangat Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+      nama: 'Nenek Enong',
+      review: 'Pembimbing dan peserta lainnya sangat baik.',
     },
     {
       key: 'testi5',
       img: '/images/sample-hajj2.png',
-      nama: 'Bapak Al Fulano',
-      review: 'Saya merasa Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+      nama: 'Awiez, Founder QUINSHA STUFF',
+      review: 'WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat.',
     },
   ]
   
