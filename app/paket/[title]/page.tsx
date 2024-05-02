@@ -28,22 +28,24 @@ export default function Paket() {
         const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
         setPaketData(currentPaket);
         setLoading(false);
+      } else {
+
       }
 
-      // const fetchData = async () => {
-      //   try {
-      //     const response = await fetch(`/api/paket/${params.title}`);
-      //     if (!response.ok) {
-      //       console.log('Failed to fetch paketData');
-      //     }
-      //     const paketData = await response.json();
-      //     setData(paketData);
-      //   } catch (Error) {
-      //     console.error('Error fetching paketData:', Error);
-      //   } finally {
-      //     setLoading(false);
-      //   }
-      // };
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`/api/paket/${params.title}`);
+          if (!response.ok) {
+            console.log('Failed to fetch paketData');
+          }
+          const paketData = await response.json();
+          setPaketData(paketData);
+        } catch (Error) {
+          console.error('Error fetching paketData:', Error);
+        } finally {
+          setLoading(false);
+        }
+      };
       // fetchData().then();
     }, []);
 
@@ -113,7 +115,7 @@ export default function Paket() {
                 <div className='flex items-center my-2'>
                   <div className='w-full text-2xl font-bold text-yellow-600 text-center'>
                     <p>DP </p>
-                    <p>{currentPage?.harga_dp.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})}</p>
+                    <p>{currentPage?.harga_dp?.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})}</p>
                   </div>
                 </div>
                 <div>
@@ -348,7 +350,7 @@ export default function Paket() {
                     {/*</div>*/}
 
                     <div className='w-full'>
-                      {currentPage?.hotel.map((item: HotelProps, index: number) => (
+                      {currentPage?.hotel?.map((item: HotelProps, index: number) => (
                           <div key={index}>
                             <p className='font-bold mb-2'>{item.nama_hotel}</p>
                             <div className='grid xl:grid-cols-3 sm:grid-cols-1 gap-4'>
