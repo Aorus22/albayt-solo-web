@@ -12,7 +12,7 @@ export type HargaProps = {
 export type HotelProps = {
     bintang:string,
     nama_hotel:string,
-    url_hotel:string[]
+    url_hotel:string[],
 }
 
 export type PackageProps = {
