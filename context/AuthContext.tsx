@@ -60,9 +60,9 @@ async function addUserData(user: User) {
             address : "",
             desc : ""
         });
-        alert("Data added successfully!");
+        // alert("Data added successfully!");
     } else {
-        alert("User data already exists in Firestore!");
+        // alert("User data already exists in Firestore!");
     }
 }
 
@@ -95,9 +95,9 @@ export async function addPurchase(dataPembelian: DataPembelian) {
         await addPurchaseToHistory(dataPembelian.UID || "", dataPembelian.purchaseID)
         const jumlahJamaah = dataPembelian.detailJamaah.anak.length + dataPembelian.detailJamaah.dewasa.length
         await ubahSisaSeat(dataPembelian.paketID, jumlahJamaah)
-        alert("Data added successfully!");
+        // alert("Data added successfully!");
     } else {
-        alert("User data already exists in Firestore!");
+        // alert("User data already exists in Firestore!");
     }
 }
 
