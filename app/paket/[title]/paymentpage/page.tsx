@@ -7,13 +7,37 @@ import {addPurchase, UserAuth} from "@/context/AuthContext";
 import {useParams, useRouter} from "next/navigation";
 import Image from "next/image";
 
+export interface DewasaData {
+    nama: string;
+    telp: string;
+}
+export interface AnakData {
+    nama: string;
+    tanggalLahir: string;
+}
+
+export interface DataPembelian {
+    purchaseID: string;
+    paketID: string;
+    UID?: string;
+    email?: string;
+    detailJamaah: {
+        dewasa: DewasaData[];
+        anak: AnakData[];
+    };
+    metodePembayaran: string;
+    totalPembayaran: number;
+    tanggalPemesanan: string;
+    urlBuktiPembayaran: string;
+}
+
 const Order = () => {
    const router = useRouter();
    const params = useParams()
    const { user } = UserAuth()
    const [paketData, setPaketData] = useState<PackageProps>();
-   const [dewasaData, setDewasaData] = useState<Array<{ nama: string; telp: string }>>([]);
-   const [anakData, setAnakData] = useState<Array<{ nama: string; tanggalLahir: string }>>([]);
+   const [dewasaData, setDewasaData] = useState<DewasaData[]>([]);
+   const [anakData, setAnakData] = useState<AnakData[]>([]);
    const [selectedPembayaran, setSelectedValue] = React.useState('');
    const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -60,7 +84,7 @@ const Order = () => {
         if (confirm) {
             if (paketData && dewasaData.length > 0) {
                 const purchaseID = generatePurchaseID()
-                const dataPembelian = {
+                const dataPembelian: DataPembelian = {
                     purchaseID: purchaseID,
                     paketID: paketData.paketID,
                     UID: user?.uid,

@@ -3,6 +3,7 @@ import React, { useContext, createContext, useState, ReactNode, useEffect } from
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User } from "firebase/auth";
 import { auth, firestore } from "@/db/firebase";
 import {collection, doc, getDoc, getDocs, setDoc, updateDoc} from "firebase/firestore";
+import {DataPembelian} from "@/app/paket/[title]/paymentpage/page";
 
 interface AuthContextType {
     user: User | null;
@@ -74,7 +75,7 @@ export const UserAuth = () => {
 };
 
 
-export async function addPurchase(dataPembelian: any) {
+export async function addPurchase(dataPembelian: DataPembelian) {
     const userRef = doc(firestore, "pembelian", dataPembelian.purchaseID);
     const userSnapshot = await getDoc(userRef);
 
@@ -91,8 +92,9 @@ export async function addPurchase(dataPembelian: any) {
             tanggalPemesanan: dataPembelian.tanggalPemesanan,
             urlBuktiPembayaran: dataPembelian.urlBuktiPembayaran
         });
-        await addPurchaseToHistory(dataPembelian.UID, dataPembelian.purchaseID)
-        await ubahSisaSeat(dataPembelian.paketID)
+        await addPurchaseToHistory(dataPembelian.UID || "", dataPembelian.purchaseID)
+        const jumlahJamaah = dataPembelian.detailJamaah.anak.length + dataPembelian.detailJamaah.dewasa.length
+        await ubahSisaSeat(dataPembelian.paketID, jumlahJamaah)
         alert("Data added successfully!");
     } else {
         alert("User data already exists in Firestore!");
@@ -139,7 +141,7 @@ export const addBuktiPembelian = async (purchaseID:string, urlBuktiPembayaran:st
     }
 };
 
-export const ubahSisaSeat = async (paketID: string) => {
+export const ubahSisaSeat = async (paketID: string, jumlahPesanSeat: number) => {
     const userRef = doc(firestore, "paket", paketID);
     try {
         const userDoc = await getDoc(userRef);
@@ -147,7 +149,7 @@ export const ubahSisaSeat = async (paketID: string) => {
             const currentSeat = userDoc.data().remainingseat || 0;
             if (currentSeat > 0) {
                 await updateDoc(userRef, {
-                    remainingseat: currentSeat - 1,
+                    remainingseat: currentSeat - jumlahPesanSeat,
                 });
                 console.log("Sisa kursi berhasil diperbarui.");
             } else {
@@ -171,6 +173,5 @@ export const ambilSemuaPaket = async () => {
         );
     });
 
-    // console.log(paketArray)
     return paketArray;
 };
