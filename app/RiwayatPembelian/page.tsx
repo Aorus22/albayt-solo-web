@@ -55,7 +55,7 @@ const page = () => {
                             </div>
 
                             <div className='mt-2 mb-6 md:mb-1'>
-                                <p className='font-bold text-[14px] md:text-[16px]'>{beli.detailPaket.title}</p>
+                                <p className='font-bold text-[14px] md:text-[16px]'>{beli.detailPaket?.title}</p>
                                 <p className='font-medium text-[12px] md:text-[14px] text-gray-50 text-justify w-full md:w-[70%]'>Lorem
                                     ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum aliquid modi
                                     architecto vel delectus, tenetur ad odio nihil ut ab ipsa vero doloremque quos rem
