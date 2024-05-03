@@ -2,7 +2,7 @@
 import React, { useContext, createContext, useState, ReactNode, useEffect } from "react";
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User } from "firebase/auth";
 import { auth, firestore } from "@/db/firebase";
-import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, setDoc, updateDoc} from "firebase/firestore";
 
 interface AuthContextType {
     user: User | null;
@@ -159,4 +159,18 @@ export const ubahSisaSeat = async (paketID: string) => {
     } catch (error) {
         console.error("Error updating purchase status:", error);
     }
+};
+
+export const ambilSemuaPaket = async () => {
+    const querySnapshot = await getDocs(collection(firestore, 'paket'));
+    const paketArray: any[] = [];
+
+    querySnapshot.forEach((doc) => {
+        paketArray.push(
+            doc.data()
+        );
+    });
+
+    // console.log(paketArray)
+    return paketArray;
 };

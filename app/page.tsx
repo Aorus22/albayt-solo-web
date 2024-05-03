@@ -9,6 +9,7 @@ import WhyUs from '@/Components/WhyUs'
 import "./globals.css";
 import {useEffect, useState} from "react";
 import LoadingBar from "@/Components/LoadingBar";
+import {ambilSemuaPaket} from "@/context/AuthContext";
 
 const page = () => {
     const [isLoading, setLoading ] = useState<boolean>(true)
@@ -16,12 +17,12 @@ const page = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`/api/paket/`);
-                if (!response.ok) {
-                    console.log('Failed to fetch data');
-                }
-                const data = await response.json();
-                sessionStorage.setItem("paket", JSON.stringify(data))
+                const response = await ambilSemuaPaket();
+                // if (!response.ok) {
+                //     console.log('Failed to fetch data');
+                // }
+                // const data = await response.json();
+                sessionStorage.setItem("paket", JSON.stringify(response))
                 setLoading(false);
 
             } catch (error) {
@@ -30,6 +31,7 @@ const page = () => {
         };
         fetchData().then();
     }, []);
+
 
   return (
     <>
