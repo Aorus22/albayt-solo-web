@@ -28,15 +28,16 @@ export type PackageProps = {
     lokasiberangkat: string;
     harga_dp: number;
     maskapai: string;
+    thumbnail: string;
 }
 
-const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalseat, remainingseat, lokasiberangkat, harga_dp}: PackageProps) => {
+const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalseat, remainingseat, lokasiberangkat, harga_dp, thumbnail}: PackageProps) => {
     return (
     <Link href={`/paket/${paketID}`}>
         <div>
             <div className='bg-white border shadow-lg h-full rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
                 <div className='flexCenter'>
-                    <img src={img} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
+                    <img src={thumbnail} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
                 </div>
                 <div className='mx-4 mt-4'>
                     <div className='text-center items-center'>

@@ -52,6 +52,7 @@ const PaketAlbayt = () => {
               lokasiberangkat={paket.lokasiberangkat}
               harga_dp={paket.harga_dp}
               maskapai={paket.maskapai}
+              thumbnail={paket.thumbnail}
             />
           ))}
         </div>
