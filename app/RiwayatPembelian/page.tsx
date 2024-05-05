@@ -55,8 +55,15 @@ const page = () => {
                             </div>
 
                             <div className='mt-2 mb-6 md:mb-1'>
-                                <p className='font-bold text-[14px] md:text-[16px]'>{beli.detailPaket?.title}</p>
-                                <p className='font-medium text-[12px] md:text-[14px] text-gray-50 text-justify w-full md:w-[70%]'></p>
+                                <p className='font-medium text-[12px] md:text-[14px] text-gray-50 text-justify w-full md:w-[70%]'>
+                                    {beli.detailPembelian.detailJamaah && beli.detailPembelian.detailJamaah.dewasa ? (beli.detailPembelian.detailJamaah.dewasa.length + (beli.detailPembelian.detailJamaah.anak?.length || 0)) :'0'}x Paket {beli.detailPaket?.title}
+                                </p>
+                                <p className='font-medium text-[12px] md:text-[14px] text-gray-50 text-justify w-full md:w-[70%]'>
+                                {beli.detailPembelian.detailJamaah && beli.detailPembelian.detailJamaah.dewasa && beli.detailPembelian.detailJamaah.dewasa.length > 0 &&
+                                     `${beli.detailPembelian.detailJamaah.dewasa.length} seat untuk jamaah dewasa`}
+                                {beli.detailPembelian.detailJamaah && beli.detailPembelian.detailJamaah.anak && beli.detailPembelian.detailJamaah.anak.length > 0 &&
+                                    ` & ${beli.detailPembelian.detailJamaah.anak.length} seat untuk jamaah anak-anak`}
+                                </p>
                             </div>
 
                             <div className='flex flex-col place-items-end'>
