@@ -7,7 +7,7 @@ import React from "react";
 import FacebookPixel from "@/Components/FacebookPixel";
 
 export const metadata: Metadata = {
-    title: "Albayt Tours & Travel Solo",
+    title: "Albayt Tour & Travel Solo",
     description: "Travel, Haji, dan Umroh",
 };
 
