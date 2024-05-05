@@ -148,7 +148,7 @@ const Order = () => {
                 ))}
             </div>
             <div className="my-8 w-full flex justify-end" onClick={handleBayarSekarang}>
-                <button className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4">
+                <button className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4 duration-200 hover:bg-black">
                     Bayar Sekarang
                 </button>
             </div>
