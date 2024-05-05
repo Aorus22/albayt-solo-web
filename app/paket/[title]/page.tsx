@@ -206,8 +206,8 @@ export default function Paket() {
       {isLoading ? (<LoadingBar />) : (
           <div>
             {!boxPemesananVisible && isScrolled &&
-                <div className={'fixed h-full w-full z-50 flex md:hidden items-end'}>
-                  <div className={'mb-20 w-full flex h-20 justify-center items-center'}>
+                <div className={'fixed h-full w-full z-50 flex md:hidden'}>
+                  <div className={'fixed w-full flex h-20 justify-center items-center bottom-1'}>
                     <div className='w-1/2 h-full mt-6 space-x-4'>
                       <div
                           className="flex bg-[#208942] text-gray font-semibold py-2 px-4 rounded items-center justify-center space-x-4 text-zinc-50 h-full w-full">
