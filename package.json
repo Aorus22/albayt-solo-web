@@ -14,6 +14,7 @@
     "@heroicons/react": "^1.0.6",
     "@mantine/carousel": "^7.6.2",
     "@mui/material": "^5.15.15",
+    "animate.css": "^4.1.1",
     "date-fns": "^3.6.0",
     "embla-carousel": "^8.0.0",
     "embla-carousel-autoplay": "^8.0.0",

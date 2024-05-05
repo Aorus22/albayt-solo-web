@@ -6,6 +6,7 @@ import {PackageProps} from "@/Components/Card_Paket";
 import {addPurchase, UserAuth} from "@/context/AuthContext";
 import {useParams, useRouter} from "next/navigation";
 import Image from "next/image";
+import {usePaketContext} from "@/context/PaketContext";
 
 export interface DewasaData {
     nama: string;
@@ -35,19 +36,21 @@ const Order = () => {
    const router = useRouter();
    const params = useParams()
    const { user } = UserAuth()
-   const [paketData, setPaketData] = useState<PackageProps>();
+    const { paket : allPaket } = usePaketContext();
+    const [paketData, setPaketData] = useState<PackageProps>();
+
    const [dewasaData, setDewasaData] = useState<DewasaData[]>([]);
    const [anakData, setAnakData] = useState<AnakData[]>([]);
    const [selectedPembayaran, setSelectedValue] = React.useState('');
    const [showConfirmation, setShowConfirmation] = useState(false);
 
     useEffect(() => {
-        const data_paket = sessionStorage.getItem('paket');
-        if (data_paket) {
-            const parsedData = JSON.parse(data_paket);
-            const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
-            setPaketData(currentPaket);
-        }
+        // const data_paket = sessionStorage.getItem('paket');
+        // if (data_paket) {
+        //     const parsedData = JSON.parse(data_paket);
+        //     const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
+        //     setPaketData(currentPaket);
+        // }
 
         const data_jamaah = sessionStorage.getItem('jamaahData')
         if (data_jamaah) {
@@ -57,6 +60,11 @@ const Order = () => {
         }
 
     }, []);
+
+    useEffect(() => {
+        const currentPaket = allPaket?.find((paket: PackageProps) => paket.paketID === params.title)
+        setPaketData(currentPaket);
+    }, [allPaket]);
 
     const dewasaCount = dewasaData.length
     const anakCount = anakData.length
