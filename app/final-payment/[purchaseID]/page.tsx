@@ -128,9 +128,9 @@ const Order = () => {
                                 </p>
                                 <div className="flex gap-2 items-center">
                                     <img src={currentBank?.img} alt="logo-bank" className="h-7 w-7" />
-                                    <p className="font-bold text-lg">{currentBank?.nama}</p>
+                                    <p className="font-bold text-[14px]">{currentBank?.nama}</p>
                                 </div>
-                                <div className="font-medium text-xl">No Rek: {currentBank?.rekening}</div>
+                                <div className="font-medium text-[16px]">No Rek: {currentBank?.rekening}</div>
                             </div>
                             <div className="border rounded border-[rgba(0,0,0,0.16)] mt-4 justify-center bg-white p-6 shadow">
                                 <p className="font-bold block text-2xl mb-4 text-[#f14310]">
