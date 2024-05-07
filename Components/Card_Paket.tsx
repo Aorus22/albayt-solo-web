@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Seatbar_Alt from './Seatbar_Alt';
 
 export type HargaProps = {
@@ -32,6 +32,22 @@ export type PackageProps = {
 }
 
 const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalseat, remainingseat, lokasiberangkat, harga_dp, thumbnail}: PackageProps) => {
+    const [exchangeRate, setExchangeRate] = useState(null);
+
+    useEffect(() => {
+        const fetchExchangeRate = async () => {
+          try {
+            const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+            const data = await response.json();
+            setExchangeRate(data.rates.IDR);
+          } catch (error) {
+            console.error('Failed to fetch exchange rate:', error);
+          }
+        };
+    
+        fetchExchangeRate().then();
+      }, []);
+
     return (
     <Link href={`/paket/${paketID}`}>
         <div>
@@ -105,9 +121,9 @@ const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalsea
                                         {item.nominal.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
                                     </p>
                                 )}
-                                {item.currency === 'usd' && (
+                                {item.currency === 'usd' && exchangeRate && (
                                     <p className='font-bold text-[#f14310]'>
-                                        {item.nominal.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                                        {(item.nominal * exchangeRate).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
                                     </p>
                                 )}
                                 <p className='font-medium text-[#f14310]'>{item.tipe}</p>
