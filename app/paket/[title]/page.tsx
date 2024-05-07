@@ -15,14 +15,13 @@ export default function Paket() {
     const params = useParams();
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
 
-    const { paket : allPaket } = usePaketContext();
+    const { paket : allPaket, exchangeRate : exchangeRate } = usePaketContext();
     const [paketData, setPaketData] = useState<PackageProps>();
 
     const boxPemesananMobileRef = useRef<HTMLDivElement>(null);
     const [boxPemesananVisible, setBoxPemesananVisible] = useState<boolean>(false);
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isLoading, setLoading ] = useState<boolean>(true)
-    const [exchangeRate, setExchangeRate] = useState(null);
 
     useEffect(() => {
       const currentPaket = allPaket?.find((paket: PackageProps) => paket.paketID === params.title)
@@ -95,20 +94,6 @@ export default function Paket() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
-
-  useEffect(() => {
-    const fetchExchangeRate = async () => {
-      try {
-        const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-        const data = await response.json();
-        setExchangeRate(data.rates.IDR);
-      } catch (error) {
-        console.error('Failed to fetch exchange rate:', error);
-      }
-    };
-
-    fetchExchangeRate().then();
   }, []);
 
     const currentPage = paketData;
@@ -308,7 +293,7 @@ export default function Paket() {
                             <path
                                 d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
                           </svg>
-                          {/*{currentPage?.hotel}*/}
+                          {currentPage?.hotel[0].bintang}
                         </div>
                       </div>
                     </div>
@@ -360,9 +345,18 @@ export default function Paket() {
 
                     <div className='w-full'>
                       {currentPage?.hotel?.map((item: HotelProps, index: number) => (
-                          <div key={index} className='my-3'>
-                            <p className='font-bold mb-2'>{item.nama_hotel}</p>
-                            <div className='grid xl:grid-cols-3 sm:grid-cols-1 gap-4'>
+                          <div key={index} className='mt-3 mb-10'>
+                            <p className="font-bold mb-4 flex">{item.nama_hotel} ({item.bintang}
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                   style={{fill: 'gold', transform: '', msFilter: ''}}>
+                                <path
+                                    d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"
+                                />
+                              </svg>
+                              )
+                            </p>
+
+                            <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
                               {item.url_hotel?.map((imageUrl: string, i) => (
                                   <img key={i} className='xl:w-full h-32 object-cover' alt={`hotel ${index}`}
                                        src={imageUrl}></img>
@@ -380,11 +374,11 @@ export default function Paket() {
                     </p>
                     <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
                     {TESTIMONI.map((testi) => (
-                    
-                      <div key={testi.key} className='border-b-2 pb-10 pl-4 mt-4'>
-                        <p className='text-lg'>{testi.nama}</p>
-                        <div className='flex mb-4'>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+
+                        <div key={testi.key} className='border-b-2 pb-10 pl-4 mt-4'>
+                          <p className='text-lg'>{testi.nama}</p>
+                          <div className='flex mb-4'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                               style={{fill: 'gold', transform: '', msFilter: ''}}>
                             <path
                                 d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>

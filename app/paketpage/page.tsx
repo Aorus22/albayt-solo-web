@@ -200,22 +200,10 @@ function PaketPage() {
         {isLoading ? (<LoadingBar/>) : (
             <section className="py-7">
               <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
-                {(filteredData ? filteredData : data ? data : []).filter((paket: any) => paket.remainingseat > 0).map((paket: any) => (
+                {(filteredData ? filteredData : data ? data : []).map((paket: any) => (
                     <Card_Paket
                         key={paket.paketID}
-                        paketID={paket.paketID}
-                        img={paket.img}
-                        harga={paket.harga}
-                        title={paket.title}
-                        jadwal={paket.jadwal}
-                        durasi={paket.durasi}
-                        hotel={paket.hotel}
-                        totalseat={paket.totalseat}
-                        remainingseat={paket.remainingseat}
-                        lokasiberangkat={paket.lokasiberangkat}
-                        harga_dp={paket.harga_dp}
-                        maskapai={paket.maskapai}
-                        thumbnail={paket.thumbnail}
+                        paket={paket}
                     />
                 ))}
               </div>

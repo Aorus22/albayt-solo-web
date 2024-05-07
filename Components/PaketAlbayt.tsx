@@ -1,7 +1,7 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import Card_Paket from './Card_Paket'
-import Template_form from './Template_form'
+// import Template_form from './Template_form'
 import Link from 'next/link'
 import {usePaketContext} from "@/context/PaketContext";
 import LoadingBar from "@/Components/LoadingBar";
@@ -55,22 +55,10 @@ const PaketAlbayt = () => {
 
               {/* ISI KONTEN / CARD */}
               <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
-                {data?.filter(paket => paket.remainingseat > 0).slice(0, 6).map((paket) => (
+                {data?.slice(0, 6).map((paket) => (
                     <Card_Paket
                         key={paket.paketID}
-                        paketID={paket.paketID}
-                        img={paket.img}
-                        harga={paket.harga}
-                        title={paket.title}
-                        jadwal={paket.jadwal}
-                        durasi={paket.durasi}
-                        hotel={paket.hotel}
-                        totalseat={paket.totalseat}
-                        remainingseat={paket.remainingseat}
-                        lokasiberangkat={paket.lokasiberangkat}
-                        harga_dp={paket.harga_dp}
-                        maskapai={paket.maskapai}
-                        thumbnail={paket.thumbnail}
+                        paket = {paket}
                     />
                 ))}
               </div>

@@ -2,7 +2,7 @@
 import React, { useContext, createContext, useState, ReactNode, useEffect } from "react";
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User } from "firebase/auth";
 import { auth, firestore } from "@/db/firebase";
-import {collection, doc, getDoc, getDocs, setDoc, updateDoc} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, setDoc, updateDoc, where, query} from "firebase/firestore";
 import {DataPembelian} from "@/app/paket/[title]/paymentpage/page";
 
 interface AuthContextType {
@@ -164,13 +164,14 @@ export const ubahSisaSeat = async (paketID: string, jumlahPesanSeat: number) => 
 };
 
 export const ambilSemuaPaket = async () => {
-    const querySnapshot = await getDocs(collection(firestore, 'paket'));
+    const q = query(collection(firestore, 'paket'), where('remainingseat', '>', 0));
+
+    // Mengambil data sesuai query
+    const querySnapshot = await getDocs(q);
     const paketArray: any[] = [];
 
     querySnapshot.forEach((doc) => {
-        paketArray.push(
-            doc.data()
-        );
+        paketArray.push(doc.data());
     });
 
     return paketArray;

@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Seatbar_Alt from './Seatbar_Alt';
+import {usePaketContext} from "@/context/PaketContext";
 
 export type HargaProps = {
     tipe:string,
@@ -31,33 +31,19 @@ export type PackageProps = {
     thumbnail: string;
 }
 
-const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalseat, remainingseat, lokasiberangkat, harga_dp, thumbnail}: PackageProps) => {
-    const [exchangeRate, setExchangeRate] = useState(null);
-
-    useEffect(() => {
-        const fetchExchangeRate = async () => {
-          try {
-            const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-            const data = await response.json();
-            setExchangeRate(data.rates.IDR);
-          } catch (error) {
-            console.error('Failed to fetch exchange rate:', error);
-          }
-        };
-    
-        fetchExchangeRate().then();
-      }, []);
+const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
+    const {exchangeRate: exchangeRate} = usePaketContext()
 
     return (
-    <Link href={`/paket/${paketID}`}>
+    <Link href={`/paket/${paket.paketID}`}>
         <div>
             <div className='bg-white border shadow-lg h-full rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
                 <div className='flexCenter'>
-                    <img src={thumbnail} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
+                    <img src={paket.thumbnail} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
                 </div>
                 <div className='mx-4 mt-4'>
                     <div className='text-center items-center'>
-                        <h1 className='font-bold text-[16px] text-[#89060b]'>{title}</h1>
+                        <h1 className='font-bold text-[16px] text-[#89060b]'>{paket.title}</h1>
                     </div>
                     <div className='my-3'>
 
@@ -67,7 +53,7 @@ const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalsea
                                 <p>Jadwal Keberangkatan</p>
                             </div>
                             <div className='font-bold'>
-                                <p>{jadwal}</p>
+                                <p>{paket.jadwal}</p>
                             </div>
                         </div>
 
@@ -77,7 +63,7 @@ const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalsea
                                 <p>Durasi Perjalanan</p>
                             </div>
                             <div className='font-bold'>
-                                <p>{durasi} hari</p>
+                                <p>{paket.durasi} hari</p>
                             </div>
                         </div>
 
@@ -88,7 +74,7 @@ const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalsea
                             </div>
                             <div className='font-bold flex items-center gap-2'>
                                 <svg width="24" height="24" clipRule="evenodd" fillRule="evenodd" strokeLinejoin="round" strokeMiterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className='fill-gray-50'><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44zm.678 2.033-2.361 4.792-5.246.719 3.848 3.643-.948 5.255 4.707-2.505 4.707 2.505-.951-5.236 3.851-3.662-5.314-.756z" fillRule="nonzero"/></svg>
-                                <p>{hotel[0].bintang}</p>
+                                <p>{paket.hotel[0].bintang}</p>
                             </div>
                         </div>
 
@@ -98,7 +84,7 @@ const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalsea
                                 <p>Lokasi Keberangkatan</p>
                             </div>
                             <div className='font-bold'>
-                                <p>{lokasiberangkat}</p>
+                                <p>{paket.lokasiberangkat}</p>
                             </div>
                         </div>
 
@@ -108,13 +94,13 @@ const Card_Paket = ({paketID, img, harga, title, jadwal, durasi, hotel, totalsea
                                 <p>Total Seat</p>
                             </div>
                             <div className='font-bold'>
-                                <p>{totalseat} pax</p>
+                                <p>{paket.totalseat} pax</p>
                             </div>
                         </div>
 
-                        <Seatbar_Alt totalSeat={totalseat} remainingSeat={remainingseat} />
+                        <Seatbar_Alt totalSeat={paket.totalseat} remainingSeat={paket.remainingseat} />
 
-                        {harga?.map((item: HargaProps, index) => (
+                        {paket.harga?.map((item: HargaProps, index) => (
                             <div key={index} className='flexBetween mt-2 mb-2'>
                                 {item.currency === 'idr' && (
                                     <p className='font-bold text-[#f14310]'>
