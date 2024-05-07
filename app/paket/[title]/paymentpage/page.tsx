@@ -6,6 +6,7 @@ import {PackageProps} from "@/Components/Card_Paket";
 import {addPurchase, UserAuth} from "@/context/AuthContext";
 import {useParams, useRouter} from "next/navigation";
 import Image from "next/image";
+import {usePaketContext} from "@/context/PaketContext";
 
 export interface DewasaData {
     nama: string;
@@ -35,19 +36,21 @@ const Order = () => {
    const router = useRouter();
    const params = useParams()
    const { user } = UserAuth()
-   const [paketData, setPaketData] = useState<PackageProps>();
+    const { paket : allPaket } = usePaketContext();
+    const [paketData, setPaketData] = useState<PackageProps>();
+
    const [dewasaData, setDewasaData] = useState<DewasaData[]>([]);
    const [anakData, setAnakData] = useState<AnakData[]>([]);
    const [selectedPembayaran, setSelectedValue] = React.useState('');
    const [showConfirmation, setShowConfirmation] = useState(false);
 
     useEffect(() => {
-        const data_paket = sessionStorage.getItem('paket');
-        if (data_paket) {
-            const parsedData = JSON.parse(data_paket);
-            const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
-            setPaketData(currentPaket);
-        }
+        // const data_paket = sessionStorage.getItem('paket');
+        // if (data_paket) {
+        //     const parsedData = JSON.parse(data_paket);
+        //     const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
+        //     setPaketData(currentPaket);
+        // }
 
         const data_jamaah = sessionStorage.getItem('jamaahData')
         if (data_jamaah) {
@@ -57,6 +60,11 @@ const Order = () => {
         }
 
     }, []);
+
+    useEffect(() => {
+        const currentPaket = allPaket?.find((paket: PackageProps) => paket.paketID === params.title)
+        setPaketData(currentPaket);
+    }, [allPaket]);
 
     const dewasaCount = dewasaData.length
     const anakCount = anakData.length
@@ -148,7 +156,7 @@ const Order = () => {
                 ))}
             </div>
             <div className="my-8 w-full flex justify-end" onClick={handleBayarSekarang}>
-                <button className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4">
+                <button className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4 duration-200 hover:bg-black">
                     Bayar Sekarang
                 </button>
             </div>
@@ -223,11 +231,11 @@ const Order = () => {
 
         {showConfirmation && (
             <div className="fixed inset-0 z-10 overflow-y-auto bg-gray-500 bg-opacity-50 flex justify-center items-center">
-                <div className="bg-white p-8 rounded-md shadow-md w-[50%]">
-                    <p className="text-md font-semibold mb-7">Apakah Anda yakin ingin melakukan pembayaran? Harap periksa kembali data yang anda masukkan, pastikan data tersebut sudah benar.</p>
+                <div className="bg-white p-8 rounded-md shadow-md w-[80%] lg:w-[50%]">
+                    <p className="text-[12px] lg:text-[16px] font-semibold mb-7 text-justify">Apakah Anda yakin ingin melakukan pembayaran? Harap periksa kembali data yang anda masukkan, pastikan data tersebut sudah benar.</p>
                     <div className="flex justify-end">
-                        <button onClick={() => handleKonfirmasiPembayaran(true)} className="px-4 py-2 bg-green-500 hover:bg-green-800 text-white rounded-md mr-4">Ya</button>
-                        <button onClick={() => handleKonfirmasiPembayaran(false)} className="px-4 py-2 bg-red-500 hover:bg-red-800 text-white rounded-md">Tidak</button>
+                        <button onClick={() => handleKonfirmasiPembayaran(true)} className="px-4 py-2 bg-green-500 hover:bg-green-800 text-white rounded-md mr-4 text-[12px] lg:text-[16px]">Ya</button>
+                        <button onClick={() => handleKonfirmasiPembayaran(false)} className="px-4 py-2 bg-red-500 hover:bg-red-800 text-white rounded-md text-[12px] lg:text-[16px]">Tidak</button>
                     </div>
                 </div>
             </div>

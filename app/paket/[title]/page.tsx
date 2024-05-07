@@ -9,12 +9,15 @@ import Seatbar_Alt from '@/Components/Seatbar_Alt';
 import LoadingBar from '@/Components/LoadingBar';
 import { FASILITAS_PAKET, TESTIMONI } from '@/constants';
 import {HargaProps, HotelProps, PackageProps} from "@/Components/Card_Paket";
+import {usePaketContext} from "@/context/PaketContext";
 
 export default function Paket() {
     const params = useParams();
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
 
+    const { paket : allPaket } = usePaketContext();
     const [paketData, setPaketData] = useState<PackageProps>();
+
     const boxPemesananMobileRef = useRef<HTMLDivElement>(null);
     const [boxPemesananVisible, setBoxPemesananVisible] = useState<boolean>(false);
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -22,32 +25,38 @@ export default function Paket() {
     const [exchangeRate, setExchangeRate] = useState(null);
 
     useEffect(() => {
-      const data_paket = sessionStorage.getItem('paket');
-      if (data_paket) {
-        const parsedData = JSON.parse(data_paket);
-        const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
-        setPaketData(currentPaket);
-        setLoading(false);
-      } else {
+      const currentPaket = allPaket?.find((paket: PackageProps) => paket.paketID === params.title)
+      setPaketData(currentPaket);
+      setLoading(false)
+    }, [allPaket]);
 
-      }
-
-      const fetchData = async () => {
-        try {
-          const response = await fetch(`/api/paket/${params.title}`);
-          if (!response.ok) {
-            console.log('Failed to fetch paketData');
-          }
-          const paketData = await response.json();
-          setPaketData(paketData);
-        } catch (Error) {
-          console.error('Error fetching paketData:', Error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      // fetchData().then();//
-    }, []);
+    // useEffect(() => {
+    //   const data_paket = sessionStorage.getItem('paket');
+    //   if (data_paket) {
+    //     const parsedData = JSON.parse(data_paket);
+    //     const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
+    //     setPaketData(currentPaket);
+    //     setLoading(false);
+    //   } else {
+    //
+    //   }
+    //
+    //   const fetchData = async () => {
+    //     try {
+    //       const response = await fetch(`/api/paket/${params.title}`);
+    //       if (!response.ok) {
+    //         console.log('Failed to fetch paketData');
+    //       }
+    //       const paketData = await response.json();
+    //       setPaketData(paketData);
+    //     } catch (Error) {
+    //       console.error('Error fetching paketData:', Error);
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
+    //   // fetchData().then();//
+    // }, []);
 
     useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
@@ -69,7 +78,7 @@ export default function Paket() {
           observer.unobserve(boxPemesananMobile);
         }
       };
-    }, [boxPemesananMobileRef]);
+    }, [boxPemesananMobileRef, isLoading]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -148,7 +157,7 @@ export default function Paket() {
                 </div>
               </div>
               <div className="mt-4 h-1 w-[60%] rounded opacity-40 bg-slate-950"></div>
-              <Link href='https://wa.me/628122586045' className='w-full' target='_blank' rel="noopener noreferrer">
+              <Link href={`https://wa.me/628122586045?text=Assalammu'alaikum Al-Bayt Solo. Saya ingin mengetahui lebih lanjut paket dari website  yaitu paket ${currentPage?.title}. Apakah bisa dijelaskan lebih lanjut ?`} className='w-full' target='_blank' rel="noopener noreferrer">
                 <div
                     className="flex items-center bg-[#208942] text-gray font-semibold py-2 px-4 rounded justify-center space-x-4 text-zinc-50 w-full mt-3 duration-200 hover:bg-black">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -197,8 +206,8 @@ export default function Paket() {
       {isLoading ? (<LoadingBar />) : (
           <div>
             {!boxPemesananVisible && isScrolled &&
-                <div className={'fixed h-full w-full z-50 flex md:hidden items-end'}>
-                  <div className={'mb-20 w-full flex h-20 justify-center items-center'}>
+                <div className={'fixed h-full w-full z-50 flex md:hidden'}>
+                  <div className={'fixed w-full flex h-20 justify-center items-center bottom-1'}>
                     <div className='w-1/2 h-full mt-6 space-x-4'>
                       <div
                           className="flex bg-[#208942] text-gray font-semibold py-2 px-4 rounded items-center justify-center space-x-4 text-zinc-50 h-full w-full">
@@ -371,7 +380,6 @@ export default function Paket() {
                     </p>
                     <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
                     {TESTIMONI.map((testi) => (
-
                     
                       <div key={testi.key} className='border-b-2 pb-10 pl-4 mt-4'>
                         <p className='text-lg'>{testi.nama}</p>
