@@ -5,6 +5,7 @@ import {useParams} from "next/navigation";
 import {PackageProps} from "@/Components/Card_Paket";
 import Link from "next/link";
 import LoadingBar from '@/Components/LoadingBar';
+import "animate.css/animate.min.css";
 
 interface Anak {
   nama: string;
@@ -73,7 +74,7 @@ const page = () => {
   return (
     <div>
       {isLoading ? (<LoadingBar />) : (
-        <section className='max-container padding-container py-8'>
+        <section className='max-container padding-container py-8 animate__animated animate__fadeInUp'>
           <h1 className='font-bold text-[#f14310] text-4xl lg:text-5xl text-center'>DETAIL TRANSAKSI</h1>
           <div className='lg:mx-72 p-6 border rounded-xl my-10'>
             <div className='flex flex-col gap-5 mx-50'>

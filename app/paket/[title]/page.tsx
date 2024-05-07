@@ -10,6 +10,7 @@ import LoadingBar from '@/Components/LoadingBar';
 import { FASILITAS_PAKET, TESTIMONI } from '@/constants';
 import {HargaProps, HotelProps, PackageProps} from "@/Components/Card_Paket";
 import {usePaketContext} from "@/context/PaketContext";
+import "animate.css/animate.min.css";
 
 export default function Paket() {
     const params = useParams();
@@ -23,39 +24,12 @@ export default function Paket() {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isLoading, setLoading ] = useState<boolean>(true)
 
+
     useEffect(() => {
       const currentPaket = allPaket?.find((paket: PackageProps) => paket.paketID === params.title)
       setPaketData(currentPaket);
       setLoading(false)
     }, [allPaket]);
-
-    // useEffect(() => {
-    //   const data_paket = sessionStorage.getItem('paket');
-    //   if (data_paket) {
-    //     const parsedData = JSON.parse(data_paket);
-    //     const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
-    //     setPaketData(currentPaket);
-    //     setLoading(false);
-    //   } else {
-    //
-    //   }
-    //
-    //   const fetchData = async () => {
-    //     try {
-    //       const response = await fetch(`/api/paket/${params.title}`);
-    //       if (!response.ok) {
-    //         console.log('Failed to fetch paketData');
-    //       }
-    //       const paketData = await response.json();
-    //       setPaketData(paketData);
-    //     } catch (Error) {
-    //       console.error('Error fetching paketData:', Error);
-    //     } finally {
-    //       setLoading(false);
-    //     }
-    //   };
-    //   // fetchData().then();//
-    // }, []);
 
     useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
@@ -96,20 +70,19 @@ export default function Paket() {
     };
   }, []);
 
-    const currentPage = paketData;
-    const hargaArr = currentPage?.harga
+    const hargaArr = paketData?.harga
 
   const boxPemesanan = () => {
       return (
           <div>
             <div className="bg-white border-[rgba(0,0,0,0.16)] shadow-2xl flex flex-col justify-center items-center rounded-2xl w-[100%] h-fit p-10">
-              <h1 className='font-bold text-center text-lg mb-5'>{currentPage?.title}</h1>
-              <Seatbar_Alt totalSeat={currentPage?.totalseat || 0 } remainingSeat={currentPage?.remainingseat || 0 }></Seatbar_Alt>
+              <h1 className='font-bold text-center text-lg mb-5'>{paketData?.title}</h1>
+              <Seatbar_Alt totalSeat={paketData?.totalseat || 0 } remainingSeat={paketData?.remainingseat || 0 }></Seatbar_Alt>
               <div className='border-gray-20 rounded-2xl px-4 my-3 w-full bg-slate-100 mb-6'>
                 <div className='flex items-center my-2'>
                   <div className='w-full text-2xl font-bold text-yellow-600 text-center'>
                     <p>DP </p>
-                    <p>{currentPage?.harga_dp?.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})}</p>
+                    <p>{paketData?.harga_dp?.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})}</p>
                   </div>
                 </div>
                 <div>
@@ -142,7 +115,7 @@ export default function Paket() {
                 </div>
               </div>
               <div className="mt-4 h-1 w-[60%] rounded opacity-40 bg-slate-950"></div>
-              <Link href={`https://wa.me/628122586045?text=Assalammu'alaikum Al-Bayt Solo. Saya ingin mengetahui lebih lanjut paket dari website  yaitu paket ${currentPage?.title}. Apakah bisa dijelaskan lebih lanjut ?`} className='w-full' target='_blank' rel="noopener noreferrer">
+              <Link href={`https://wa.me/628122586045?text=Assalammu'alaikum Al-Bayt Solo. Saya ingin mengetahui lebih lanjut paket dari website  yaitu paket ${paketData?.title}. Apakah bisa dijelaskan lebih lanjut ?`} className='w-full' target='_blank' rel="noopener noreferrer">
                 <div
                     className="flex items-center bg-[#208942] text-gray font-semibold py-2 px-4 rounded justify-center space-x-4 text-zinc-50 w-full mt-3 duration-200 hover:bg-black">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -220,7 +193,7 @@ export default function Paket() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent"
               }}>
-                  {currentPage?.title}
+                  {paketData?.title}
               </span>
                 </h1>
               </div>
@@ -236,9 +209,9 @@ export default function Paket() {
                       <span>&gt;</span>
                       <Link href={"/paketpage"}> Paket Umroh </Link>
                       <span className='mr-1'>&gt;</span>
-                      <span className='font-semibold'>{currentPage?.title}</span>
+                      <span className='font-semibold'>{paketData?.title}</span>
                     </p>
-                    <img alt="poster" className="block object-cover w-100% rounded-2xl" src={currentPage?.img}>
+                    <img alt="poster" className="block object-cover w-100% rounded-2xl" src={paketData?.img}>
                     </img>
                     <div className="mt-5 gap-4 grid grid-cols-2 xl:grid-cols-3 h-fit text-center text-gray">
                       <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
@@ -248,7 +221,7 @@ export default function Paket() {
                               d="M21 20V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2zM9 18H7v-2h2v2zm0-4H7v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm2-5H5V7h14v2z"></path>
                         </svg>
                         <div className='text-[14px] lg:text-lg'>Tanggal Keberangkatan</div>
-                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{currentPage?.jadwal}</div>
+                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{paketData?.jadwal}</div>
                       </div>
                       <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -257,7 +230,7 @@ export default function Paket() {
                               d="M12 2C7.589 2 4 5.589 4 9.995 3.971 16.44 11.696 21.784 12 22c0 0 8.029-5.56 8-12 0-4.411-3.589-8-8-8zM9.799 14.987H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 6l1.799 1.799-1.372 1.371z"></path>
                         </svg>
                         <div className='text-[14px] lg:text-lg' >Lokasi Keberangkatan</div>
-                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{currentPage?.lokasiberangkat}</div>
+                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{paketData?.lokasiberangkat}</div>
                       </div>
                       <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -267,7 +240,7 @@ export default function Paket() {
                           <path d="M13 7h-2v6h6v-2h-4z"></path>
                         </svg>
                         <div className='text-[14px] lg:text-lg'>Durasi Perjalanan</div>
-                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{currentPage?.durasi} hari</div>
+                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{paketData?.durasi} hari</div>
                       </div>
                       <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -276,7 +249,7 @@ export default function Paket() {
                               d="M3.414 13.778 2 15.192l4.949 2.121 2.122 4.95 1.414-1.414-.707-3.536L13.091 14l3.61 7.704 1.339-1.339-1.19-10.123 2.828-2.829a2 2 0 1 0-2.828-2.828l-2.903 2.903L3.824 6.297 2.559 7.563l7.644 3.67-3.253 3.253-3.536-.708z"></path>
                         </svg>
                         <div className='text-[14px] lg:text-lg'>Maskapai</div>
-                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{currentPage?.maskapai}</div>
+                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{paketData?.maskapai}</div>
                       </div>
                       <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -293,7 +266,7 @@ export default function Paket() {
                             <path
                                 d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
                           </svg>
-                          {currentPage?.hotel[0].bintang}
+                          {paketData?.hotel[0].bintang}
                         </div>
                       </div>
                     </div>
@@ -344,7 +317,7 @@ export default function Paket() {
                     {/*</div>*/}
 
                     <div className='w-full'>
-                      {currentPage?.hotel?.map((item: HotelProps, index: number) => (
+                      {paketData?.hotel?.map((item: HotelProps, index: number) => (
                           <div key={index} className='mt-3 mb-10'>
                             <p className="font-bold mb-4 flex">{item.nama_hotel} ({item.bintang}
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -376,7 +349,7 @@ export default function Paket() {
                     {TESTIMONI.map((testi) => (
 
                         <div key={testi.key} className='border-b-2 pb-10 pl-4 mt-4'>
-                          <p className='text-lg'>{testi.nama}</p>
+                          <p className='text-lg font-semibold'>{testi.nama}</p>
                           <div className='flex mb-4'>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                               style={{fill: 'gold', transform: '', msFilter: ''}}>

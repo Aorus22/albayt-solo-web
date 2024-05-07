@@ -7,6 +7,7 @@ import {addPurchase, UserAuth} from "@/context/AuthContext";
 import {useParams, useRouter} from "next/navigation";
 import Image from "next/image";
 import {usePaketContext} from "@/context/PaketContext";
+import "animate.css/animate.min.css";
 
 export interface DewasaData {
     nama: string;
@@ -118,7 +119,7 @@ const Order = () => {
     };
 
   return (
-    <div className="flex flex-col-reverse md:flex-row py-4 max-container padding-container">
+    <div className="flex flex-col-reverse md:flex-row py-4 max-container padding-container animate__animated animate__fadeInUp">
       <div className="md:border-r-2 lg:pl-40 md:pr-4 w-full md:w-[65%] border-opacity-50 mr-8 border-[#89060b]">
         <div>
             <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-6 shadow">

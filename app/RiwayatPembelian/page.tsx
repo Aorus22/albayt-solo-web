@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react'
 import {UserAuth} from "@/context/AuthContext";
 import LoadingBar from "@/Components/LoadingBar";
 import {PurchaseHistory} from "@/app/detailTransaksi/[purchaseID]/page";
+import "animate.css/animate.min.css";
 
 const page = () => {
     const { user } = UserAuth()
@@ -38,7 +39,7 @@ const page = () => {
 
                 <div className='grid grid-cols-1 gap-8 my-10'>
                     {riwayatPembelian.map((beli) => (
-                        <div key={beli.detailPembelian.purchaseID} className='flex flex-col gap-2 border rounded-lg p-6'>
+                        <div key={beli.detailPembelian.purchaseID} className='flex flex-col gap-2 border rounded-lg p-6 animate__animated animate__fadeInUp'>
                             <div
                                 className='grid grid-cols-2 grid-flow gap-3 md:flex items-center text-[14px] md:text-[16px]'>
                                 <div className='flex gap-2 items-center'>
