@@ -145,7 +145,7 @@ const Order = () => {
                                     />
                                     <label
                                         htmlFor="file-upload"
-                                        className="bg-green-500 text-white px-4 py-2 rounded-lg cursor-pointer"
+                                        className="bg-green-500 text-white px-4 py-2 rounded-lg cursor-pointer duration-200 hover:bg-black"
                                     > Pilih File
                                     </label>
                                     {previewUrl && (
@@ -157,7 +157,7 @@ const Order = () => {
                             </div>
         
                             <div className="my-8 w-full flex justify-end">
-                                <button onClick={handleSubmit} className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4">
+                                <button onClick={handleSubmit} className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4 duration-200 hover:bg-black">
                                     Submit
                                 </button>
                             </div>
