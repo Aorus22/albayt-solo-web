@@ -37,7 +37,7 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
     return (
     <Link href={`/paket/${paket.paketID}`}>
         <div>
-            <div className='bg-white border shadow-lg h-full rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
+            <div className='bg-white border shadow-lg h-[37rem] rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
                 <div className='flexCenter'>
                     <img src={paket.thumbnail} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
                 </div>
