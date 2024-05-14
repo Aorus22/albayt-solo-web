@@ -344,7 +344,7 @@ export default function Paket() {
 
                             <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
                               {item.url_hotel?.map((imageUrl: string, i) => (
-                                  <img key={i} className='xl:w-full h-32 object-cover' alt={`hotel ${index}`}
+                                  <img key={i} className='h-32 aspect-video object-cover' alt={`hotel ${index}`}
                                        src={imageUrl}></img>
                               ))}
                             </div>
