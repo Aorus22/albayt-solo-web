@@ -142,5 +142,5 @@ export const ambilRiwayatPembelian = async (userID: string) => {
             purchaseDetails.push(data)
         }
     }
-    return purchaseDetails
+    return purchaseDetails.reverse()
 }

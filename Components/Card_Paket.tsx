@@ -52,7 +52,7 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
                         <div className='flexBetween items-center text-[13px] md:text-[15px] text-gray-50 my-4'>
                             <div className='flex gap-2 items-center'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='fill-gray-50'><path d="M20 20h-4v-4h4v4zm-6-10h-4v4h4v-4zm6 0h-4v4h4v-4zm-12 6h-4v4h4v-4zm6 0h-4v4h4v-4zm-6-6h-4v4h4v-4zm16-8v22h-24v-22h3v1c0 1.103.897 2 2 2s2-.897 2-2v-1h10v1c0 1.103.897 2 2 2s2-.897 2-2v-1h3zm-2 6h-20v14h20v-14zm-2-7c0-.552-.447-1-1-1s-1 .448-1 1v2c0 .552.447 1 1 1s1-.448 1-1v-2zm-14 2c0 .552-.447 1-1 1s-1-.448-1-1v-2c0-.552.447-1 1-1s1 .448 1 1v2z"/></svg>
-                                <p>Jadwal Keberangkatan</p>
+                                <p>Jadwal</p>
                             </div>
                             <div className='font-bold'>
                                 <p>{date}</p>
@@ -83,7 +83,7 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
                         <div className='flexBetween items-center text-[13px] md:text-[15px] text-gray-50 my-4'>
                             <div className='flex gap-2 items-center'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='fill-gray-50'><path d="M12 2c2.131 0 4 1.73 4 3.702 0 2.05-1.714 4.941-4 8.561-2.286-3.62-4-6.511-4-8.561 0-1.972 1.869-3.702 4-3.702zm0-2c-3.148 0-6 2.553-6 5.702 0 3.148 2.602 6.907 6 12.298 3.398-5.391 6-9.15 6-12.298 0-3.149-2.851-5.702-6-5.702zm0 8c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm8 12c0 2.209-3.581 4-8 4s-8-1.791-8-4c0-1.602 1.888-2.98 4.608-3.619l1.154 1.824c-.401.068-.806.135-1.178.242-3.312.949-3.453 2.109-.021 3.102 2.088.603 4.777.605 6.874-.001 3.619-1.047 3.164-2.275-.268-3.167-.296-.077-.621-.118-.936-.171l1.156-1.828c2.723.638 4.611 2.016 4.611 3.618z"/></svg>
-                                <p>Lokasi Keberangkatan</p>
+                                <p>Kota Keberangkatan</p>
                             </div>
                             <div className='font-bold'>
                                 <p>{paket.lokasiberangkat}</p>
