@@ -4,6 +4,7 @@ import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User 
 import { auth, firestore } from "@/db/firebase";
 import {collection, doc, getDoc, getDocs, setDoc, updateDoc, where, query} from "firebase/firestore";
 import {DataPembelian} from "@/app/paket/[title]/paymentpage/page";
+import {PackageProps} from "@/Components/Card_Paket";
 
 interface AuthContextType {
     user: User | null;
@@ -166,7 +167,6 @@ export const ubahSisaSeat = async (paketID: string, jumlahPesanSeat: number) => 
 export const ambilSemuaPaket = async () => {
     const q = query(collection(firestore, 'paket'), where('remainingseat', '>', 0));
 
-    // Mengambil data sesuai query
     const querySnapshot = await getDocs(q);
     const paketArray: any[] = [];
 
@@ -174,5 +174,5 @@ export const ambilSemuaPaket = async () => {
         paketArray.push(doc.data());
     });
 
-    return paketArray;
+    return paketArray as PackageProps[];
 };

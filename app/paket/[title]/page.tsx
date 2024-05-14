@@ -72,6 +72,15 @@ export default function Paket() {
 
     const hargaArr = paketData?.harga
 
+  let timestamp;
+  if (paketData && paketData.jadwal) {
+    timestamp = paketData.jadwal.toMillis();
+  } else {
+    timestamp = 0;
+  }
+
+  const date = new Date(timestamp).toLocaleString('id-ID', { month: '2-digit', day: '2-digit', year: 'numeric' });
+
   const boxPemesanan = () => {
       return (
           <div>
@@ -225,7 +234,7 @@ export default function Paket() {
                               d="M21 20V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2zM9 18H7v-2h2v2zm0-4H7v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm2-5H5V7h14v2z"></path>
                         </svg>
                         <div className='text-[14px] lg:text-lg'>Tanggal Keberangkatan</div>
-                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{paketData?.jadwal}</div>
+                        <div className="text-[16px] lg:text-lg font-semibold mt-2">{date}</div>
                       </div>
                       <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

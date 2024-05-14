@@ -2,6 +2,8 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Seatbar_Alt from './Seatbar_Alt';
 import {usePaketContext} from "@/context/PaketContext";
+import {firestore} from "firebase-admin";
+import {Timestamp} from "@firebase/firestore-types";
 
 export type HargaProps = {
     tipe:string,
@@ -20,7 +22,7 @@ export type PackageProps = {
     img: string;
     harga: HargaProps[]
     title: string;
-    jadwal: string;
+    jadwal: Timestamp;
     durasi: string;
     hotel: HotelProps[];
     totalseat: number;
@@ -33,6 +35,7 @@ export type PackageProps = {
 
 const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
     const {exchangeRate: exchangeRate} = usePaketContext()
+    const date = new Date(paket.jadwal.seconds * 1000).toLocaleString('id-ID', { month: '2-digit', day: '2-digit', year: 'numeric' });
 
     return (
     <Link href={`/paket/${paket.paketID}`}>
@@ -53,7 +56,7 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
                                 <p>Jadwal Keberangkatan</p>
                             </div>
                             <div className='font-bold'>
-                                <p>{paket.jadwal}</p>
+                                <p>{date}</p>
                             </div>
                         </div>
 
