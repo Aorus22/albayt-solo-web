@@ -197,17 +197,18 @@ export default function Paket() {
                 </div>
             }
 
-            <div className="mt-4 w-full h-[55vh] bg-white bg-fixed mx-auto px-4 bg-cover"
-                 style={{backgroundImage: "url('/images/background1.jpg')"}}>
-              <div className="h-[55vh] flex justify-start items-center sm:p-2 md:p-10">
-                <h1 className="mb-4 text-gray-100 text-2xl md:text-4xl lg:text-6xl font-extrabold ">
-              <span style={{
-                backgroundImage: "linear-gradient(90deg, white, #f14310)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent"
-              }}>
-                  {paketData?.title}
-              </span>
+            <div className="relative mt-4 w-full h-[55vh] bg-fixed mx-auto px-4 bg-cover"
+                style={{backgroundImage: "url('/images/bg-header-paket.jpg')"}}>
+              <div className="absolute inset-0 bg-black opacity-50"></div> {/* Overlay */}
+              <div className="relative h-[55vh] flex justify-start items-center sm:p-2 md:p-10">
+                <h1 className="mb-4 text-gray-100 text-2xl md:text-4xl lg:text-6xl font-extrabold">
+                  <span style={{
+                    backgroundImage: "linear-gradient(90deg, white, #f14310)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent"
+                  }}>
+                    {paketData?.title}
+                  </span>
                 </h1>
               </div>
             </div>
@@ -344,7 +345,7 @@ export default function Paket() {
 
                             <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
                               {item.url_hotel?.map((imageUrl: string, i) => (
-                                  <img key={i} className='xl:w-full h-32 object-cover' alt={`hotel ${index}`}
+                                  <img key={i} className='h-32 aspect-video object-cover' alt={`hotel ${index}`}
                                        src={imageUrl}></img>
                               ))}
                             </div>
