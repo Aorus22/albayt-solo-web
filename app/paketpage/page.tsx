@@ -37,7 +37,7 @@ function PaketPage() {
   const { paket: data } = usePaketContext();
 
   const [lokasiKeberangkatan, setLokasiKeberangkatan] = useState("");
-  const [waktuKeberangkatan, setWaktuKeberangkatan] = useState("");
+  const [waktuKeberangkatan, setWaktuKeberangkatan] = useState(0);
   const [biaya, setBiaya] = useState("");
   const [filteredData, setFilteredData] = useState<PackageProps[] | null>(null);
   const [isLoading, setIsLoading] = useState<Boolean>(true);
@@ -54,10 +54,10 @@ function PaketPage() {
 
     const newData = data?.filter((paket) => {
       const isLokasiMatch = lokasiKeberangkatan === "" || paket.lokasiberangkat.toLowerCase().includes(lokasiKeberangkatan.toLowerCase());
-      const isWaktuMatch = waktuKeberangkatan === "" ||
-          (beforeOption && new Date(paket.jadwal) < new Date(waktuKeberangkatan)) ||
-          (afterOption && new Date(paket.jadwal) > new Date(waktuKeberangkatan)) ||
-          (!beforeOption && !afterOption && paket.jadwal.toLowerCase().includes(waktuKeberangkatan.toLowerCase()));
+      const isWaktuMatch = waktuKeberangkatan === 0 ||
+          (beforeOption && new Date(paket.jadwal.seconds*1000) < new Date(waktuKeberangkatan)) ||
+          (afterOption && new Date(paket.jadwal.seconds*1000) > new Date(waktuKeberangkatan))
+          // (!beforeOption && !afterOption && paket.jadwal.toLowerCase().includes(waktuKeberangkatan.toLowerCase()));
 
       const isBiayaMatch = biaya === "" || paket.harga.some(h => {
         const isCurrencyMatch = h.currency === currencyOption;
@@ -75,7 +75,7 @@ function PaketPage() {
 
   const handleRemoveFilter = () => {
     setLokasiKeberangkatan("");
-    setWaktuKeberangkatan("");
+    setWaktuKeberangkatan(0);
     setBiaya("");
     setFilteredData(null);
   };
@@ -139,8 +139,11 @@ function PaketPage() {
                       name="waktu_keberangkatan"
                       className="shadow appearance-none border rounded justify-start pl-3 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       placeholder="Waktu Keberangkatan"
-                      value={waktuKeberangkatan}
-                      onChange={(e) => setWaktuKeberangkatan(e.target.value)}
+                      value={new Date(waktuKeberangkatan).toString()}
+                      onChange={(e) => {
+                        setWaktuKeberangkatan(Date.parse(e.target.value))
+                      }
+                  }
                   />
 
                 </div>
