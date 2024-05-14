@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react";
 import {DATA_BANK} from "@/constants";
 import {useParams, useRouter} from "next/navigation";
-import {UserAuth, addBuktiPembelian} from "@/context/AuthContext";
+import {UserAuth} from "@/context/AuthContext";
 import {PurchaseHistory} from "@/app/detailTransaksi/[purchaseID]/page";
 import LoadingBar from "@/Components/LoadingBar";
 import "animate.css/animate.min.css";
+import {addBuktiPembelian} from "@/db/query";
 
 const Order = () => {
 

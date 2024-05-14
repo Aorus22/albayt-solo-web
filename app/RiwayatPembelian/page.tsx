@@ -5,6 +5,7 @@ import {UserAuth} from "@/context/AuthContext";
 import LoadingBar from "@/Components/LoadingBar";
 import {PurchaseHistory} from "@/app/detailTransaksi/[purchaseID]/page";
 import "animate.css/animate.min.css";
+import {ambilRiwayatPembelian} from "@/db/query";
 
 const page = () => {
     const { user } = UserAuth()
@@ -14,12 +15,8 @@ const page = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`/api/riwayat_pembelian_user/${user?.uid}`);
-                if (!response.ok) {
-                    console.log('Failed to fetch data');
-                }
-                const data = await response.json();
-                setRiwayatPembelian(data);
+                const response = await ambilRiwayatPembelian(user ? user.uid : "");
+                setRiwayatPembelian(response as PurchaseHistory[]);
             } catch (Error) {
                 console.error('Error fetching data:', Error);
             } finally {
@@ -51,7 +48,12 @@ const page = () => {
                                     <p className='font-semibold whitespace-nowrap md:whitespace-normal'>Uang
                                         Elektronik</p>
                                 </div>
-                                <p className='font-medium justify-self-end'>{new Date(beli.detailPembelian.tanggalPemesanan).toLocaleDateString()}</p>
+                                <p className='font-medium justify-self-end'>
+                                    {beli?.detailPembelian?.tanggalPemesanan?.seconds
+                                        ? new Date(beli.detailPembelian.tanggalPemesanan.seconds * 1000).toLocaleString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false })
+                                        : ''
+                                    }
+                                </p>
                                 <p className={`py-1 px-2 font-bold text-center ${beli.detailPembelian.statusPembayaran === 'Berhasil' ? 'text-green-600 bg-green-100' : beli.detailPembelian.statusPembayaran === 'Menunggu Konfirmasi' ? 'text-yellow-600 bg-yellow-100' : 'text-red-600 bg-red-100'}`}>{beli.detailPembelian.statusPembayaran}</p>
                             </div>
 

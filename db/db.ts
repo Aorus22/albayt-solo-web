@@ -1,9 +1,8 @@
-// src/lib/firebase/firebase-admin.ts
-
 import "server-only";
 
 import {cert, getApps, initializeApp} from "firebase-admin/app";
 import {getFirestore} from "firebase-admin/firestore";
+import {PurchaseDetail} from "@/app/detailTransaksi/[purchaseID]/page";
 
 export const firebaseApp =
   getApps().find((it) => it.name === "firebase-admin-app") ||
@@ -60,7 +59,7 @@ export const fetchDetailPurchase = async(purchaseID: string) => {
     const paketDoc = await getPaket(paketID)
 
     return {
-        detailPembelian: purchaseData,
+        detailPembelian: purchaseData as PurchaseDetail,
         detailPaket: paketDoc
     }
 }

@@ -1,40 +1,13 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import Card_Paket, {PackageProps} from '@/Components/Card_Paket'
-import { LocationMarkerIcon, CalendarIcon, CurrencyDollarIcon } from '@heroicons/react/solid';
+import {CalendarIcon, CurrencyDollarIcon, LocationMarkerIcon} from '@heroicons/react/solid';
 import "../globals.css";
 import {usePaketContext} from "@/context/PaketContext";
 import LoadingBar from "@/Components/LoadingBar";
 
 function PaketPage() {
-
-  // const [data, setData] = useState<PackageProps[]>([]);
-  // useEffect(() => {
-  //      const paket = sessionStorage.getItem("paket") || ""
-  //      setData(JSON.parse(paket))
-  // }, []);
-
-  // const [data, setData] = useState<any[]>([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(`/api/paket/`);
-  //       if (!response.ok) {
-  //         console.log('Failed to fetch data');
-  //       }
-  //       const data = await response.json();
-  //       setData(data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-  //   fetchData().then();
-  // }, []);
-  // console.log(data)
-
-  // const data = PACKAGE_DATA
-
-  const { paket: data } = usePaketContext();
+  const { paket: data, exchangeRate : kurs } = usePaketContext();
 
   const [lokasiKeberangkatan, setLokasiKeberangkatan] = useState("");
   const [waktuKeberangkatan, setWaktuKeberangkatan] = useState(0);
@@ -43,26 +16,23 @@ function PaketPage() {
   const [isLoading, setIsLoading] = useState<Boolean>(true);
   const [lokasiOption, setLokasiOption] = useState<string[]>([]);
   const [tanggalOption, setTanggalOption] = useState("before");
-  const [currencyOption, setCurrencyOption] = useState("idr");
   const [biayaOption, setBiayaOption] = useState("less");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const beforeOption = tanggalOption === 'before';
-    const afterOption = tanggalOption === 'after';
-
     const newData = data?.filter((paket) => {
       const isLokasiMatch = lokasiKeberangkatan === "" || paket.lokasiberangkat.toLowerCase().includes(lokasiKeberangkatan.toLowerCase());
-      const isWaktuMatch = waktuKeberangkatan === 0 ||
-          (beforeOption && new Date(paket.jadwal.seconds*1000) < new Date(waktuKeberangkatan)) ||
-          (afterOption && new Date(paket.jadwal.seconds*1000) > new Date(waktuKeberangkatan))
-          // (!beforeOption && !afterOption && paket.jadwal.toLowerCase().includes(waktuKeberangkatan.toLowerCase()));
 
-      const isBiayaMatch = biaya === "" || paket.harga.some(h => {
-        const isCurrencyMatch = h.currency === currencyOption;
-        const nominal = biayaOption === 'less' ? h.nominal < parseInt(biaya) : h.nominal > parseInt(biaya);
-        return isCurrencyMatch && nominal;
+      const beforeOption = tanggalOption === 'before';
+      const afterOption = tanggalOption === 'after';
+      const isWaktuMatch = waktuKeberangkatan === 0 ||
+          (beforeOption && (paket.jadwal.seconds*1000 < waktuKeberangkatan)) ||
+          (afterOption && (paket.jadwal.seconds*1000 > waktuKeberangkatan))
+
+      const isBiayaMatch = biaya === "" || paket.harga.some((h) => {
+        const nominal = h.currency === "usd" ? h.nominal*kurs : h.nominal;
+        return biayaOption === "less" ? nominal < parseInt(biaya) : nominal > parseInt(biaya);
       });
 
       return isLokasiMatch && isWaktuMatch && isBiayaMatch;
@@ -80,8 +50,7 @@ function PaketPage() {
     setFilteredData(null);
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  const uniqueLocation = () => {
     if (data) {
       setIsLoading(false);
       const uniqueLocations = data.reduce((acc: string[], paket) => {
@@ -92,6 +61,11 @@ function PaketPage() {
       }, []);
       setLokasiOption(uniqueLocations);
     }
+  }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    uniqueLocation()
   }, [data]);
 
   return (
@@ -139,11 +113,8 @@ function PaketPage() {
                       name="waktu_keberangkatan"
                       className="shadow appearance-none border rounded justify-start pl-3 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       placeholder="Waktu Keberangkatan"
-                      value={new Date(waktuKeberangkatan).toString()}
-                      onChange={(e) => {
-                        setWaktuKeberangkatan(Date.parse(e.target.value))
-                      }
-                  }
+                      value={waktuKeberangkatan !== 0 ? new Date(waktuKeberangkatan).toISOString().split('T')[0] : ''}
+                      onChange={(e) => setWaktuKeberangkatan(Date.parse(e.target.value))}
                   />
 
                 </div>
@@ -154,16 +125,6 @@ function PaketPage() {
                 </label>
                 <div className="flex gap-2 mb-2">
                   <select
-                      id="biaya_currency"
-                      name="biaya_currency"
-                      className="shadow appearance-none border rounded pl-3 w-1/2 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      value={currencyOption}
-                      onChange={(e) => setCurrencyOption(e.target.value)}
-                  >
-                    <option value="idr">IDR</option>
-                    <option value="usd">USD</option>
-                  </select>
-                  <select
                       id="biaya_option"
                       name="biaya_option"
                       className="shadow appearance-none border rounded pl-3 w-1/2 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -173,21 +134,21 @@ function PaketPage() {
                     <option value="less">Kurang dari</option>
                     <option value="more">Lebih dari</option>
                   </select>
+                  <input
+                      type="text"
+                      id="biaya"
+                      name="biaya"
+                      className="shadow appearance-none border rounded pl-3 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      placeholder="Rp"
+                      value={biaya}
+                      onChange={(e) => setBiaya(e.target.value)}
+                  />
                 </div>
-                <input
-                    type="text"
-                    id="biaya"
-                    name="biaya"
-                    className="shadow appearance-none border rounded pl-3 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Biaya"
-                    value={biaya}
-                    onChange={(e) => setBiaya(e.target.value)}
-                />
               </div>
               <div className="flex md:col-span-3 justify-end mt-4 md:mt-0 md:ml-4">
                 <button type="submit"
                         className="bg-blue-500 hover:bg-white text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                  Cari
+                Cari
                 </button>
                 {filteredData && (
                     <button type="button" onClick={handleRemoveFilter}

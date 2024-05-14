@@ -1,7 +1,7 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { ambilSemuaPaket } from "@/context/AuthContext";
 import { HargaProps, PackageProps } from "@/Components/Card_Paket";
+import {ambilSemuaPaket} from "@/db/query";
 
 interface PaketContextType {
     paket: PackageProps[] | null;

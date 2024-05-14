@@ -25,15 +25,6 @@ const Order = () => {
         setPaketData(currentPaket);
     }, [allPaket]);
 
-    // useEffect(() => {
-    //     const data = sessionStorage.getItem('paket');
-    //     if (data) {
-    //         const parsedData = JSON.parse(data);
-    //         const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
-    //         setPaketData(currentPaket);
-    //     }
-    // }, []);
-
     const handleDewasaCountChange = (event: any) => {
         setDewasaCount(parseInt(event.target.value));
     };
@@ -248,7 +239,7 @@ const Order = () => {
                                                   required
                                               />
                                               <label className="block h-10" htmlFor={`telp_dewasa_${index}`}>
-                                                  No Telp
+                                                  No Telp (Whatsapp)
                                               </label>
                                               <input
                                                   className="border border-[#f14310] rounded-lg px-2"

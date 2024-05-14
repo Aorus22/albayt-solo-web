@@ -3,11 +3,13 @@
 import React, { useEffect, useState } from "react";
 import {DATA_BANK} from "@/constants";
 import {PackageProps} from "@/Components/Card_Paket";
-import {addPurchase, UserAuth} from "@/context/AuthContext";
+import {UserAuth} from "@/context/AuthContext";
 import {useParams, useRouter} from "next/navigation";
 import Image from "next/image";
 import {usePaketContext} from "@/context/PaketContext";
 import "animate.css/animate.min.css";
+import {Timestamp} from "@firebase/firestore";
+import {addPurchase} from "@/db/query";
 
 export interface DewasaData {
     nama: string;
@@ -29,7 +31,7 @@ export interface DataPembelian {
     };
     metodePembayaran: string;
     totalPembayaran: number;
-    tanggalPemesanan: string;
+    tanggalPemesanan: Timestamp;
     urlBuktiPembayaran: string;
 }
 
@@ -46,12 +48,6 @@ const Order = () => {
    const [showConfirmation, setShowConfirmation] = useState(false);
 
     useEffect(() => {
-        // const data_paket = sessionStorage.getItem('paket');
-        // if (data_paket) {
-        //     const parsedData = JSON.parse(data_paket);
-        //     const currentPaket = parsedData.find((paket: PackageProps) => paket.paketID === params.title)
-        //     setPaketData(currentPaket);
-        // }
 
         const data_jamaah = sessionStorage.getItem('jamaahData')
         if (data_jamaah) {
@@ -104,7 +100,7 @@ const Order = () => {
                     },
                     metodePembayaran: selectedPembayaran,
                     totalPembayaran: totalHarga,
-                    tanggalPemesanan: new Date().toISOString(),
+                    tanggalPemesanan: Timestamp.fromDate(new Date()),
                     urlBuktiPembayaran: ""
                 };
 

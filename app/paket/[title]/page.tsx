@@ -79,7 +79,7 @@ export default function Paket() {
     timestamp = 0;
   }
 
-  const date = new Date(timestamp).toLocaleString('id-ID', { month: '2-digit', day: '2-digit', year: 'numeric' });
+  const date = new Date(timestamp).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
 
   const boxPemesanan = () => {
       return (

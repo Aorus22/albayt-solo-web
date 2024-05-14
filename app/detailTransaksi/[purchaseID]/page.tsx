@@ -6,6 +6,8 @@ import {PackageProps} from "@/Components/Card_Paket";
 import Link from "next/link";
 import LoadingBar from '@/Components/LoadingBar';
 import "animate.css/animate.min.css";
+import {Timestamp} from "@firebase/firestore";
+import {ambilDetailPurchase} from "@/db/query";
 
 interface Anak {
   nama: string;
@@ -24,7 +26,7 @@ export interface PurchaseDetail {
   totalPembayaran: number;
   statusPembayaran: string;
   metodePembayaran: string;
-  tanggalPemesanan: string;
+  tanggalPemesanan: Timestamp;
   email: string;
   detailJamaah: {
     anak?: Anak[];
@@ -48,13 +50,9 @@ const page = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/detail_transaksi/${params.purchaseID}`);
-        if (!response.ok) {
-          console.log('Failed to fetch data');
-        }
-        const data = await response.json();
-        if (user?.uid == data.detailPembelian.UserID){
-          setRiwayatPembelian(data);
+        const response = await ambilDetailPurchase(String(params.purchaseID));
+        if (user?.uid == response?.detailPembelian.UserID){
+          setRiwayatPembelian(response as PurchaseHistory);
         }
       } catch (Error) {
         console.error('Error fetching data:', Error);
@@ -70,6 +68,10 @@ const page = () => {
   const handleImageLoading = () => {
     setLoadingImage(false)
   }
+
+  const date = riwayatPembelian?.detailPembelian?.tanggalPemesanan?.seconds
+  const formattedDate = date ? new Date(date * 1000).toLocaleString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false })
+      : '';
 
   return (
     <div>
@@ -92,9 +94,7 @@ const page = () => {
               <div>
                 <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Tanggal Transaksi</h3>
                 <p className='font-semibold text-[14px] md:text-[16px]'>
-                  {riwayatPembelian?.detailPembelian?.tanggalPemesanan ?
-                      new Date(riwayatPembelian.detailPembelian.tanggalPemesanan).toLocaleDateString() :
-                      ''}
+                  {formattedDate}
                 </p>
               </div>
             </div>
