@@ -1,13 +1,13 @@
 "use client"
 import Image from 'next/image'
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useParams} from 'next/navigation';
 import Link from 'next/link';
 import PaketAlbayt from '@/Components/PaketAlbayt';
 import OrderButton from '@/app/paket/[title]/OrderButton';
 import Seatbar_Alt from '@/Components/Seatbar_Alt';
 import LoadingBar from '@/Components/LoadingBar';
-import { FASILITAS_PAKET, TESTIMONI } from '@/constants';
+import { FASILITAS_PAKET } from '@/constants';
 import {HargaProps, HotelProps, PackageProps} from "@/Components/Card_Paket";
 import {usePaketContext} from "@/context/PaketContext";
 import "animate.css/animate.min.css";
@@ -16,14 +16,14 @@ export default function Paket() {
     const params = useParams();
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
 
-    const { paket : allPaket, exchangeRate : exchangeRate } = usePaketContext();
+    const { paket : allPaket, testimoni:TESTIMONI, exchangeRate : exchangeRate } = usePaketContext();
     const [paketData, setPaketData] = useState<PackageProps>();
 
     const boxPemesananMobileRef = useRef<HTMLDivElement>(null);
     const [boxPemesananVisible, setBoxPemesananVisible] = useState<boolean>(false);
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
-    const [isLoading, setLoading ] = useState<boolean>(true)
-
+    const [isLoading, setLoading ] = useState<boolean>(true);
+    const [halamanTestimoni, setHalamanTestimoni] = useState(1);
 
     useEffect(() => {
       const currentPaket = allPaket?.find((paket: PackageProps) => paket.paketID === params.title)
@@ -81,6 +81,26 @@ export default function Paket() {
 
   const date = new Date(timestamp).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
 
+  const nextPage = () => {
+    if ((halamanTestimoni-1)*5+5 < TESTIMONI.length) {
+      setHalamanTestimoni(halamanTestimoni + 1);
+    }
+  };
+
+  const previousPage = () => {
+    if (halamanTestimoni > 1) {
+      setHalamanTestimoni(halamanTestimoni - 1);
+    }
+  };
+
+  const currentTestimoni = useMemo(() => {
+    const startIndex = (halamanTestimoni - 1) * 5;
+    const endIndex = startIndex + 5;
+    return TESTIMONI.slice(startIndex, endIndex)
+  }, [halamanTestimoni])
+
+  console.log(currentTestimoni.length)
+
   const boxPemesanan = () => {
       return (
           <div>
@@ -118,8 +138,6 @@ export default function Paket() {
                           )}
                         </div>
                       </div>
-
-
                   ))}
                 </div>
               </div>
@@ -135,16 +153,8 @@ export default function Paket() {
                   <p>Tanya CS</p>
                 </div>
               </Link>
-              {/* <Link href={'/orderpage'} className='w-full'>
-                      <div className="bg-[#89060b] flex space-x-4 text-gray font-semibold py-2 px-4 rounded  justify-center text-center text-zinc-50 w-full mt-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-airplane" viewBox="0 0 16 16">
-                          <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599"/>
-                        </svg>
-                        <p>Pesan Sekarang</p>
-                      </div>
-                    </Link> */}
               <div className={'w-full'}>
-                <OrderButton></OrderButton>
+                <OrderButton />
               </div>
 
             </div>
@@ -243,7 +253,7 @@ export default function Paket() {
                           <path
                               d="M12 2C7.589 2 4 5.589 4 9.995 3.971 16.44 11.696 21.784 12 22c0 0 8.029-5.56 8-12 0-4.411-3.589-8-8-8zM9.799 14.987H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 6l1.799 1.799-1.372 1.371z"></path>
                         </svg>
-                        <div className='text-[14px] lg:text-lg' >Lokasi Keberangkatan</div>
+                        <div className='text-[14px] lg:text-lg'>Lokasi Keberangkatan</div>
                         <div className="text-[16px] lg:text-lg font-semibold mt-2">{paketData?.lokasiberangkat}</div>
                       </div>
                       <div className="border rounded-3xl p-4 flex flex-col items-center justify-center h-36 bg-white">
@@ -296,22 +306,24 @@ export default function Paket() {
                     </div>
                   </div>
 
-                  <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
+                  <div
+                      className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
 
                     <h3 className='font-bold text-2xl lg:text-3xl text-[#f14310] mb-4'>Fasilitas</h3>
                     <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
 
                     {FASILITAS_PAKET.map((fasilitas) => (
-                      <div key={fasilitas.id_fasilitas} className='mb-8'>
-                        <p className="text-[#f14310] font-bold text-lg lg:text-2xl mb-3">
-                          {fasilitas.title}
-                        </p>
-                        <ul className="pl-5 list-disc">
-                          {fasilitas.contents.map((ket_fasilitas) => (
-                            <li className='font-medium my-2 text-gray-700 text-[14px] lg:text-[16px]' key={ket_fasilitas.label}>{ket_fasilitas.value}</li>
-                          ))}
-                        </ul>
-                      </div>
+                        <div key={fasilitas.id_fasilitas} className='mb-8'>
+                          <p className="text-[#f14310] font-bold text-lg lg:text-2xl mb-3">
+                            {fasilitas.title}
+                          </p>
+                          <ul className="pl-5 list-disc">
+                            {fasilitas.contents.map((ket_fasilitas) => (
+                                <li className='font-medium my-2 text-gray-700 text-[14px] lg:text-[16px]'
+                                    key={ket_fasilitas.label}>{ket_fasilitas.value}</li>
+                            ))}
+                          </ul>
+                        </div>
                     ))}
                   </div>
                   <div
@@ -320,15 +332,6 @@ export default function Paket() {
                       Hotel
                     </p>
                     <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
-                    {/*<p className='font-bold mb-2'>Hotel Lorem Ipsum</p>*/}
-                    {/*<div className='flex mb-4'>*/}
-                      {/*<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"*/}
-                      {/*     style={{fill: '#f14310'}}>*/}
-                      {/*  <path*/}
-                      {/*      d="M12 2C7.589 2 4 5.589 4 9.995 3.971 16.44 11.696 21.784 12 22c0 0 8.029-5.56 8-12 0-4.411-3.589-8-8-8zM9.799 14.987H8v-1.799l4.977-4.97 1.799 1.799-4.977 4.97zm5.824-5.817-1.799-1.799L15.196 6l1.799 1.799-1.372 1.371z"></path>*/}
-                      {/*</svg>*/}
-                      {/*<p>200m dari lorem ipsum</p>*/}
-                    {/*</div>*/}
 
                     <div className='w-full'>
                       {paketData?.hotel?.map((item: HotelProps, index: number) => (
@@ -360,41 +363,39 @@ export default function Paket() {
                       Testimoni
                     </p>
                     <p className='block bg-[#f14310] w-[20%] h-[3px] mb-6'></p>
-                    {TESTIMONI.map((testi) => (
 
-                        <div key={testi.key} className='border-b-2 pb-10 pl-4 mt-4'>
+                    {currentTestimoni.map((testi, index) => (
+                        <div key={index} className='border-b-2 pb-10 pl-4 mt-4'>
                           <p className='text-lg font-semibold'>{testi.nama}</p>
-                          <div className='flex mb-4'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                              style={{fill: 'gold', transform: '', msFilter: ''}}>
-                            <path
-                                d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                              style={{fill: 'gold', transform: '', msFilter: ''}}>
-                            <path
-                                d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                              style={{fill: 'gold', transform: '', msFilter: ''}}>
-                            <path
-                                d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                              style={{fill: 'gold', transform: '', msFilter: ''}}>
-                            <path
-                                d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                              style={{fill: 'gold', transform: '', msFilter: ''}}>
-                            <path
-                                d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
-                          </svg>
+                          <div className='flex mt-2 mb-4'>
+                            {Array.from({length: testi.bintang}, (_, index) => (
+                                <svg key={index} xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     viewBox="0 0 24 24"
+                                     style={{fill: 'gold', transform: '', msFilter: ''}}>
+                                  <path
+                                      d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
+                                </svg>
+                            ))}
+                          </div>
+                          <p>{testi.review}</p>
                         </div>
-                        <p>{testi.review}</p>
-                      </div> 
-
-                    ))} 
+                    ))}
+                    <div className="flex justify-between mt-4">
+                      <button
+                          className="bg-[#f14310] text-white py-2 px-4 rounded disabled:bg-gray-400"
+                          onClick={previousPage}
+                          disabled={halamanTestimoni === 1}
+                      >
+                        Sebelumnya
+                      </button>
+                      <button
+                          className="bg-[#f14310] text-white py-2 px-4 rounded disabled:bg-gray-400"
+                          onClick={nextPage}
+                          disabled={(halamanTestimoni-1)*10+10 >= TESTIMONI.length}
+                      >
+                        Selanjutnya
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div className="text-slate h-vh md:w-[40%] xl:w-[30%] hidden pt-10 md:block ">
@@ -404,9 +405,9 @@ export default function Paket() {
                 </div>
               </div>
             </div>
-            <div className=''>
-              <PaketAlbayt/>
-            </div>
+
+            <PaketAlbayt/>
+
           </div>
       )
       }

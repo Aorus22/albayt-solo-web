@@ -16,13 +16,6 @@ const PaketAlbayt = () => {
       setIsLoading(false)
     }
   }, [data]);
-  // const [data, setData] = useState<PackageProps[]>([]);
-  //
-
-  // useEffect(() => {
-  //      const paket = sessionStorage.getItem("paket") || ""
-  //      setData(JSON.parse(paket))
-  // }, []);
 
   return (
     <>

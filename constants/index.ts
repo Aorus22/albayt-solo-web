@@ -191,35 +191,110 @@ export const DATA_BANK = [
 
   export const TESTIMONI = [
     {
-      key: 'testi1',
-      img: '/images/sample-hajj1.png',
-      nama: 'Ibu Eti',
-      review: 'Perjalanan wisata ke Aqsa dengan Ibu saya bersama ALBAYT sangat berkesan. Dengan Staff yang berpengalaman, saya dan Ibu saya merasa tenang dan nyaman.',
+      "key": "testi1",
+      "img": "/images/sample-hajj1.png",
+      "nama": "Ibu Eti",
+      "bintang": 5,
+      "review": "Perjalanan wisata ke Aqsa dengan Ibu saya bersama ALBAYT sangat berkesan. Dengan Staff yang berpengalaman, saya dan Ibu saya merasa tenang dan nyaman."
     },
     {
-      key: 'testi2',
-      img: '/images/sample-hajj2.png',
-      nama: 'Eyang Nirlam & Eyang Unay',
-      review: 'Terima Kasih untuk panitia Albayt & Pak Ust Jazuli yang telah membimbing kami. Pak Ust Jazuli sangat mengayomi & membimbing eyang dengan sangat baik, penuh kesabaran.',
+      "key": "testi2",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Eyang Nirlam & Eyang Unay",
+      "bintang": 5,
+      "review": "Terima Kasih untuk panitia Albayt & Pak Ust Jazuli yang telah membimbing kami. Pak Ust Jazuli sangat mengayomi & membimbing eyang dengan sangat baik, penuh kesabaran."
     },
     {
-      key: 'testi3',
-      img: '/images/sample-hajj3.png',
-      nama: 'Eyang Omayanti',
-      review: 'Terima Kasih kepada panitia perjalanan umroh milad, sudah memberikan pelayanan terbaik kepada eyang omayanti. sangat membantu kami dari mulai persiapan keberangkatan. Dan kepada Ustad H. Jazuli yang telah membimbing eyang dengan baik , sabar.',
+      "key": "testi3",
+      "img": "/images/sample-hajj3.png",
+      "nama": "Eyang Omayanti",
+      "bintang": 5,
+      "review": "Terima Kasih kepada panitia perjalanan umroh milad, sudah memberikan pelayanan terbaik kepada eyang omayanti. sangat membantu kami dari mulai persiapan keberangkatan. Dan kepada Ustad H. Jazuli yang telah membimbing eyang dengan baik , sabar."
     },
     {
-      key: 'testi4',
-      img: '/images/sample-hajj1.png',
-      nama: 'Nenek Enong',
-      review: 'Pembimbing dan peserta lainnya sangat baik.',
+      "key": "testi4",
+      "img": "/images/sample-hajj1.png",
+      "nama": "Nenek Enong",
+      "bintang": 5,
+      "review": "Pembimbing dan peserta lainnya sangat baik."
     },
     {
-      key: 'testi5',
-      img: '/images/sample-hajj2.png',
-      nama: 'Awiez, Founder QUINSHA STUFF',
-      review: 'WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat.',
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
     },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    },
+    {
+      "key": "testi5",
+      "img": "/images/sample-hajj2.png",
+      "nama": "Awiez, Founder QUINSHA STUFF",
+      "bintang": 5,
+      "review": "WIsata Muslim bersama ALBAYT WISATA sangat nyaman, dengan pelayanan yang ramah dan harga yang bersahabat."
+    }
   ]
   
   // FOOTER SECTION

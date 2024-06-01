@@ -2,19 +2,23 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { HargaProps, PackageProps } from "@/Components/Card_Paket";
 import {ambilSemuaPaket} from "@/db/query";
+import {TestiProps} from "@/Components/Testimoni";
 
 interface PaketContextType {
-    paket: PackageProps[] | null;
+    paket: PackageProps[];
     exchangeRate: number;
+    testimoni: TestiProps[]
 }
 
-const PaketContext = createContext<PaketContextType>({ paket: null, exchangeRate: 1 });
+const PaketContext = createContext<PaketContextType>({ paket: [], exchangeRate: 1, testimoni:[] });
 
 export const usePaketContext = () => useContext(PaketContext);
 
 export const PaketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [paket, setPaket] = useState<PackageProps[] | null>(null);
+    const [paket, setPaket] = useState<PackageProps[]>([]);
     const [exchangeRate, setExchangeRate] = useState(1);
+    const [testimoni, setTestimoni] = useState<TestiProps[]>([])
+
     const convertCurrency = (harga: HargaProps[]) => {
         return (
             harga[0].currency === "usd"
@@ -58,8 +62,21 @@ export const PaketProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         }
     }, [exchangeRate]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("https://google-drive-storage.solo-albayt.workers.dev/testimoni/testimoni.json");
+                const data = await response.json();
+                setTestimoni(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData().then();
+    }, []);
+
     return (
-        <PaketContext.Provider value={{ paket, exchangeRate }}>
+        <PaketContext.Provider value={{ paket, exchangeRate, testimoni }}>
             {children}
         </PaketContext.Provider>
     );
