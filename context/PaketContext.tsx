@@ -7,17 +7,17 @@ import {TestiProps} from "@/Components/Testimoni";
 interface PaketContextType {
     paket: PackageProps[] | null;
     exchangeRate: number;
-    testimoni: TestiProps[]
+    testimoni: TestiProps[] | null;
 }
 
-const PaketContext = createContext<PaketContextType>({ paket: [], exchangeRate: 1, testimoni:[] });
+const PaketContext = createContext<PaketContextType>({ paket: null, exchangeRate: 1, testimoni:null });
 
 export const usePaketContext = () => useContext(PaketContext);
 
 export const PaketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [paket, setPaket] = useState<PackageProps[]>([]);
+    const [paket, setPaket] = useState<PackageProps[] | null >(null);
     const [exchangeRate, setExchangeRate] = useState(1);
-    const [testimoni, setTestimoni] = useState<TestiProps[]>([])
+    const [testimoni, setTestimoni] = useState<TestiProps[] | null>(null)
 
     const convertCurrency = (harga: HargaProps[]) => {
         return (
