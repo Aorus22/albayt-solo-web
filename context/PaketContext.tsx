@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { HargaProps, PackageProps } from "@/Components/Card_Paket";
 import {ambilSemuaPaket} from "@/db/query";
@@ -49,7 +49,15 @@ export const PaketProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 const sortedPaket = response.sort((a, b) => {
                     const hargaA = convertCurrency(a.harga);
                     const hargaB = convertCurrency(b.harga);
-                    return hargaA - hargaB;
+
+                    if (hargaA !== hargaB) {
+                        return hargaA - hargaB;
+                    }
+
+                    const dateA = a.jadwal.seconds * 1000;
+                    const dateB = b.jadwal.seconds * 1000;
+
+                    return dateA - dateB;
                 });
                 setPaket(sortedPaket);
             } catch (error) {
@@ -76,7 +84,7 @@ export const PaketProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }, []);
 
     return (
-        <PaketContext.Provider value={{ paket, exchangeRate, testimoni }}>
+        <PaketContext.Provider value={{ paket, exchangeRate }}>
             {children}
         </PaketContext.Provider>
     );
