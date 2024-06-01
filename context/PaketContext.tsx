@@ -1,11 +1,11 @@
-"use client";
+"use client"
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { HargaProps, PackageProps } from "@/Components/Card_Paket";
 import {ambilSemuaPaket} from "@/db/query";
 import {TestiProps} from "@/Components/Testimoni";
 
 interface PaketContextType {
-    paket: PackageProps[];
+    paket: PackageProps[] | null;
     exchangeRate: number;
     testimoni: TestiProps[]
 }
@@ -84,7 +84,7 @@ export const PaketProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }, []);
 
     return (
-        <PaketContext.Provider value={{ paket, exchangeRate }}>
+        <PaketContext.Provider value={{ paket, exchangeRate, testimoni }}>
             {children}
         </PaketContext.Provider>
     );
