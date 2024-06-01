@@ -391,7 +391,7 @@ export default function Paket() {
                       <button
                           className="bg-[#f14310] text-white py-2 px-4 rounded disabled:bg-gray-400"
                           onClick={nextPage}
-                          disabled={(halamanTestimoni-1)*10+10 >= TESTIMONI.length}
+                          disabled={(halamanTestimoni-1)*10 >= TESTIMONI.length}
                       >
                         Selanjutnya
                       </button>
