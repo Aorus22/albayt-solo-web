@@ -29,7 +29,7 @@ const Testimoni = () => {
     }, [emblaApi])
 
     useEffect(() => {
-        if (TESTIMONI){
+        if (TESTIMONI.length > 0){
             setIsLoading(false)
         }
     }, [TESTIMONI]);

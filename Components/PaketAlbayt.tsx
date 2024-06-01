@@ -12,7 +12,7 @@ const PaketAlbayt = () => {
   const [isLoading, setIsLoading] = useState<Boolean>(true);
 
   useEffect(() => {
-    if (data !== null){
+    if (data.length > 0){
       setIsLoading(false)
     }
   }, [data]);
@@ -30,22 +30,6 @@ const PaketAlbayt = () => {
 
         {isLoading ? (<LoadingBar />) : (
             <>
-              {/*<form id='filter paket' className='items-center flex my-4 py-4 gap-5 mx-auto'>*/}
-              {/*  <div className='w-full flexCenter gap-3'>*/}
-              {/*    <div className='grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 items-end'>*/}
-              {/*      <Template_form label='Lokasi Keberangkatan' formtype='text' form_id='lokasi keberangkatan'*/}
-              {/*                     form_name='lokasi_keberangkatan' form_placeholder='Lokasi Keberangkatan'/>*/}
-              {/*      <Template_form label='Waktu Keberangkatan' formtype='text' form_id='waktu keberangkatan'*/}
-              {/*                     form_name='waktu_keberangkatan' form_placeholder='Waktu Keberangkatan'/>*/}
-              {/*      <Template_form label='Biaya Paket' formtype='number' form_id='biaya' form_name='biaya_paket'*/}
-              {/*                     form_placeholder='Biaya'/>*/}
-              {/*      <button type='submit'*/}
-              {/*              className='font-bold my-1 md:my-2 h-10 text-md text-white bg-[#f14310] py-2 px-4 rounded-full items-center text-center border duration-200 hover:bg-[#ffc750] hover:text-[#89060b]'>Cari*/}
-              {/*      </button>*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*</form>*/}
-
               {/* ISI KONTEN / CARD */}
               <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
                 {data?.slice(0, 6).map((paket) => (

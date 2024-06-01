@@ -5,19 +5,19 @@ import {ambilSemuaPaket} from "@/db/query";
 import {TestiProps} from "@/Components/Testimoni";
 
 interface PaketContextType {
-    paket: PackageProps[] | null;
+    paket: PackageProps[];
     exchangeRate: number;
-    testimoni: TestiProps[] | null;
+    testimoni: TestiProps[];
 }
 
-const PaketContext = createContext<PaketContextType>({ paket: null, exchangeRate: 1, testimoni:null });
+const PaketContext = createContext<PaketContextType>({ paket: [], exchangeRate: 1, testimoni:[] });
 
 export const usePaketContext = () => useContext(PaketContext);
 
 export const PaketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [paket, setPaket] = useState<PackageProps[] | null >(null);
+    const [paket, setPaket] = useState<PackageProps[] >([]);
     const [exchangeRate, setExchangeRate] = useState(1);
-    const [testimoni, setTestimoni] = useState<TestiProps[] | null>(null)
+    const [testimoni, setTestimoni] = useState<TestiProps[] >([])
 
     const convertCurrency = (harga: HargaProps[]) => {
         return (
