@@ -2,9 +2,9 @@
 
 import { KENAPA_KAMI } from '@/constants'
 import React from 'react'
-import Card_Why from './Card_Why'
 import useEmblaCarousel from 'embla-carousel-react';
-import Card_Why_sm from './Card_Why_sm';
+import Card_Why from "@/Components/Card_Why";
+import Card_Why_sm from "@/Components/Card_Why_sm";
 
 const WhyUs = () => {
   const [emblaRef] = useEmblaCarousel()

@@ -1,11 +1,11 @@
 'use client'
 
-import Card_Galery from '@/Components/gallery-comp/Card_Galery'
+import Card_Galery from '@/Components/Card_Galery'
 import { GALERI_2024 } from '@/constants'
 import Image from 'next/image'
 import React, {useState} from 'react'
 
-const page = () => {
+const Page = () => {
     const [data, setData] = useState({image: '', i: ''})
 
     const viewImage = (image: string, i: string) => {
@@ -49,4 +49,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -4,9 +4,9 @@
 export const NAV_LINKS = [
   { href: '/', key: 'beranda', label: 'Beranda' },
   { href: '/about-us', key: 'tentang_kami', label: 'Tentang Kami' },
-  { href: '/paketpage', key: 'paket_albayt', label: 'Paket ALBAYT' },
+  { href: '/paket', key: 'paket_albayt', label: 'Paket ALBAYT' },
   // { href: '/galeri', key: 'galeri', label: 'Galeri' },
-  // { href: '/blogpage', key: 'blog', label: 'Blog' },
+  // { href: '/blog', key: 'blog', label: 'Blog' },
 ];
 
 export const DATA_BANK = [

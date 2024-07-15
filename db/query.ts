@@ -1,43 +1,67 @@
-import {DataPembelian} from "@/app/paket/[title]/paymentpage/page";
+'use server'
 import {collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where} from "firebase/firestore";
 import {firestore} from "@/db/firebase";
-import {PackageProps} from "@/Components/Card_Paket";
-import {PurchaseDetail} from "@/app/detailTransaksi/[purchaseID]/page";
+import { User } from "firebase/auth";
+import { Paket, DetailPembelian } from "@/utils/type";
 
-export async function addPurchase(dataPembelian: DataPembelian) {
-    const userRef = doc(firestore, "pembelian", dataPembelian.purchaseID);
+export async function getUser(UID: string) {
+    if (!UID?.length) return;
+    const userRef = doc(firestore, "users", UID);
+    const userDoc = await getDoc(userRef);
+    const userData = userDoc.data()
+    return JSON.parse(JSON.stringify(userData))
+}
+
+export async function addUserData(user: User) {
+    const userRef = doc(firestore, "users", user.uid);
     const userSnapshot = await getDoc(userRef);
 
     if (!userSnapshot.exists()) {
         await setDoc(userRef, {
-            purchaseID: dataPembelian.purchaseID || "",
-            paketID: dataPembelian.paketID || "",
-            UserID: dataPembelian.UID || "",
-            email : dataPembelian.email|| "",
-            detailJamaah : dataPembelian.detailJamaah|| "",
+            name: user.displayName || "",
+            email: user.email || "",
+            photo: user.photoURL || "",
+            telp : user.phoneNumber || "",
+            address : "",
+            desc : ""
+        });
+    } 
+}
+
+export async function addPurchase(dataPembelian: DetailPembelian) {
+    const purchaseRef = doc(firestore, "pembelian", dataPembelian.purchaseID);
+    const purchaseSnapshot = await getDoc(purchaseRef);
+
+    if (!purchaseSnapshot.exists()) {
+        await setDoc(purchaseRef, {
+            purchaseID: dataPembelian.purchaseID,
+            paketID: dataPembelian.paketID,
+            UserID: dataPembelian.UserID,
+            email : dataPembelian.email,
+            detailJamaah : dataPembelian.detailJamaah,
             metodePembayaran: dataPembelian.metodePembayaran,
             statusPembayaran: "Belum Dibayar",
             totalPembayaran: dataPembelian.totalPembayaran,
             tanggalPemesanan: dataPembelian.tanggalPemesanan,
             urlBuktiPembayaran: dataPembelian.urlBuktiPembayaran
         });
-        await addPurchaseToHistory(dataPembelian.UID || "", dataPembelian.purchaseID)
-        const jumlahJamaah = dataPembelian.detailJamaah.anak.length + dataPembelian.detailJamaah.dewasa.length
+        await addPurchaseToHistory(dataPembelian.UserID || "", dataPembelian.purchaseID)
+        const jumlahJamaah = (dataPembelian.detailJamaah.anak || []).length + dataPembelian.detailJamaah.dewasa.length
         await ubahSisaSeat(dataPembelian.paketID, jumlahJamaah)
     }
 }
 
 const addPurchaseToHistory = async (userID: string, purchaseID:string) => {
-    const userRef = doc(firestore, "users", userID);
+    const purchaseRef = doc(firestore, "users", userID);
 
     try {
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-            const existingHistory = userDoc.data()["riwayat-pembelian"] || [];
+        const purchaseDoc = await getDoc(purchaseRef);
+        if (purchaseDoc.exists()) {
+            const existingHistory = purchaseDoc.data()["riwayat-pembelian"] || [];
 
             const updatedHistory = [...existingHistory, purchaseID];
 
-            await updateDoc(userRef, {
+            await updateDoc(purchaseRef, {
                 "riwayat-pembelian": updatedHistory
             });
 
@@ -51,11 +75,11 @@ const addPurchaseToHistory = async (userID: string, purchaseID:string) => {
 };
 
 export const addBuktiPembelian = async (purchaseID:string, urlBuktiPembayaran:string) => {
-    const userRef = doc(firestore, "pembelian", purchaseID);
+    const purchaseRef = doc(firestore, "pembelian", purchaseID);
     try {
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-            await updateDoc(userRef, {
+        const purchaseDoc = await getDoc(purchaseRef);
+        if (purchaseDoc.exists()) {
+            await updateDoc(purchaseRef, {
                 "statusPembayaran": "Menunggu Konfirmasi",
                 "urlBuktiPembayaran": urlBuktiPembayaran
             });
@@ -68,13 +92,13 @@ export const addBuktiPembelian = async (purchaseID:string, urlBuktiPembayaran:st
 };
 
 export const ubahSisaSeat = async (paketID: string, jumlahPesanSeat: number) => {
-    const userRef = doc(firestore, "paket", paketID);
+    const paketRef = doc(firestore, "paket", paketID);
     try {
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-            const currentSeat = userDoc.data().remainingseat || 0;
+        const paketDoc = await getDoc(paketRef);
+        if (paketDoc.exists()) {
+            const currentSeat = paketDoc.data().remainingseat || 0;
             if (currentSeat > 0) {
-                await updateDoc(userRef, {
+                await updateDoc(paketRef, {
                     remainingseat: currentSeat - jumlahPesanSeat,
                 });
                 console.log("Sisa kursi berhasil diperbarui.");
@@ -99,48 +123,48 @@ export const ambilSemuaPaket = async () => {
         paketArray.push(doc.data());
     });
 
-    return paketArray as PackageProps[];
+    return JSON.parse(JSON.stringify(paketArray)) as Paket[];
 };
 
 export const ambilPaket = async (paketID: string) => {
-    const userRef = doc(firestore, "paket", paketID);
-    const userDoc = await getDoc(userRef);
-    if (!userDoc.exists()) {
+    const paketRef = doc(firestore, "paket", paketID);
+    const paketDoc = await getDoc(paketRef);
+    if (!paketDoc.exists()) {
         return null
     }
-    return userDoc.data() as PackageProps
+    return JSON.parse(JSON.stringify(paketDoc.data())) as Paket
 }
 
-export const ambilDetailPurchase = async(purchaseID: string) => {
-    const userRef = doc(firestore, "pembelian", purchaseID);
-    const userDoc = await getDoc(userRef);
-    if (!userDoc.exists()) {
+export const ambilDetailPembayaran = async(purchaseID: string) => {
+    const purchaseRef = doc(firestore, "pembelian", purchaseID);
+    const purchaseDoc = await getDoc(purchaseRef);
+    if (!purchaseDoc.exists()) {
         return null
     }
-    const purchaseData = userDoc.data()
+    const purchaseData = purchaseDoc.data()
     const paketID = purchaseData ? purchaseData["paketID"] : ""
     const paketDoc = await ambilPaket(paketID)
 
     return {
-        detailPembelian: purchaseData as PurchaseDetail,
+        detailPembelian: purchaseData as DetailPembelian,
         detailPaket: paketDoc
     }
 }
 
 export const ambilRiwayatPembelian = async (userID: string) => {
-    const userRef = doc(firestore, "users", userID);
-    const userDoc = await getDoc(userRef);
-    if (!userDoc.exists()) {
+    const purchaseRef = doc(firestore, "users", userID);
+    const purchaseDoc = await getDoc(purchaseRef);
+    if (!purchaseDoc.exists()) {
         return null
     }
-    const userData = userDoc.data()
+    const userData = purchaseDoc.data()
     const riwayatPembelian = userData ? userData['riwayat-pembelian'] || [] : [];
     const purchaseDetails = []
     for (const purchaseID of riwayatPembelian) {
-        const data = await ambilDetailPurchase(purchaseID)
+        const data = await ambilDetailPembayaran(purchaseID)
         if (data !== null){
             purchaseDetails.push(data)
         }
     }
-    return purchaseDetails.reverse()
+    return JSON.parse(JSON.stringify(purchaseDetails.reverse()))
 }

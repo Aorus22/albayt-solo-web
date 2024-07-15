@@ -1,10 +1,9 @@
 "use client"
 import React, {useEffect, useState} from 'react';
-import Card_Paket from './Card_Paket'
-// import Template_form from './Template_form'
 import Link from 'next/link'
 import {usePaketContext} from "@/context/PaketContext";
 import LoadingBar from "@/Components/LoadingBar";
+import Card_Paket from "@/Components/Card_Paket";
 
 const PaketAlbayt = () => {
 
@@ -29,7 +28,7 @@ const PaketAlbayt = () => {
         </div>
 
         {isLoading ? (<LoadingBar />) : (
-            <>
+            <div className='xl:px-24 lg:px-2 md:px-16 sm:px-20'>
               {/* ISI KONTEN / CARD */}
               <div id='konten' className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3'>
                 {data?.slice(0, 6).map((paket) => (
@@ -40,7 +39,7 @@ const PaketAlbayt = () => {
                 ))}
               </div>
 
-              <Link href={'/paketpage'}>
+              <Link href={'/paket'}>
                 <div className='flexCenter my-8'>
                   <button
                       className='font-bold text-white  text-[16px] lg:text-xl bg-[#f14310] px-4 py-3 rounded-full border duration-200 ease-in-out hover:bg-white hover:text-[#f14310] hover:border hover:border-[#f14310]'>
@@ -48,7 +47,7 @@ const PaketAlbayt = () => {
                   </button>
                 </div>
               </Link>
-            </>
+            </div>
         )}
 
       </section>

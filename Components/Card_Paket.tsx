@@ -1,47 +1,22 @@
 import Link from 'next/link'
 import React from 'react'
-import Seatbar_Alt from './Seatbar_Alt';
 import {usePaketContext} from "@/context/PaketContext";
-import {Timestamp} from "@firebase/firestore";
+import SisaSeatBar from "@/Components/SisaSeatBar";
+import { Harga, Paket } from '@/utils/type';
+import { formatDate } from '@/utils/util';
+import ImageWithLoading from './ImageWithLoading';
+import LoadingSpinner from './LoadingSpinner';
 
-export type HargaProps = {
-    tipe:string,
-    nominal:number,
-    currency:string
-}
-
-export type HotelProps = {
-    bintang:string,
-    nama_hotel:string,
-    url_hotel:string[],
-}
-
-export type PackageProps = {
-    paketID: string;
-    img: string;
-    harga: HargaProps[]
-    title: string;
-    jadwal: Timestamp;
-    durasi: string;
-    hotel: HotelProps[];
-    totalseat: number;
-    remainingseat: number;
-    lokasiberangkat: string;
-    harga_dp: number;
-    maskapai: string;
-    thumbnail: string;
-}
-
-const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
+const Card_Paket: React.FC<{ paket: Paket }> = ({ paket }) => {
     const {exchangeRate: exchangeRate} = usePaketContext()
-    const date = new Date(paket.jadwal.seconds * 1000).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+    const date = formatDate(paket.jadwal.seconds * 1000)
 
     return (
-    <Link href={`/paket/${paket.paketID}`}>
+    <Link href={`/paket/${paket.paketID}`} scroll>
         <div>
             <div className='bg-white border shadow-lg h-[37rem] rounded-xl duration-300 hover:-translate-y-2 hover:shadow-xl'>
-                <div className='flexCenter'>
-                    <img src={paket.thumbnail} alt='paket' width={450} height={450} className='h-36 object-cover rounded-t-xl'/>
+                <div className='flexCenter h-36'>
+                    <ImageWithLoading src={paket.thumbnail} alt={'paket'} height={'144px'} width={'450px'} className='h-36 object-cover rounded-t-xl'/>
                 </div>
                 <div className='mx-4 mt-4'>
                     <div className='flex justify-center items-center h-[64px]'>
@@ -49,7 +24,7 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
                     </div>
                     <div className='my-3'>
 
-                        <div className='flexBetween items-center text-[13px] md:text-[15px] text-gray-50 my-4'>
+                        <div className='flexBetween items-center text-[13px] md:text-[14px] text-gray-50 my-4'>
                             <div className='flex gap-2 items-center'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='fill-gray-50'><path d="M20 20h-4v-4h4v4zm-6-10h-4v4h4v-4zm6 0h-4v4h4v-4zm-12 6h-4v4h4v-4zm6 0h-4v4h4v-4zm-6-6h-4v4h4v-4zm16-8v22h-24v-22h3v1c0 1.103.897 2 2 2s2-.897 2-2v-1h10v1c0 1.103.897 2 2 2s2-.897 2-2v-1h3zm-2 6h-20v14h20v-14zm-2-7c0-.552-.447-1-1-1s-1 .448-1 1v2c0 .552.447 1 1 1s1-.448 1-1v-2zm-14 2c0 .552-.447 1-1 1s-1-.448-1-1v-2c0-.552.447-1 1-1s1 .448 1 1v2z"/></svg>
                                 <p>Jadwal</p>
@@ -59,7 +34,7 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
                             </div>
                         </div>
 
-                        <div className='flexBetween items-center text-[13px] md:text-[15px] text-gray-50 my-4'>
+                        <div className='flexBetween items-center text-[13px] md:text-[14px] text-gray-50 my-4'>
                             <div className='flex gap-2 items-center'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='fill-gray-50'><path d="M22 14c0 5.523-4.478 10-10 10s-10-4.477-10-10 4.478-10 10-10 10 4.477 10 10zm-2 0c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8 8-3.589 8-8zm-6-11.819v-2.181h-4v2.181c1.408-.238 2.562-.243 4 0zm6.679 3.554l1.321-1.321-1.414-1.414-1.407 1.407c.536.402 1.038.844 1.5 1.328zm-8.679 2.265v6h6c0-3.309-2.691-6-6-6z"/></svg>
                                 <p>Durasi Perjalanan</p>
@@ -69,7 +44,7 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
                             </div>
                         </div>
 
-                        <div className='flexBetween items-center text-[13px] md:text-[15px] text-gray-50 my-4'>
+                        <div className='flexBetween items-center text-[13px] md:text-[14px] text-gray-50 my-4'>
                             <div className='flex gap-2 items-center'>
                                 <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd" className='fill-gray-50'><path d="M21 22h2v2h-22v-2h2v-22h18v22zm-10-3h-2v4h2v-4zm4 0h-2v4h2v-4zm4-17h-14v20h2v-5h10v5h2v-20zm-12 11h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zm-8-3h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zm-8-3h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zm-8-3h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2z"/></svg>
                                 <p>Hotel</p>
@@ -80,7 +55,7 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
                             </div>
                         </div>
 
-                        <div className='flexBetween items-center text-[13px] md:text-[15px] text-gray-50 my-4'>
+                        <div className='flexBetween items-center text-[13px] md:text-[14px] text-gray-50 my-4'>
                             <div className='flex gap-2 items-center'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='fill-gray-50'><path d="M12 2c2.131 0 4 1.73 4 3.702 0 2.05-1.714 4.941-4 8.561-2.286-3.62-4-6.511-4-8.561 0-1.972 1.869-3.702 4-3.702zm0-2c-3.148 0-6 2.553-6 5.702 0 3.148 2.602 6.907 6 12.298 3.398-5.391 6-9.15 6-12.298 0-3.149-2.851-5.702-6-5.702zm0 8c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm8 12c0 2.209-3.581 4-8 4s-8-1.791-8-4c0-1.602 1.888-2.98 4.608-3.619l1.154 1.824c-.401.068-.806.135-1.178.242-3.312.949-3.453 2.109-.021 3.102 2.088.603 4.777.605 6.874-.001 3.619-1.047 3.164-2.275-.268-3.167-.296-.077-.621-.118-.936-.171l1.156-1.828c2.723.638 4.611 2.016 4.611 3.618z"/></svg>
                                 <p>Kota Keberangkatan</p>
@@ -90,7 +65,7 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
                             </div>
                         </div>
 
-                        <div className='flexBetween items-center text-[13px] md:text-[15px] text-gray-50 my-4'>
+                        <div className='flexBetween items-center text-[13px] md:text-[14px] text-gray-50 my-4'>
                             <div className='flex gap-2 items-center'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='fill-gray-50'><path d="M12 2c2.757 0 5 2.243 5 5.001 0 2.756-2.243 5-5 5s-5-2.244-5-5c0-2.758 2.243-5.001 5-5.001zm0-2c-3.866 0-7 3.134-7 7.001 0 3.865 3.134 7 7 7s7-3.135 7-7c0-3.867-3.134-7.001-7-7.001zm6.369 13.353c-.497.498-1.057.931-1.658 1.302 2.872 1.874 4.378 5.083 4.972 7.346h-19.387c.572-2.29 2.058-5.503 4.973-7.358-.603-.374-1.162-.811-1.658-1.312-4.258 3.072-5.611 8.506-5.611 10.669h24c0-2.142-1.44-7.557-5.631-10.647z"/></svg>
                                 <p>Total Seat</p>
@@ -100,9 +75,9 @@ const Card_Paket: React.FC<{ paket: PackageProps }> = ({ paket }) => {
                             </div>
                         </div>
 
-                        <Seatbar_Alt totalSeat={paket.totalseat} remainingSeat={paket.remainingseat} />
+                        <SisaSeatBar totalSeat={paket.totalseat} remainingSeat={paket.remainingseat} />
 
-                        {paket.harga?.map((item: HargaProps, index) => (
+                        {paket.harga?.map((item: Harga, index) => (
                             <div key={index} className='flexBetween mt-2 mb-2'>
                                 {item.currency === 'idr' && (
                                     <p className='font-bold text-[#f14310]'>

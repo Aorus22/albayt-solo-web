@@ -1,86 +1,57 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { HargaProps, PackageProps } from "@/Components/Card_Paket";
-import {ambilSemuaPaket} from "@/db/query";
-import {TestiProps} from "@/Components/Testimoni";
+import { ambilSemuaPaket } from "@/db/query";
+import { convertCurrency, fetchData } from "@/utils/util";
+import { Paket, Testimoni } from "@/utils/type";
 
 interface PaketContextType {
-    paket: PackageProps[];
+    paket: Paket[];
     exchangeRate: number;
-    testimoni: TestiProps[];
+    testimoni: Testimoni[];
 }
 
-const PaketContext = createContext<PaketContextType>({ paket: [], exchangeRate: 1, testimoni:[] });
+const PaketContext = createContext<PaketContextType>({ paket: [], exchangeRate: 1, testimoni: [] });
 
 export const usePaketContext = () => useContext(PaketContext);
 
 export const PaketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [paket, setPaket] = useState<PackageProps[] >([]);
+    const [paket, setPaket] = useState<Paket[]>([]);
     const [exchangeRate, setExchangeRate] = useState(1);
-    const [testimoni, setTestimoni] = useState<TestiProps[] >([])
-
-    const convertCurrency = (harga: HargaProps[]) => {
-        return (
-            harga[0].currency === "usd"
-                ? harga[0].nominal * exchangeRate
-                : harga[0].nominal
-        );
-    };
+    const [testimoni, setTestimoni] = useState<Testimoni[]>([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const responseER = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-                const data = await responseER.json();
-                const newExchangeRate = data.rates.IDR;
-                setExchangeRate(newExchangeRate);
-            } catch (error) {
-                console.error('Error fetching exchange rate:', error);
-            }
-        };
-
-        fetchData().then();
+        fetchData('https://api.exchangerate-api.com/v4/latest/USD')
+            .then(data => setExchangeRate(data.rates.IDR))
+            .catch(error => console.error('Error fetching exchange rate:', error));
     }, []);
 
     useEffect(() => {
-        const fetchDataAndSort = async () => {
-            try {
-                const response = await ambilSemuaPaket();
-                const sortedPaket = response.sort((a, b) => {
-                    const hargaA = convertCurrency(a.harga);
-                    const hargaB = convertCurrency(b.harga);
-
-                    if (hargaA !== hargaB) {
-                        return hargaA - hargaB;
-                    }
-
-                    const dateA = a.jadwal.seconds * 1000;
-                    const dateB = b.jadwal.seconds * 1000;
-
-                    return dateA - dateB;
-                });
-                setPaket(sortedPaket);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
         if (exchangeRate !== 1) {
-            fetchDataAndSort().then();
+            ambilSemuaPaket()
+                .then(response => {
+                    const sortedPaket = response.sort((a, b) => {
+                        const hargaA = convertCurrency(a.harga[0], exchangeRate);
+                        const hargaB = convertCurrency(b.harga[0], exchangeRate);
+
+                        if (hargaA !== hargaB) {
+                            return hargaA - hargaB;
+                        }
+
+                        const dateA = a.jadwal.seconds * 1000;
+                        const dateB = b.jadwal.seconds * 1000;
+
+                        return dateA - dateB;
+                    });
+                    setPaket(sortedPaket);
+                })
+                .catch(error => console.error('Error fetching data:', error));
         }
     }, [exchangeRate]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("https://google-drive-storage.solo-albayt.workers.dev/testimoni/testimoni.json");
-                const data = await response.json();
-                setTestimoni(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData().then();
+        fetchData("https://google-drive-storage.solo-albayt.workers.dev/testimoni/testimoni.json")
+            .then(data => setTestimoni(data))
+            .catch(error => console.error('Error fetching data:', error));
     }, []);
 
     return (

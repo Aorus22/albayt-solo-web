@@ -3,7 +3,7 @@ import { NAV_LINKS } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import SignInButton from './SignInButton'
+import SignInButton from "@/Components/SignInButton";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +49,7 @@ const Navbar = () => {
                 </div>
 
                 <div  className='lg:flexBetween hidden lg:block'>
-                    <SignInButton></SignInButton>
+                    <SignInButton />
                 </div>
 
                 {/* Tombol Burger / Menu */}

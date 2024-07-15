@@ -2,18 +2,9 @@
 
 import React, {useCallback, useEffect, useState} from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-// import { TESTIMONI } from '@/constants';
-import Card_Testi_Alt from './Card_Testi_Alt';
 import LoadingBar from "@/Components/LoadingBar";
 import {usePaketContext} from "@/context/PaketContext";
-
-export interface TestiProps {
-    key: string,
-    img: string,
-    nama: string,
-    bintang: number,
-    review: string
-}
+import Card_Testi from "@/Components/Card_Testi";
 
 const Testimoni = () => {
     const {testimoni:TESTIMONI} = usePaketContext()
@@ -56,7 +47,7 @@ const Testimoni = () => {
                                 <div className='embla__container h-full'>
 
                                     {TESTIMONI?.map((testimoni) => (
-                                        <Card_Testi_Alt key={testimoni.key} Testimoni={testimoni}/>
+                                        <Card_Testi key={testimoni.key} testimoni={testimoni}/>
                                     ))}
 
                                 </div>

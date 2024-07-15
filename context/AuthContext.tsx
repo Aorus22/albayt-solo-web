@@ -2,7 +2,8 @@
 import React, { useContext, createContext, useState, ReactNode, useEffect } from "react";
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User } from "firebase/auth";
 import { auth, firestore } from "@/db/firebase";
-import {doc, getDoc, setDoc} from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import { addUserData } from "@/db/query";
 
 interface AuthContextType {
     user: User | null;
@@ -13,6 +14,8 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({ user: null, googleSignIn: () => {}, logOut: () => {} });
 
 export const AuthContextProvider = ({ children }: { children: ReactNode; }) => {
+    const router = useRouter()
+
     const [user, setUser] = useState<User | null>(null);
 
     const googleSignIn = async () => {
@@ -30,6 +33,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode; }) => {
     const logOut = () => {
         signOut(auth)
             .catch(error => console.error("Error signing out:", error));
+        router.push('/')
     }
 
     useEffect(() => {
@@ -45,25 +49,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode; }) => {
         </AuthContext.Provider>
     );
 };
-
-async function addUserData(user: User) {
-    const userRef = doc(firestore, "users", user.uid);
-    const userSnapshot = await getDoc(userRef);
-
-    if (!userSnapshot.exists()) {
-        await setDoc(userRef, {
-            name: user.displayName || "",
-            email: user.email || "",
-            photo: user.photoURL || "",
-            telp : user.phoneNumber || "",
-            address : "",
-            desc : ""
-        });
-        // alert("Data added successfully!");
-    } else {
-        // alert("User data already exists in Firestore!");
-    }
-}
 
 export const UserAuth = () => {
     const context = useContext(AuthContext);

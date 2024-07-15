@@ -3,17 +3,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   return (
     <>
         <section className='max-container padding-container py-7'>
 
-            {/* JUDUL SECTION */}
             <div id='judul section' className='text-center items-center my-5'>
                 <h1 className='font-bold text-4xl lg:text-6xl text-[#f14310]'>GALERI</h1>
             </div>
 
-            {/* KONTEN */}
             <div id='konten' className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-5'>
                 
                 {FOLDER_GALERI.map((folder) => (
@@ -37,4 +35,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

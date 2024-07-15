@@ -3,35 +3,10 @@
 
 import React, {useRef} from 'react';
 import { BERITA_ARTIKEL } from '@/constants';
-import BlogItem from './Card_Berita';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-// const PrevArrow = ({ onClick, className }: { onClick: () => void; className: string }) => (
-//   <div
-//     className={className}
-//     style={{ color: 'black', fontSize: '20px' }}
-//     onClick={onClick}
-//   />
-// );
-//
-// const NextArrow = ({ onClick, className }: { onClick: () => void; className: string }) => (
-//   <div
-//     className={className}
-//     style={{
-//       color: 'black',
-//       fontSize: '50px',
-//       width:'30px',
-//       height:'30px',
-//       backgroundColor: 'black',
-//       position: 'absolute',
-//       top: '50%',
-//       transform: 'translateY(-50%)'
-//     }}
-//     onClick={onClick}
-//   />
-// );
+import BlogItem from './Card_Berita';
 
 const PreviewArtikel = () => {
     let sliderRef = useRef(null);
