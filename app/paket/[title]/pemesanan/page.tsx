@@ -5,6 +5,7 @@ import {useParams, useRouter} from "next/navigation";
 import {usePaketContext} from "@/context/PaketContext";
 import "animate.css/animate.min.css";
 import { Anak, Dewasa, Paket } from "@/utils/type";
+import { formatRupiah } from "@/utils/util";
 
 const Page = () => {
     const {user} = UserAuth()
@@ -299,10 +300,8 @@ const Page = () => {
                                           DP
                                       </td>
                                       <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{dewasaCount + anakCount || 0} Orang</td>
-                                      <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{paketData?.harga_dp.toLocaleString('id-ID', {
-                                          style: 'currency',
-                                          currency: 'IDR'
-                                      })}
+                                      <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">
+                                        <p>{typeof paketData?.harga_dp === 'string' ? formatRupiah(parseInt(paketData?.harga_dp)) : formatRupiah(paketData?.harga_dp || 0)}</p>
                                       </td>
                                   </tr>
                                   {/*<tr>*/}

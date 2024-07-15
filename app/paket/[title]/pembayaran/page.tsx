@@ -9,6 +9,7 @@ import "animate.css/animate.min.css";
 import {Timestamp} from "@firebase/firestore";
 import {addPurchase} from "@/db/query";
 import { Anak, Dewasa, Paket, DetailPembelian } from "@/utils/type";
+import { formatRupiah } from "@/utils/util";
 
 const Page = () => {
     const router = useRouter();
@@ -151,10 +152,9 @@ const Page = () => {
                                     Paket
                                 </td>
                                 <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{dewasaCount + anakCount} Orang</td>
-                                <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{paketData?.harga_dp.toLocaleString('id-ID', {
-                                    style: 'currency',
-                                    currency: 'IDR'
-                                })}</td>
+                                <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">
+                                    <p>{typeof paketData?.harga_dp === 'string' ? formatRupiah(parseInt(paketData?.harga_dp)) : formatRupiah(paketData?.harga_dp || 0)}</p>
+                                </td>
                             </tr>
                             <tr className="font-bold">
                                 <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] text-center lg:text-[16px]"
