@@ -1,31 +1,24 @@
+"use client"
 import {useRef, useState} from "react";
 import {UserAuth} from "@/context/AuthContext";
 import { ShoppingCartIcon, ArrowSmLeftIcon, UserCircleIcon,  } from '@heroicons/react/solid';
 import Link from "next/link";
+import { signInWithGoogle, signOutWithGoogle } from "@/auth/auth";
 
 const SignInButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const { user, googleSignIn, logOut } = UserAuth()
+  const { user } = UserAuth()
 
   const handleSignIn = async () => {
-    try {
-      googleSignIn()
-    } catch (error) {
-      console.log(error)
-    }
-  }
+    await signInWithGoogle();
+  };
 
-  const handleLogOut = async () => {
-    try {
-      logOut()
-    } catch (error) {
-      console.log(error)
-    } finally{
-      toggleDropdown()
-    }
-  }
+  const handleSignOut = async () => {
+    await signOutWithGoogle();
+    window.location.href = '/'
+  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -114,7 +107,7 @@ const SignInButton = () => {
                 <li>
                   <div className="w-full">
                     <button
-                      onClick={handleLogOut}
+                      onClick={handleSignOut}
                       className="w-full"
                     >
                     <div className="flex gap-2 pl-3 py-3 border-b border-gray-600 hover:bg-gray-100  hover:text-[#442324]">

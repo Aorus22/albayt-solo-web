@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image'
-import OrderButton from '@/app/paket/[title]/OrderButton';
+import OrderButton from '@/app/paket/[paketID]/OrderButton';
 import SisaSeatBar from "@/Components/SisaSeatBar";
 import { Harga, Paket } from '@/utils/type';
 import { formatRupiah } from '@/utils/util';

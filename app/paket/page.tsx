@@ -229,7 +229,7 @@ const Page = () => {
               </button> */}
               {isFiltered && (
                 <button type="button" onClick={handleRemoveFilter}
-                  className="bg-gray-500 hover:bg-white text-white font-bold py-2 px-4 ml-4 rounded focus:outline-none focus:shadow-outline">
+                  className="bg-gray-500 hover:bg-white text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                   Hapus Filter
                 </button>
               )}

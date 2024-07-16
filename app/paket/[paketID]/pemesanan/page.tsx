@@ -16,7 +16,7 @@ const Page = () => {
     const [paketData, setPaketData] = useState<Paket>();
 
     useEffect(() => {
-        const currentPaket = allPaket?.find((paket: Paket) => paket.paketID === params.title)
+        const currentPaket = allPaket?.find((paket: Paket) => paket.paketID === params.paketID)
         setPaketData(currentPaket);
     }, [allPaket]);
 

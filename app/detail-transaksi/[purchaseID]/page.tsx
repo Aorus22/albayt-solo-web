@@ -8,7 +8,6 @@ import "animate.css/animate.min.css";
 import {ambilDetailPembayaran} from "@/db/query";
 import { formateDateTime, formatRupiah } from '@/utils/util';
 import { DataPembelian } from '@/utils/type';
-import LoadingSpinner from '@/Components/LoadingSpinner';
 import ImageWithLoading from '@/Components/ImageWithLoading';
 import ImagePreview from '@/Components/ImagePreview';
 

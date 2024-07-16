@@ -5,7 +5,6 @@ import SisaSeatBar from "@/Components/SisaSeatBar";
 import { Harga, Paket } from '@/utils/type';
 import { formatDate } from '@/utils/util';
 import ImageWithLoading from './ImageWithLoading';
-import LoadingSpinner from './LoadingSpinner';
 
 const Card_Paket: React.FC<{ paket: Paket }> = ({ paket }) => {
     const {exchangeRate: exchangeRate} = usePaketContext()

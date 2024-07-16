@@ -88,7 +88,7 @@ const Page = () => {
                                     </div>
                                 </div>
                                 <div className={"w-full flex gap-2"}>
-                                    {beli.detailPembelian.statusPembayaran === "Belum Dibayar" && (
+                                    {(beli.detailPembelian.statusPembayaran === "Belum Dibayar" || beli.detailPembelian.statusPembayaran === "Berkas Ditolak") && (
                                         <Link href={`/pembayaran-final/${beli.detailPembelian.purchaseID}`}>
                                             <button
                                                 className='py-2 px-10 font-semibold text-yellow-100 text-[12px] lg:text-[14px] bg-yellow-600 rounded-lg duration-200 hover:bg-black'>Bayar Sekarang

@@ -46,8 +46,8 @@ export async function addPurchase(dataPembelian: DetailPembelian) {
             urlBuktiPembayaran: dataPembelian.urlBuktiPembayaran
         });
         await addPurchaseToHistory(dataPembelian.UserID || "", dataPembelian.purchaseID)
-        const jumlahJamaah = (dataPembelian.detailJamaah.anak || []).length + dataPembelian.detailJamaah.dewasa.length
-        await ubahSisaSeat(dataPembelian.paketID, jumlahJamaah)
+        // const jumlahJamaah = (dataPembelian.detailJamaah.anak || []).length + dataPembelian.detailJamaah.dewasa.length
+        // await ubahSisaSeat(dataPembelian.paketID, jumlahJamaah)
     }
 }
 
@@ -74,7 +74,23 @@ const addPurchaseToHistory = async (userID: string, purchaseID:string) => {
     }
 };
 
-export const addBuktiPembelian = async (purchaseID:string, urlBuktiPembayaran:string) => {
+export const batalkanPembelian = async (purchaseID:string) => {
+    const purchaseRef = doc(firestore, "pembelian", purchaseID);
+    try {
+        const purchaseDoc = await getDoc(purchaseRef);
+        if (purchaseDoc.exists()) {
+            await updateDoc(purchaseRef, {
+                "statusPembayaran": "Pesanan Dibatalkan",
+            });
+        } else {
+            console.error("Pembelian dengan ID yang diberikan tidak ditemukan");
+        }
+    } catch (error) {
+        console.error("Error updating pruchase status:", error);
+    }
+};
+
+export const addBuktiPembelian = async (purchaseID:string, urlBuktiPembayaran:string, paketID: string, jumlahJamaah: number) => {
     const purchaseRef = doc(firestore, "pembelian", purchaseID);
     try {
         const purchaseDoc = await getDoc(purchaseRef);
@@ -83,6 +99,9 @@ export const addBuktiPembelian = async (purchaseID:string, urlBuktiPembayaran:st
                 "statusPembayaran": "Menunggu Konfirmasi",
                 "urlBuktiPembayaran": urlBuktiPembayaran
             });
+
+            await ubahSisaSeat(paketID, jumlahJamaah)
+            
         } else {
             console.error("Pembelian dengan ID yang diberikan tidak ditemukan");
         }
@@ -147,7 +166,7 @@ export const ambilDetailPembayaran = async(purchaseID: string) => {
 
     return {
         detailPembelian: purchaseData as DetailPembelian,
-        detailPaket: paketDoc
+        detailPaket: paketDoc as Paket
     }
 }
 

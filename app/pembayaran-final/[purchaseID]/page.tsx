@@ -5,12 +5,14 @@ import {useParams, useRouter} from "next/navigation";
 import {UserAuth} from "@/context/AuthContext";
 import LoadingBar from "@/Components/LoadingBar";
 import "animate.css/animate.min.css";
-import {addBuktiPembelian, ambilDetailPembayaran} from "@/db/query";
-import { Anak, DataPembelian, Dewasa } from "@/utils/type";
+import {addBuktiPembelian, ambilDetailPembayaran, batalkanPembelian} from "@/db/query";
+import { Anak, DataPembelian, DetailPembelian, Dewasa, Paket } from "@/utils/type";
 import LoadingSpinner from "@/Components/LoadingSpinner";
 
 const Page = () => {
-    const [riwayatPembelian, setRiwayatPembelian] = useState<DataPembelian>();
+    const [detailPembelian, setDetailPembelian] = useState<DetailPembelian | null>(null);
+    const [detailPaket, setDetailPaket] = useState<Paket | null>(null)
+
     const router = useRouter();
     const params = useParams();
     const { user } = UserAuth()
@@ -20,9 +22,10 @@ const Page = () => {
         if (user != null) {
             (async () => {
                 try {
-                    const response = await ambilDetailPembayaran(String(params.purchaseID));
+                    const response: DataPembelian | null = await ambilDetailPembayaran(String(params.purchaseID));
                     if (user?.uid == response?.detailPembelian.UserID){
-                      setRiwayatPembelian(response as DataPembelian);
+                      setDetailPembelian(response.detailPembelian)
+                      setDetailPaket(response.detailPaket)
                     } else {
                         router.push('/')
                     }
@@ -33,14 +36,13 @@ const Page = () => {
         }
     }, [user]);
 
-    useEffect(() => setLoading(!riwayatPembelian), [riwayatPembelian]);
+    useEffect(() => setLoading(!detailPembelian), [detailPembelian]);
 
-    const dewasaData = riwayatPembelian?.detailPembelian.detailJamaah.dewasa
+    const dewasaData = detailPembelian?.detailJamaah.dewasa
     const dewasaCount = dewasaData?.length || 0
-    const anakData = riwayatPembelian?.detailPembelian.detailJamaah.anak
+    const anakData = detailPembelian?.detailJamaah.anak
     const anakCount = anakData?.length || 0
-    const currentBank = DATA_BANK.find((bank) => bank.nama === riwayatPembelian?.detailPembelian.metodePembayaran);
-    const paketData = riwayatPembelian?.detailPaket
+    const currentBank = DATA_BANK.find((bank) => bank.nama === detailPembelian?.metodePembayaran);
 
     const [previewUrl, setPreviewUrl] = useState<any>();
     const [file, setFile] = useState<File>()
@@ -61,15 +63,22 @@ const Page = () => {
     const [isLoadingUpload, setLoadingUpload] = useState(false);
 
     const handleSubmit = async () => {
+        if((detailPaket?.remainingseat ?? 0) <= 0){
+            alert("Kuota Telah Terisi Penuh, Pesanan Akan Dibatalkan")
+            await batalkanPembelian(detailPembelian?.purchaseID ?? "")
+            router.push(`/detail-transaksi/${detailPembelian?.purchaseID}`);
+            return 
+        }
+
         if (!file) {
-            alert('No file selected');
+            alert('Silakan Upload Foto Terlebih Dahulu');
             return;
         }
 
         setLoadingUpload(true);
 
         try {
-            const url = `https://google-drive-storage.solo-albayt.workers.dev/user_data/${riwayatPembelian?.detailPembelian?.email}/${riwayatPembelian?.detailPembelian?.purchaseID}.png`
+            const url = `https://google-drive-storage.solo-albayt.workers.dev/user_data/${detailPembelian?.email}/${detailPembelian?.purchaseID}.png`
             const response = await fetch(url, {
                 method: "PUT",
                 body: file,
@@ -83,11 +92,11 @@ const Page = () => {
                 return;
             }
 
-            if (riwayatPembelian?.detailPembelian.purchaseID) {
-                await addBuktiPembelian(riwayatPembelian?.detailPembelian.purchaseID, url);
+            if (detailPembelian?.purchaseID && detailPaket?.paketID) {
+                await addBuktiPembelian(detailPembelian.purchaseID, url, detailPaket?.paketID, dewasaCount+anakCount);
             }
 
-            router.push(`/detail-transaksi/${riwayatPembelian?.detailPembelian.purchaseID}`);
+            router.push(`/detail-transaksi/${detailPembelian?.purchaseID}`);
         } catch (error) {
             console.error('Error uploading file:', error);
         } finally {
@@ -150,7 +159,7 @@ const Page = () => {
                                 Detail Pemesanan
                             </div>
                             <p className="text-center mx-8 font-bold text-[16px] lg:text-lg mt-4 text-[#89060b]">
-                                {paketData?.title}
+                                {detailPaket?.title}
                             </p>
                             <div className="p-4">
                                 <table className="w-full border-collapse">
@@ -160,7 +169,7 @@ const Page = () => {
                                             Paket
                                         </td>
                                         <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{dewasaCount + anakCount} Orang</td>
-                                        <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{paketData?.harga_dp.toLocaleString('id-ID', {
+                                        <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{detailPaket?.harga_dp.toLocaleString('id-ID', {
                                             style: 'currency',
                                             currency: 'IDR'
                                         })}</td>
@@ -169,7 +178,7 @@ const Page = () => {
                                         <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] text-center lg:text-[16px]"
                                             colSpan={2}>Total Biaya
                                         </td>
-                                        <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{((paketData?.harga_dp ?? 0) * (dewasaCount + anakCount)).toLocaleString('id-ID', {
+                                        <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{((detailPaket?.harga_dp ?? 0) * (dewasaCount + anakCount)).toLocaleString('id-ID', {
                                             style: 'currency',
                                             currency: 'IDR'
                                         })}</td>

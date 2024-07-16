@@ -3,7 +3,7 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useParams} from 'next/navigation';
 import Link from 'next/link';
 import PaketAlbayt from '@/Components/PaketAlbayt';
-import OrderButton from '@/app/paket/[title]/OrderButton';
+import OrderButton from '@/app/paket/[paketID]/OrderButton';
 import LoadingBar from '@/Components/LoadingBar';
 import { FASILITAS_PAKET } from '@/constants';
 import {usePaketContext} from "@/context/PaketContext";
@@ -21,7 +21,7 @@ const Page = () => {
   const [currentPaket, setcurrentPaket] = useState<Paket | null>(null);
 
   useEffect(() => {
-    const currentPaket = paket?.find((paket: Paket) => paket.paketID === params.title)
+    const currentPaket = paket?.find((paket: Paket) => paket.paketID === params.paketID)
     setcurrentPaket(currentPaket || null);
     window.scrollTo(0, 0);
   }, [paket]);
@@ -263,7 +263,7 @@ const Page = () => {
                   <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
                     <p className="text-[#f14310] font-bold text-2xl mb-4"> Testimoni </p>
                     <p className='block bg-[#f14310] w-[20%] h-[3px] mb-2'></p> 
-                    {currentTestimoni.map((testi, index) => (
+                    {currentTestimoni.map((testi) => (
                       <div key={testi.id} className='border-b-2 pb-5 pl-4 mt-4'>
                         <p className='text-md font-semibold'>{testi.nama}</p>
                         <div className='flex mt-2 mb-4'> 

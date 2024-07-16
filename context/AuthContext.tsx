@@ -1,50 +1,20 @@
 'use client'
-import React, { useContext, createContext, useState, ReactNode, useEffect } from "react";
-import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User } from "firebase/auth";
-import { auth, firestore } from "@/db/firebase";
-import { useRouter } from "next/navigation";
-import { addUserData } from "@/db/query";
+import React, { useContext, createContext, ReactNode } from "react";
+import { useUserSession } from "@/auth/auth-hook";
+import { User } from "firebase/auth";
 
 interface AuthContextType {
     user: User | null;
-    googleSignIn: () => void;
-    logOut: () => void;
 }
 
-const AuthContext = createContext<AuthContextType>({ user: null, googleSignIn: () => {}, logOut: () => {} });
+const AuthContext = createContext<AuthContextType>({ user: null });
 
-export const AuthContextProvider = ({ children }: { children: ReactNode; }) => {
-    const router = useRouter()
+export const AuthContextProvider = ({ children, session }: { children: ReactNode, session: User }) => {
 
-    const [user, setUser] = useState<User | null>(null);
-
-    const googleSignIn = async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            await addUserData(user);
-
-        } catch (error) {
-            console.error("Error signing in with Google:", error);
-        }
-    };
-
-    const logOut = () => {
-        signOut(auth)
-            .catch(error => console.error("Error signing out:", error));
-        router.push('/')
-    }
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            setUser(currentUser);
-        });
-        return () => unsubscribe();
-    }, []);
+    const user = useUserSession();
 
     return (
-        <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
+        <AuthContext.Provider value={{ user }}>
             {children}
         </AuthContext.Provider>
     );
@@ -57,5 +27,3 @@ export const UserAuth = () => {
     }
     return context;
 };
-
-
