@@ -114,21 +114,21 @@ const Page = () => {
 
   return (
     <div className="max-container padding-container py-10 md:py-20 bg-gradient-to-b from-white to-[#ffc750]">
-      <div className='flex justify-center items-center bg-slate-800 rounded-xl p-5 mb-10'>
+      <div className='flex justify-center items-center bg-[#442324] rounded-xl p-5 mb-10'>
         <form onSubmit={handleSubmit} className={"w-full px-2"}>
-          <div className="grid lg:grid-cols-3 gap-10">
+          <div className="grid lg:grid-cols-3 lg:gap-10 gap-6">
             <div className="form-group flex flex-col">
               <label htmlFor="lokasi_keberangkatan" className="gap-2 text-white font-bold mb-2 flex">
                 <LocationMarkerIcon className="h-5 w-5" /> Lokasi Keberangkatan
               </label>
               <div className="flex items-center gap-4 py-2">
-                <div>
+                <div className='flexCenter'>
                   <input
-                    type="radio"
+                    type="radio"  
                     id="kota"
                     name="kota"
-                    checked={true}
-                    className="mr-1"
+                    defaultChecked = {true}
+                    className="mr-1 h-4 w-4 rounded-full focus:ring-2 focus:ring-blue-500"
                   />
                   <label htmlFor="less" className="text-white">kota</label>
                 </div>
@@ -136,7 +136,7 @@ const Page = () => {
               <select
                 id="lokasi_keberangkatan"
                 name="lokasi_keberangkatan"
-                className="shadow appearance-none border rounded pl-10 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded pl-10 w-full py-2 px-2 lg:py-3 lg:px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={lokasiKeberangkatan}
                 onChange={(e) => setLokasiKeberangkatan(e.target.value)}
               >
@@ -151,25 +151,25 @@ const Page = () => {
                 <CalendarIcon className="h-5 w-5" /> Waktu Keberangkatan
               </label>
               <div className={"flex items-center gap-4 py-2"}>
-                <div>
+                <div className='flexCenter'>
                   <input
                     type="radio"
                     id="before"
                     name="tanggal_option"
                     checked={tanggalOption === 'before'}
                     onChange={() => setTanggalOption('before')}
-                    className="mr-1"
+                    className="mr-1 h-4 w-4 rounded-full focus:ring-2 focus:ring-blue-500"
                   />
                   <label htmlFor="before" className="text-white">Sebelum</label>
                 </div>
-                <div>
+                <div className='flexCenter'>
                   <input
                     type="radio"
                     id="after"
                     name="tanggal_option"
                     checked={tanggalOption === 'after'}
                     onChange={() => setTanggalOption('after')}
-                    className="mr-1"
+                    className="mr-1 h-4 w-4 rounded-full focus:ring-2 focus:ring-blue-500"
                   />
                   <label htmlFor="after" className="text-white">Sesudah</label>
                 </div>
@@ -178,7 +178,7 @@ const Page = () => {
                 type="date"
                 id="waktu_keberangkatan"
                 name="waktu_keberangkatan"
-                className="shadow appearance-none border rounded pl-3 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded pl-3 w-full py-2 px-2 lg:py-3 lg:px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Waktu Keberangkatan"
                 value={waktuKeberangkatan !== 0 ? new Date(waktuKeberangkatan).toISOString().split('T')[0] : ''}
                 onChange={(e) => setWaktuKeberangkatan(Date.parse(e.target.value))}
@@ -189,18 +189,18 @@ const Page = () => {
                 <CurrencyDollarIcon className="h-5 w-5" /> Biaya
               </label>
               <div className="flex items-center gap-4 py-2">
-                <div>
+                <div className='flexCenter'>
                   <input
                     type="radio"
                     id="less"
                     name="biaya_option"
                     checked={biayaOption === 'less'}
                     onChange={() => setBiayaOption('less')}
-                    className="mr-1"
+                    className="mr-1 h-4 w-4 rounded-full focus:ring-2 focus:ring-blue-500"
                   />
                   <label htmlFor="less" className="text-white">Kurang dari</label>
                 </div>
-                <div>
+                <div className='flexCenter'>
                   <input
                     type="radio"
                     id="more"
@@ -216,7 +216,7 @@ const Page = () => {
                 type="number"
                 id="biaya"
                 name="biaya"
-                className="shadow appearance-none border rounded pl-3 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded pl-3 w-full py-2 px-2 lg:py-3 lg:px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Rp"
                 value={biaya}
                 onChange={(e) => setBiaya(e.target.value)}
@@ -239,7 +239,7 @@ const Page = () => {
       </div>
       {isLoading && (<LoadingBar />)}
       <section className="py-7 md:px-12">
-        <div id='konten' className='grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3 justify-center'>
+        <div id='konten' className='grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3 justify-center'>
           { (isFiltered && filteredData?.length == 0) ? (
             <div className="text-center text-gray-700 font-bold col-span-full">
               Paket tidak ditemukan
@@ -247,7 +247,7 @@ const Page = () => {
           ) : (
             (isFiltered ? filteredData : data).map((paket: any) => (
               <div className='flex w-full justify-center' key={paket.paketID}>
-                <div className='max-w-sm'>
+                <div className='max-w-sm w-full'>
                   <Card_Paket paket={paket} />
                 </div>
               </div>

@@ -155,7 +155,7 @@ export const ambilRiwayatPembelian = async (userID: string) => {
     const purchaseRef = doc(firestore, "users", userID);
     const purchaseDoc = await getDoc(purchaseRef);
     if (!purchaseDoc.exists()) {
-        return null
+        return []
     }
     const userData = purchaseDoc.data()
     const riwayatPembelian = userData ? userData['riwayat-pembelian'] || [] : [];

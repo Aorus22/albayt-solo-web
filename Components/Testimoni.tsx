@@ -7,7 +7,7 @@ import {usePaketContext} from "@/context/PaketContext";
 import Card_Testi from "@/Components/Card_Testi";
 
 const Testimoni = () => {
-    const {testimoni:TESTIMONI} = usePaketContext()
+    const { testimoni } = usePaketContext()
     const [isLoading, setIsLoading] = useState<Boolean>(true);
     const [emblaRef, emblaApi] = useEmblaCarousel({loop: true})
 
@@ -20,10 +20,10 @@ const Testimoni = () => {
     }, [emblaApi])
 
     useEffect(() => {
-        if (TESTIMONI.length > 0){
+        if (testimoni.length > 0){
             setIsLoading(false)
         }
-    }, [TESTIMONI]);
+    }, [testimoni]);
 
     return (
         <>
@@ -45,11 +45,9 @@ const Testimoni = () => {
                         <div id='isi konten' className='embla'>
                             <div className='embla__viewport mx-auto mt-2 max-w-lg' ref={emblaRef}>
                                 <div className='embla__container h-full'>
-
-                                    {TESTIMONI?.map((testimoni) => (
-                                        <Card_Testi key={testimoni.key} testimoni={testimoni}/>
+                                    {testimoni?.map((testimoni) => (
+                                        <Card_Testi key={testimoni.id} testimoni={testimoni}/>
                                     ))}
-
                                 </div>
                             </div>
 

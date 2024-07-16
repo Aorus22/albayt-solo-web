@@ -4,7 +4,7 @@ import { LinearProgress} from "@mui/material";
 const LoadingBar: React.FC = () => {
     return (
         <div className={"z-[100]"}>
-            <LinearProgress color="secondary" />
+            <LinearProgress color="warning" />
         </div>
     );
 };

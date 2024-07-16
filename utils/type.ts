@@ -29,7 +29,7 @@ export type Paket = {
 }
   
 export type Testimoni = {
-    key: string,
+    id: string,
     img: string,
     nama: string,
     bintang: number,

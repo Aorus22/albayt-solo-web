@@ -65,7 +65,7 @@ const Navbar = () => {
             {isOpen && 
                 <ul className='mt-3 h-full gap-12 lg:hidden'>
                     <div className={'w-full justify-center flex'}>
-                        <SignInButton></SignInButton>
+                        <SignInButton />
                     </div>
 
 

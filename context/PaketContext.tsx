@@ -49,7 +49,8 @@ export const PaketProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }, [exchangeRate]);
 
     useEffect(() => {
-        fetchData("https://google-drive-storage.solo-albayt.workers.dev/testimoni/testimoni.json")
+        // fetchData("https://google-drive-storage.solo-albayt.workers.dev/testimoni/testimoni.json")
+        fetchData("/api/testimoni")
             .then(data => setTestimoni(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);

@@ -22,6 +22,8 @@ const SignInButton = () => {
       logOut()
     } catch (error) {
       console.log(error)
+    } finally{
+      toggleDropdown()
     }
   }
 
@@ -77,9 +79,9 @@ const SignInButton = () => {
             <div
               ref={dropdownRef} 
               id="dropdownInformation"
-              className="absolute right-0 mt-2 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+              className="absolute right-0 mt-2 z-10 divide-y w-52 divide-gray-100 rounded-lg shadow bg-[#442324]"
             >
-              <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+              <div className="px-4 py-3 text-sm text-white">
                 <div>{userName}</div>
                 <div className="font-medium truncate">{userEmail}</div>
               </div>
@@ -90,8 +92,9 @@ const SignInButton = () => {
                 <li>
                   <Link
                     href="/riwayat-pembelian"
+                    onClick={toggleDropdown}
                   >
-                    <div className="flex gap-2 px-2 py-3 border-b border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <div className="flex gap-2 pl-3 py-3 border-b border-gray-600 hover:bg-gray-100  hover:text-[#442324]">
                       <ShoppingCartIcon height={24} />
                       <p>Riwayat Pembelian</p>
                     </div>
@@ -99,25 +102,29 @@ const SignInButton = () => {
                 </li>
                 <li>
                   <Link
+                    onClick={toggleDropdown}
                     href="/info-profil"
                   >
-                    <div className="flex gap-2 px-2 py-3 border-b border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <div className="flex gap-2 pl-3 py-3 border-b border-gray-600 hover:bg-gray-100  hover:text-[#442324]">
                       <UserCircleIcon height={24} />
                       <p>Informasi Akun</p>
                     </div>
                   </Link>
                 </li>
+                <li>
+                  <div className="w-full">
+                    <button
+                      onClick={handleLogOut}
+                      className="w-full"
+                    >
+                    <div className="flex gap-2 pl-3 py-3 border-b border-gray-600 hover:bg-gray-100  hover:text-[#442324]">
+                        <ArrowSmLeftIcon height={24}/>
+                        <p>Sign out</p>
+                      </div>
+                    </button>
+                  </div>
+                </li>
               </ul>
-              <div className="w-full">
-                <button
-                  type="button"
-                  onClick={handleLogOut}
-                  className="flex w-full gap-2 text-left px-2 py-3 text-sm rounded-b-lg text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  <ArrowSmLeftIcon height={24}/>
-                  <p>Sign out</p>
-                </button>
-              </div>
             </div>
           )}
         </div>

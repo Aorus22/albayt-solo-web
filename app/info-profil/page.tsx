@@ -25,9 +25,8 @@ const Page = () => {
       <>
         <section className='max-container padding-container py-8'>
           <h1 className='font-bold text-5xl text-[#f14310] text-center'>PROFIL</h1>
-
-          <div className='grid md:grid-cols-2 my-8'>
-
+          <div className='flexCenter'>
+          <div className='grid md:grid-cols-2 my-8 max-w-5xl w-full'>
             <div className='flex flex-col justify-center items-center gap-5'>
               <img src={(userData?.photo)?.replace("=s96-c", "=s1024")} alt='profil-photo' width={240} height={240} className='w-80 h-80 rounded-full object-cover'/>
               {/* <button className='flex gap-2 py-2 px-4 text-white bg-[#f14310] items-center rounded-lg duration-200 hover:bg-black'>
@@ -70,6 +69,7 @@ const Page = () => {
               </div>
             </div>
 
+            </div>
           </div>
         </section>
       </>

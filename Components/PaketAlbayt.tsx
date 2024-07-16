@@ -18,7 +18,7 @@ const PaketAlbayt = () => {
 
   return (
     <>
-      <section className="max-container padding-container py-7 bg-[url('/images/bg-paket.jpg')] bg-no-repeat">
+      <section className="max-container padding-container py-7 bg-[url('/images/bg-paket.jpg')]">
 
         {/* JUDUL SECTIOn */}
         <div id='judul section' className='items-center text-center mt-6 mb-12'>

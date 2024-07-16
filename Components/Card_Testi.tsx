@@ -4,7 +4,7 @@ import React from 'react'
 const Card_Testi = ({ testimoni }: { testimoni: Testimoni }) => {
   return (
     <>
-        <div key={testimoni.key} className='embla__slide m-2'>
+        <div className='embla__slide m-2'>
             <div className='p-4 md:p-8 items-center bg-white h-full rounded-xl shadow-lg'>
                 <div className='flex items-center justify-center flex-col md:flex-row md:ml-8 my-2 rounded-sm'>
                     <img src={testimoni.img} alt='testi' className='w-16 h-16 object-cover rounded-full' />

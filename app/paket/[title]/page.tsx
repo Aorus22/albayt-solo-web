@@ -108,7 +108,7 @@ const Page = () => {
   };
 
   return (
-    <div className='min-h-[35vh]'>    
+    <div className='max-container min-h-[70vh]'>    
       {isLoading ? <LoadingBar /> :
         (
           <div>
@@ -130,7 +130,7 @@ const Page = () => {
               </div>
 
             {/* Main */}
-            <div className="px-5 xs:px-10 sm:px-20 lg:px-24 xl:px-56 w-screen bg-gradient-to-t to-transparent from-[#ffc750] flex justify-center items-center pb-20">
+            <div className="px-5 xs:px-10 sm:px-20 lg:px-24 xl:px-56 w-full bg-gradient-to-t to-transparent from-[#ffc750] flex justify-center items-center pb-20">
               <div className="grid lg:grid-cols-5 pt-4">
                 <div className='col-span-3'>
                   <div className="rounded-2xl justify-center items-center p-5">
@@ -194,7 +194,7 @@ const Page = () => {
                           <path d="M8 6h3v2H8zm5 0h3v2h-3zm-5 4h3v2H8zm5 .031h3V12h-3zM8 14h3v2H8zm5 0h3v2h-3z"></path>
                         </svg>
                         <p className='text-[13px] lg:text-md'>Hotel</p>
-                        <div className="text-2xl flex font-semibold">
+                        <div className="text-2xl flex font-semibold flexCenter">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 style={{fill: 'gold', transform: '', msFilter: ''}}>
                             <path
@@ -261,24 +261,28 @@ const Page = () => {
 
                   {/* Testimoni */}
                   <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-48 mt-4 shadow justify-center bg-white p-6">
-                    <p className="text-[#f14310] font-bold text-2xl mb-4"> testimoni </p>
-                    <p className='block bg-[#f14310] w-[20%] h-[3px] mb-2'></p> {currentTestimoni.map((testi, index) => (
-                      <div key={index} className='border-b-2 pb-5 pl-4 mt-4'>
+                    <p className="text-[#f14310] font-bold text-2xl mb-4"> Testimoni </p>
+                    <p className='block bg-[#f14310] w-[20%] h-[3px] mb-2'></p> 
+                    {currentTestimoni.map((testi, index) => (
+                      <div key={testi.id} className='border-b-2 pb-5 pl-4 mt-4'>
                         <p className='text-md font-semibold'>{testi.nama}</p>
-                        <div className='flex mt-2 mb-4'> {Array.from({length: testi.bintang}, (_, index) => (
+                        <div className='flex mt-2 mb-4'> 
+                          {Array.from({length: testi.bintang}, (_, index) => (
                             <svg key={index} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                   style={{fill: 'gold', transform: '', msFilter: ''}}>
                               <path
                                   d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"/>
-                            </svg>))} </div>
+                            </svg>
+                          ))} </div>
                         <p className='text-sm'>{testi.review}</p>
-                      </div>))}
+                      </div>
+                    ))}
                     <div className="flex justify-between mt-4">
                       <button className="bg-[#f14310] text-white py-2 px-4 rounded disabled:bg-gray-400"
                               onClick={previousPage} disabled={halamanTestimoni === 1}> Sebelumnya
                       </button>
-                      <button className="bg-[#f14310] text-white py-2 px-4 rounded disabled:bg-gray-400" onClick={nextPage}
-                              disabled={(halamanTestimoni - 1) * 10 >= testimoni.length}> Selanjutnya
+                      <button className="bg-[#f14310] text-white py-2 px-4 rounded disabled:bg-gray-400" 
+                              onClick={nextPage} disabled={(halamanTestimoni) * 5 >= testimoni.length}> Selanjutnya
                       </button>
                     </div>
                   </div>

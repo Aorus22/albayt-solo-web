@@ -1,7 +1,7 @@
 import { Harga } from "./type";
 
 const fetchData = async (url: string) => {
-    const response = await fetch(url);
+    const response = await fetch(url, { next: { revalidate: 0 } });
     if (!response.ok) {
         throw new Error(`Failed to fetch data from ${url}`);
     }

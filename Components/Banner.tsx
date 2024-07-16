@@ -17,7 +17,7 @@ const Banner = () => {
             <div className='embla__container h-full'>
               {HERO_SLIDE.map((slide) => (
                 <div key={slide.key} className='embla__slide3 m-1'>
-                  <Image src={slide.img} alt='slide' width={1440} height={850} className='h-28 md:h-48 lg:h-80 object-cover' />
+                  <Image src={slide.img} alt='slide' width={1440} height={960} className='' />
                 </div>
               ))}
             </div>
