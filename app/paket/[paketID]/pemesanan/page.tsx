@@ -6,9 +6,10 @@ import {usePaketContext} from "@/context/PaketContext";
 import "animate.css/animate.min.css";
 import { Anak, Dewasa, Paket } from "@/utils/type";
 import { formatRupiah } from "@/utils/util";
+import LoadingBar from "@/Components/LoadingBar";
 
 const Page = () => {
-    const {user} = UserAuth()
+    const { user } = UserAuth()
     const params = useParams()
     const router = useRouter()
 
@@ -75,13 +76,21 @@ const Page = () => {
         router.push("pembayaran")
     };
 
-    if (user) {
-        const userImage = user.photoURL || "";
-        const userName = user.displayName || "";
-        // const userEmail = user.email || "";
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(()=>{
+        if(user){
+            setIsLoading(false)
+        }
+    }, [user])
+
+    const userImage = user?.photoURL || "";
+    const userName = user?.displayName || "";
+    // const userEmail = user.email || "";
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-[75vh]">
+            {isLoading && <LoadingBar />}
             <div className="md:flex py-4 max-container padding-container animate__animated animate__fadeInUp">
                 <div
                     className="md:border-r-2 lg:pl-40 pr-0 md:pr-4 w-full md:w-[65%] border-b-2 md:border-b-0 border-opacity-50 mr-8 border-[#89060b]">
@@ -331,9 +340,7 @@ const Page = () => {
             </div>
 
         </div>
-      );
-    }
-
+    );
 };
 
 export default Page;

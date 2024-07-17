@@ -12,15 +12,15 @@ const Banner = () => {
     return (
         <section className='max-container mx-auto'>
             <div className='embla'>
-            <div className='embla__viewport mx-auto' ref={emblaRef}>
-                <div className='embla__container h-full'>
-                {HERO_SLIDE.map((slide) => (
-                    <div key={slide.key} className='embla__slide3 m-1'>
-                        <Image src={slide.img} alt='slide' width={1440} height={960} />
+                <div className='embla__viewport mx-auto' ref={emblaRef}>
+                    <div className='embla__container h-full'>
+                    {HERO_SLIDE.map((slide) => (
+                        <div key={slide.key} className='embla__slide3 m-1'>
+                            <Image src={slide.img} alt='slide' width={1440} height={960} />
+                        </div>
+                    ))}
                     </div>
-                ))}
                 </div>
-            </div>
             </div>
         </section>
     )

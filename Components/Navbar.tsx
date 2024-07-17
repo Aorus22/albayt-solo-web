@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import SignInButton from "@/Components/SignInButton";
+import XMark from '@/public/icon/XMark.svg'
+import MenuIcon from '@/public/icon/MenuIcon.svg'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -55,9 +57,9 @@ const Navbar = () => {
                 {/* Tombol Burger / Menu */}
                 <button onClick={toggleNavbar} className='inline-block lg:hidden'>
                 {isOpen ? (
-                    <Image src={'/xmark.svg'} width={32} height={32} alt='menu'/>
+                    <XMark width={'32px'} height={'32px'} />
                 ) : (
-                    <Image src={'/menu.svg'} width={32} height={32} alt='menu'/>
+                    <MenuIcon width={'32px'} height={'32px'} />
                 )}
                 </button>
             </div>

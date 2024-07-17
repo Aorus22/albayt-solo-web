@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {UserAuth} from "@/context/AuthContext";
 import { getUser } from '@/db/query';
 import SaveIcon from '@/public/icon/SaveIcon.svg';
+import ImageWithLoading from '@/Components/ImageWithLoading';
 
 const Page = () => {
 
@@ -28,7 +29,7 @@ const Page = () => {
             <div className='flexCenter'>
                 <div className='grid md:grid-cols-2 my-8 max-w-5xl w-full'>
                     <div className='flex flex-col justify-center items-center gap-5'>
-                        <img src={(userData?.photo)?.replace("=s96-c", "=s1024")} alt='profil-photo' width={240} height={240} className='w-80 h-80 rounded-full object-cover'/>
+                        <ImageWithLoading src={(userData?.photo)?.replace("=s96-c", "=s1024")} alt='profil-photo' width={"240px"} height={"240px"} className='w-80 h-80 rounded-full object-cover'/>
                     </div>
                     <div className='flex flex-col gap-7'>
                         <div>
