@@ -8,6 +8,7 @@ import "animate.css/animate.min.css";
 import {addBuktiPembelian, ambilDetailPembayaran, batalkanPembelian} from "@/db/query";
 import { Anak, DataPembelian, DetailPembelian, Dewasa, Paket } from "@/utils/type";
 import LoadingSpinner from "@/Components/LoadingSpinner";
+import ConfirmationModal from "@/Components/ConfirmationModal";
 
 const Page = () => {
     const [detailPembelian, setDetailPembelian] = useState<DetailPembelian | null>(null);
@@ -60,9 +61,17 @@ const Page = () => {
         }
     };
 
+    const [showConfirmation, setShowConfirmation] = useState(false);
+
     const [isLoadingUpload, setLoadingUpload] = useState(false);
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (confirm: boolean) => {
+        setShowConfirmation(false)
+
+        if(!confirm){
+            return
+        }
+
         if((detailPaket?.remainingseat ?? 0) <= 0){
             alert("Kuota Telah Terisi Penuh, Pesanan Akan Dibatalkan")
             await batalkanPembelian(detailPembelian?.purchaseID ?? "")
@@ -107,6 +116,7 @@ const Page = () => {
     return (
         <div className="max-container min-h-[70vh] flexCenter">
             {isLoadingUpload && <LoadingSpinner overlay />}
+            {showConfirmation && <ConfirmationModal handleKonfirmasi={handleSubmit} message={"Apakah anda yakin untuk mengupload bukti pembayaran?"}/>}
             {isLoading ? (<LoadingBar />) : (
                 <div className="flex flex-col md:flex-row py-4 padding-container animate__animated animate__fadeInUp">
                     <div className="md:border-r-2 lg:pl-40 md:pr-4 w-full md:w-[65%] border-opacity-50 mr-8 border-[#89060b]">
@@ -147,7 +157,7 @@ const Page = () => {
                             </div>
         
                             <div className="my-8 w-full flex justify-end">
-                                <button onClick={handleSubmit} className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4 duration-200 hover:bg-black">
+                                <button onClick={() => setShowConfirmation(true)} className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4 duration-200 hover:bg-black">
                                     Submit
                                 </button>
                             </div>

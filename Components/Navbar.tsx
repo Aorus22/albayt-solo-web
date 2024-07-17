@@ -55,10 +55,10 @@ const Navbar = () => {
                 {/* Tombol Burger / Menu */}
                 <button onClick={toggleNavbar} className='inline-block lg:hidden'>
                 {isOpen ? (
-                        <Image src={'/xmark.svg'} width={32} height={32} alt='menu'/>
-                    ) : (
-                        <Image src={'/menu.svg'} width={32} height={32} alt='menu'/>
-                    )}
+                    <Image src={'/xmark.svg'} width={32} height={32} alt='menu'/>
+                ) : (
+                    <Image src={'/menu.svg'} width={32} height={32} alt='menu'/>
+                )}
                 </button>
             </div>
 
@@ -67,7 +67,6 @@ const Navbar = () => {
                     <div className={'w-full justify-center flex'}>
                         <SignInButton />
                     </div>
-
 
                     <div className='mt-2'>
                         {NAV_LINKS.map((link) => (
@@ -78,7 +77,6 @@ const Navbar = () => {
                             </div>
                         ))}
                     </div>
-
                 </ul>
             }
         </nav>

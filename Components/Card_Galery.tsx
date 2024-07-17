@@ -8,8 +8,7 @@ type cardProps = {
 }
 
 const Card_Galery = ({foto_id, img, title}: cardProps) => {
-  return (
-    <>
+    return (
         <div className='flexCenter' key={foto_id}>
             <div className='card_galery'>
                 <div className='image_box'>
@@ -20,8 +19,7 @@ const Card_Galery = ({foto_id, img, title}: cardProps) => {
                 </div>
             </div>
         </div>
-    </>
-  )
+    )
 }
 
 export default Card_Galery

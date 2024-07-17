@@ -11,10 +11,10 @@ import BlogItem from './Card_Berita';
 const PreviewArtikel = () => {
     let sliderRef = useRef(null);
     const next = () => {
-      sliderRef.slickNext();
+        sliderRef.slickNext();
     };
     const previous = () => {
-      sliderRef.slickPrev();
+        sliderRef.slickPrev();
     };
     
     const settings = {
@@ -27,25 +27,24 @@ const PreviewArtikel = () => {
         slidesToScroll: 3,
         arrows:false, 
         responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                },
             },
-          },
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
             },
-          },
         ],
-      };
+    };
 
   return (
-    <>
         <div className='max-container padding-container mx-auto mb-16 py-8 px-8'>
 
             <div className='items-center text-center my-7'>
@@ -70,7 +69,6 @@ const PreviewArtikel = () => {
                 </div>
             </div>
         </div>
-    </>
   )
 }
 

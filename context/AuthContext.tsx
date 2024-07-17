@@ -9,7 +9,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({ user: null });
 
-export const AuthContextProvider = ({ children, session }: { children: ReactNode, session: User }) => {
+export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
     const user = useUserSession();
 
