@@ -229,66 +229,75 @@ const Page = () => {
                             <p className="font-bold text-2xl mb-4 text-[#f14310]">
                                 Detail Jamaah
                             </p>
-                            <form>
-                                <fieldset>
-                                    <h1 className="font-bold mb-4">Dewasa</h1>
-                                    {[...Array(dewasaCount || 0)].map((_, index) => (
-                                        <div key={`dewasa_${index}`} className="grid grid-cols-2 mb-4">
-                                            <label className="block h-10" htmlFor={`nama_dewasa_${index}`}>
-                                                Nama
-                                            </label>
-                                            <input
-                                                className="border border-[#f14310] rounded-lg mb-1 px-2"
-                                                type="text"
-                                                id={`nama_dewasa_${index}`}
-                                                name={`nama`}
-                                                onChange={(e) => handleDewasaChange(e, index)}
-                                                required
-                                            />
-                                            <label className="block h-10" htmlFor={`telp_dewasa_${index}`}>
-                                                No Telp (Whatsapp)
-                                            </label>
-                                            <input
-                                                className="border border-[#f14310] rounded-lg px-2"
-                                                type="tel"
-                                                id={`telp_dewasa_${index}`}
-                                                name={`telp`}
-                                                onChange={(e) => handleDewasaChange(e, index)}
-                                                required
-                                            />
-                                        </div>
-                                    ))}
-                                </fieldset>
+                            
+                            {dewasaCount < 1 && anakCount < 1 && (
+                                <p className="font-medium text-gray-30">Belum terdapat jamaah yang ditambahkan!</p>
+                            )}
 
-                                <fieldset>
-                                    <h1 className="font-bold mb-4">Anak-anak</h1>
-                                    {[...Array(anakCount || 0)].map((_, index) => (
-                                        <div key={`anak_${index}`} className="grid grid-cols-2 mb-4">
-                                            <label className="block h-10" htmlFor={`nama_anak_${index}`}>
-                                                Nama
-                                            </label>
-                                            <input
-                                                className="border border-[#f14310] rounded-lg mb-1 px-2"
-                                                type="text"
-                                                id={`nama_anak_${index}`}
-                                                name={`nama`}
-                                                onChange={(e) => handleAnakChange(e, index)}
-                                                required
-                                            />
-                                            <label className="block h-10" htmlFor={`tgl_lahir_anak_${index}`}>
-                                                Tanggal Lahir
-                                            </label>
-                                            <input
-                                                className="border border-[#f14310] rounded-lg px-2"
-                                                type="date"
-                                                id={`tgl_lahir_anak_${index}`}
-                                                name={`tgl_lahir`}
-                                                onChange={(e) => handleAnakChange(e, index)}
-                                                required
-                                            />
-                                        </div>
-                                    ))}
-                                </fieldset>
+                            <form>
+                                {dewasaCount > 0 && (
+                                    <fieldset>
+                                        <h1 className="font-bold mb-4">Dewasa</h1>
+                                        {[...Array(dewasaCount || 0)].map((_, index) => (
+                                            <div key={`dewasa_${index}`} className="grid grid-cols-2 mb-4">
+                                                <label className="block h-10" htmlFor={`nama_dewasa_${index}`}>
+                                                    Nama
+                                                </label>
+                                                <input
+                                                    className="border border-[#f14310] rounded-lg mb-1 px-2"
+                                                    type="text"
+                                                    id={`nama_dewasa_${index}`}
+                                                    name={`nama`}
+                                                    onChange={(e) => handleDewasaChange(e, index)}
+                                                    required
+                                                />
+                                                <label className="block h-10" htmlFor={`telp_dewasa_${index}`}>
+                                                    No Telp (Whatsapp)
+                                                </label>
+                                                <input
+                                                    className="border border-[#f14310] rounded-lg px-2"
+                                                    type="tel"
+                                                    id={`telp_dewasa_${index}`}
+                                                    name={`telp`}
+                                                    onChange={(e) => handleDewasaChange(e, index)}
+                                                    required
+                                                />
+                                            </div>
+                                        ))}
+                                    </fieldset>
+                                )}
+
+                                {anakCount > 0 && (
+                                    <fieldset>
+                                        <h1 className="font-bold mb-4">Anak-anak</h1>
+                                        {[...Array(anakCount || 0)].map((_, index) => (
+                                            <div key={`anak_${index}`} className="grid grid-cols-2 mb-4">
+                                                <label className="block h-10" htmlFor={`nama_anak_${index}`}>
+                                                    Nama
+                                                </label>
+                                                <input
+                                                    className="border border-[#f14310] rounded-lg mb-1 px-2"
+                                                    type="text"
+                                                    id={`nama_anak_${index}`}
+                                                    name={`nama`}
+                                                    onChange={(e) => handleAnakChange(e, index)}
+                                                    required
+                                                />
+                                                <label className="block h-10" htmlFor={`tgl_lahir_anak_${index}`}>
+                                                    Tanggal Lahir
+                                                </label>
+                                                <input
+                                                    className="border border-[#f14310] rounded-lg px-2"
+                                                    type="date"
+                                                    id={`tgl_lahir_anak_${index}`}
+                                                    name={`tgl_lahir`}
+                                                    onChange={(e) => handleAnakChange(e, index)}
+                                                    required
+                                                />
+                                            </div>
+                                        ))}
+                                    </fieldset>
+                                )}
                             </form>
                         </div>
                     </div>
