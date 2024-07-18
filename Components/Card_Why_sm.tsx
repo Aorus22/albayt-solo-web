@@ -17,7 +17,7 @@ const Card_Why_sm = ({img, title, desc}: cardProps) => {
 
                     <div className='flexCenter pb-9'>
                         <div className='flexCenter relative'>
-                            <div className='absolute bg-[#0f0d0d] h-14 w-14 border rounded-full flexCenter shadow-lg'>
+                            <div className='absolute bg-[#f14310] h-14 w-14 border rounded-full flexCenter shadow-lg'>
                                 <Image src={img} alt='icon' width={32} height={32} className='object-cover' />
                             </div>
                         </div>
