@@ -91,9 +91,9 @@ const Page = () => {
     return (
         <div className="min-h-[75vh]">
             {isLoading && <LoadingBar />}
-            <div className="md:flex py-4 max-container padding-container animate__animated animate__fadeInUp">
+            <div className="md:flex py-8 max-container padding-container animate__animated animate__fadeInUp">
                 <div
-                    className="md:border-r-2 lg:pl-40 pr-0 md:pr-4 w-full md:w-[65%] border-b-2 md:border-b-0 border-opacity-50 mr-8 border-[#89060b]">
+                    className="pr-0 mr-0 pb-8 mb-8 border-b-2 border-r-0 md:pr-16 md:mr-16 md:pb-0 md:mb-0 md:border-b-0 md:border-r-2 border-[#89060b] border-opacity-50 md:w-[65%]">
                     <div>
                         <div
                             className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-4 md:p-6 shadow">
