@@ -13,9 +13,9 @@ const Card_Testi = ({ testimoni }: { testimoni: Testimoni }) => {
                 </div>
             </div>
             <div className='flex items-center justify-center md:justify-normal mt-4 mx-5 my-2 md:mr-5'>
-                <div className='flex gap-2 py-2 px-2 h-fit w-fit bg-[#89060b] rounded-full '>
+                <div className='flex gap-2 py-2 px-4 bg-[#89060b] rounded-full '>
                     {Array.from({length: testimoni.bintang}, (_, index) => (
-                        <div key = {`bintang-${index}`} className='w-4 h-4'>
+                        <div key = {`bintang-${index}`}>
                             <StarIcon1 />
                         </div>
                     ))}
