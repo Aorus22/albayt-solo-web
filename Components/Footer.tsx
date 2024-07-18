@@ -6,17 +6,17 @@ import React from 'react'
 const Footer = () => {
     return (
         <footer className='flexCenter pb-3 bg-[#f14310]'>
-            <div className='padding-container max-container flex w-full flex-col gap-14'>
-                <div className='flex flex-col items-start justify-center gap-[10%] md:flex-row mt-5'>
-                    <Link href={'/'} className='mb-10'>
+            <div className='padding-container flex w-full flex-col gap-14'>
+                <div className='flex flex-col items-start justify-center gap-[10%] md:flex-row mt-8'>
+                    <Link href={'/'} className='mb-10 md:mb-0'>
                         <div className='w-40'>
-                            <Image src={'/images/Logo.png'} alt='logo' width={200} height={200} />
+                            <img src={'/images/Logo.png'} alt='logo' className='h-[100px] w-auto object-contain md:h-[150px]' />
                         </div>
                     </Link>
                     <div className='flex flex-wrap gap-10 sm:justify-between md:flex-1'>
                         {FOOTER_LINKS.map((columns) => (
                             <FooterColumn key={columns.title} title={columns.title}>
-                                <ul className='font-medium text-[16px] flex flex-col gap-4 text-white'>
+                                <ul className='font-medium text-[14px] md:text-[16px] flex flex-col gap-3 md:gap-4 text-white'>
                                     {columns.links.map((link) => (
                                         <Link href={link.link} target='blank' key={link.label} className='duration-200 hover:text-black'>
                                             {link.value}
@@ -28,7 +28,7 @@ const Footer = () => {
                         <div className='flex flex-col gap-5'>
                             <FooterColumn title={FOOTER_CONTACT_INFO.title}>
                                 {FOOTER_CONTACT_INFO.links.map((link) => (
-                                    <Link href={link.link} key={link.label} target='blank' className='flex gap-4 md:flex-col lg:flex-row'>
+                                    <Link href={link.link} key={link.label} target='blank' className='text-[14px] md:text-[16px] flex gap-4'>
                                         <p className='whitespace-nowrap text-white'>
                                             {link.label}
                                         </p>
@@ -64,7 +64,7 @@ const Footer = () => {
 
                 <span className='border bg-gray-20'/>
                 
-                <p className='regular-14 w-full text-center items-center text-white -translate-y-5'>
+                <p className='text-[12px] md:text-[14px] w-full text-center items-center text-white -translate-y-5'>
                     2024 ALBAYT SOLO | All right reserved
                 </p>
             </div>
