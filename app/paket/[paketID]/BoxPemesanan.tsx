@@ -55,7 +55,7 @@ const BoxPemesanan: React.FC<{ currentPaket: Paket, exchangeRate: number  }> = (
                 
                 <Link href={`https://wa.me/628122586045?text=Assalammu'alaikum Al-Bayt Solo. Saya ingin mengetahui lebih lanjut paket dari website  yaitu paket ${currentPaket?.title}. Apakah bisa dijelaskan lebih lanjut ?`} className='w-full' target='_blank' rel="noopener noreferrer">
                     <div className="flex items-center bg-[#208942] text-gray font-semibold py-2 px-4 rounded justify-center space-x-4 text-zinc-50 w-full mt-3 duration-200 hover:bg-black">
-                        <WhatsappIcon width={"20"} height={"20"} />
+                        <WhatsappIcon width={"20"} height={"20"} fill='white' />
                         <p>Tanya CS</p>
                     </div>
                 </Link>
