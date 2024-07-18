@@ -4,6 +4,7 @@ import { signInWithGoogle } from '@/auth/auth';
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation';
 import { UserAuth } from '@/context/AuthContext';
+import GoogleIcon from '@/public/icon/GoogleIcon.svg'
 
 function SignInPage(){
 
@@ -51,7 +52,7 @@ function SignInPage(){
                 */}
                 <button onClick={handleSignIn} type="button" className="p-4 text-white text-center text-ls space-x-4 google-login justify-center w-full flex items-center font-semibold bg-[#89060b] hover:bg-[tomato] py-2 rounded-md">
                     <div className='bg-white rounded'>
-                        <img src="/icon/GoogleIcon.svg" alt='google-icon' />
+                        <GoogleIcon width={24} height={24} />
                     </div>
                     <h3>Masuk dengan Google</h3>
                 </button>
