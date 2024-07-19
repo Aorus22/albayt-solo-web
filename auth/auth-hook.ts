@@ -8,8 +8,6 @@ export function useUserSession() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(async (authUser) => {
       if (authUser) {
-        setUser(authUser);
-
         (async() =>{
           try {
               const response = await fetch('/api/login', {
@@ -24,6 +22,8 @@ export function useUserSession() {
                 throw new Error('Gagal melakukan login');
               }
 
+              setUser(authUser);
+
             } catch (error) {
               console.error('Error saat login:', error);
             }
@@ -31,7 +31,6 @@ export function useUserSession() {
 
       } else {
         setUser(null);
-
         (async() =>{
           try {
               const response = await fetch('/api/logout', {

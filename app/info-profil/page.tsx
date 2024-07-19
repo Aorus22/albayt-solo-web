@@ -26,7 +26,7 @@ const Page = () => {
     return (
         <section className='p-8 md:p-20 flex items-center justify-center'>
             {/* Main Container */}
-            <div className='bg-white rounded-lg w-[95%] md:w-[65%] border'>
+            <div className='bg-white rounded-lg w-full border max-w-5xl'>
 
                 {/* section title */}
                 <div className='bg-[#f14310] rounded-t-lg w-full px-8 md:px-12 py-4'>

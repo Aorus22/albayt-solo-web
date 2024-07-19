@@ -7,6 +7,7 @@ import "animate.css/animate.min.css";
 import { Anak, Dewasa, Paket } from "@/utils/type";
 import { formatRupiah } from "@/utils/util";
 import LoadingBar from "@/Components/LoadingBar";
+import AlertModal from "@/Components/AlertModal";
 
 const Page = () => {
     const { user } = UserAuth()
@@ -22,18 +23,30 @@ const Page = () => {
     }, [allPaket]);
 
 
-    const [dewasaCount, setDewasaCount] = useState<number>(0);
-    const [anakCount, setAnak] = useState<number>(0);
+    const [dewasaCount, setDewasaCount] = useState<number | null>(null);
+    const [anakCount, setAnakCount] = useState<number | null>(null);
     const [selectedPayment, setSelectedPayment] = useState("uang_muka");
     const [dewasaData, setDewasaData] = useState<Dewasa[]>([]);
     const [anakData, setAnakData] = useState<Anak[]>([]);
+
+    useEffect(() => {
+        const data_jamaah = sessionStorage.getItem('jamaahData')
+        if (data_jamaah) {
+            const parsedData = JSON.parse(data_jamaah);
+            setDewasaData(parsedData.dewasa)
+            setDewasaCount(parsedData.dewasa.length || 0)
+            setAnakData(parsedData.anak)
+            setAnakCount(parsedData.anak.length || 0)
+        }
+    }, []);
+
 
     const handleDewasaCountChange = (event: any) => {
         setDewasaCount(parseInt(event.target.value));
     };
 
     const handleAnakCountChange = (event: any) => {
-        setAnak(parseInt(event.target.value));
+        setAnakCount(parseInt(event.target.value));
     };
 
     const handleDewasaChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -48,22 +61,57 @@ const Page = () => {
         setAnakData(newArray);
     };
 
+    useEffect(() => {
+        if (dewasaCount !== null) {
+          if (dewasaCount < dewasaData.length) {
+            setDewasaData(dewasaData.slice(0, dewasaCount));
+          } else if (dewasaCount > dewasaData.length) {
+            const additionalData = Array(dewasaCount - dewasaData.length).fill({} as Dewasa);
+            setDewasaData([...dewasaData, ...additionalData]);
+          }
+        }
+      }, [dewasaCount, dewasaData]);
+    
+    useEffect(() => {
+        if (anakCount !== null) {
+          if (anakCount < anakData.length) {
+            setAnakData(anakData.slice(0, anakCount));
+          } else if (anakCount > anakData.length) {
+            const additionalData = Array(anakCount - anakData.length).fill({} as Anak);
+            setAnakData([...anakData, ...additionalData]);
+          }
+        }
+      }, [anakCount, anakData]);
+
+
     const handlePaymentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedPayment(event.target.value);
     };
 
-    
+    const [isAlertOpen, setIsAlertOpen] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
+
+    const OpenAlert = (message: string) => {
+        setIsAlertOpen(true)
+        setAlertMessage(message)
+    }
+
+    const CloseAlert = () => {
+        setIsAlertOpen(false)
+        setAlertMessage('')
+    }
+
     const handleLanjutkanPembayaran = () => {
-        if (dewasaCount == 0 ) {
-            alert("Pastikan terisi minimal satu jamaah dewasa")
+        if (!!!dewasaCount ) {
+            OpenAlert('Pastikan terisi minimal satu jamaah dewasa')
             return;
           } else if (
             dewasaData.length !== dewasaCount ||
-            anakData.length !== anakCount ||
+            anakData.length !== (anakCount ?? 0) ||
             !dewasaData.every((dewasa) => dewasa.nama !== "" && dewasa.telp !== "" && Object.keys(dewasa).length === 2) ||
             !anakData.every((anak) => anak.nama !== "" && anak.tgl_lahir !== "" && Object.keys(anak).length === 2)
           ) {
-            alert("Lengkapi semua form terlebih dahulu");
+            OpenAlert("Lengkapi semua form terlebih dahulu");
             return;
           }
 
@@ -79,18 +127,26 @@ const Page = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(()=>{
-        if(user){
+        if(user && paketData){
             setIsLoading(false)
         }
-    }, [user])
+    }, [user, paketData])
 
     const userImage = user?.photoURL || "";
     const userName = user?.displayName || "";
     // const userEmail = user.email || "";
 
+    if(isLoading){
+        return(
+            <div className="min-h-[75vh]">
+                <LoadingBar />
+            </div>
+        )
+    }
+
     return (
-        <div className="min-h-[75vh]">
-            {isLoading && <LoadingBar />}
+        <div className="min-h-[75vh] flexCenter">
+            {isAlertOpen && <AlertModal message={alertMessage} handleClose={CloseAlert} />}
             <div className="md:flex py-8 max-container padding-container animate__animated animate__fadeInUp">
                 <div
                     className="pr-0 mr-0 pb-8 mb-8 border-b-2 border-r-0 md:pr-16 md:mr-16 md:pb-0 md:mb-0 md:border-b-0 md:border-r-2 border-[#89060b] border-opacity-50 md:w-[65%]">
@@ -211,13 +267,13 @@ const Page = () => {
                                     <div className="mb-4 flex justify-between items-center">
                                         <label htmlFor="dewasa" className="mr-12">Dewasa</label>
                                         <input className="border border-[#f14310] rounded-lg p-2 w-16" type="number"
-                                                id="dewasa" name="dewasa" min="0" value={dewasaCount}
+                                                id="dewasa" name="dewasa" min="0" value={dewasaCount ?? ""}
                                                 onChange={handleDewasaCountChange}/>
                                     </div>
                                     <div className="mb-4 flex justify-between items-center">
                                         <label htmlFor="anak" className="mr-12">Anak</label>
                                         <input className="border border-[#f14310] rounded-lg p-2 w-16" type="number"
-                                                id="anak" name="anak" min="0" value={anakCount}
+                                                id="anak" name="anak" min="0" value={anakCount ?? ""}
                                                 onChange={handleAnakCountChange}/>
                                     </div>
                                 </div>
@@ -230,12 +286,12 @@ const Page = () => {
                                 Detail Jamaah
                             </p>
                             
-                            {dewasaCount < 1 && anakCount < 1 && (
+                            {!!!dewasaCount && !!!anakCount && (
                                 <p className="font-medium text-gray-30">Belum terdapat jamaah yang ditambahkan!</p>
                             )}
 
                             <form>
-                                {dewasaCount > 0 && (
+                                {!!dewasaCount && (
                                     <fieldset>
                                         <h1 className="font-bold mb-4">Dewasa</h1>
                                         {[...Array(dewasaCount || 0)].map((_, index) => (
@@ -249,6 +305,7 @@ const Page = () => {
                                                     id={`nama_dewasa_${index}`}
                                                     name={`nama`}
                                                     onChange={(e) => handleDewasaChange(e, index)}
+                                                    value={dewasaData[index]?.nama || ""}
                                                     required
                                                 />
                                                 <label className="block h-10" htmlFor={`telp_dewasa_${index}`}>
@@ -259,6 +316,7 @@ const Page = () => {
                                                     type="tel"
                                                     id={`telp_dewasa_${index}`}
                                                     name={`telp`}
+                                                    value={dewasaData[index]?.telp || ""}
                                                     onChange={(e) => handleDewasaChange(e, index)}
                                                     required
                                                 />
@@ -267,7 +325,7 @@ const Page = () => {
                                     </fieldset>
                                 )}
 
-                                {anakCount > 0 && (
+                                {!!anakCount && (
                                     <fieldset>
                                         <h1 className="font-bold mb-4">Anak-anak</h1>
                                         {[...Array(anakCount || 0)].map((_, index) => (
@@ -280,6 +338,7 @@ const Page = () => {
                                                     type="text"
                                                     id={`nama_anak_${index}`}
                                                     name={`nama`}
+                                                    value={anakData[index]?.nama || ""}
                                                     onChange={(e) => handleAnakChange(e, index)}
                                                     required
                                                 />
@@ -291,6 +350,7 @@ const Page = () => {
                                                     type="date"
                                                     id={`tgl_lahir_anak_${index}`}
                                                     name={`tgl_lahir`}
+                                                    value={anakData[index]?.tgl_lahir || ""}
                                                     onChange={(e) => handleAnakChange(e, index)}
                                                     required
                                                 />
@@ -317,7 +377,7 @@ const Page = () => {
                                     <td className="border-b w-24 border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">
                                         DP
                                     </td>
-                                    <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{dewasaCount + anakCount || 0} Orang</td>
+                                    <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{(dewasaCount || 0) + (anakCount || 0)} Orang</td>
                                     <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">
                                         <p>{typeof paketData?.harga_dp === 'string' ? formatRupiah(parseInt(paketData?.harga_dp)) : formatRupiah(paketData?.harga_dp || 0)}</p>
                                     </td>
@@ -330,7 +390,7 @@ const Page = () => {
                                     <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] text-center lg:text-[16px]"
                                         colSpan={2}>Total Biaya
                                     </td>
-                                    <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{((paketData?.harga_dp ?? 0) * (dewasaCount + anakCount) || 0).toLocaleString('id-ID', {
+                                    <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{( ((paketData?.harga_dp || 0) * ((dewasaCount || 0) + (anakCount || 0))) ).toLocaleString('id-ID', {
                                         style: 'currency',
                                         currency: 'IDR'
                                     })}</td>

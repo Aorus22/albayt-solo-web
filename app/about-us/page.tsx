@@ -72,7 +72,7 @@ const page = () => {
             <div id='konten' className='grid grid-cols-1 lg:grid-cols-2 gap-5 my-3 py-1 md:my-7 md:py-3'>
 
             {VISI_MISI.map((vimi) => (
-                <div key={vimi.content_key} className='bg-white border shadow-lg rounded-xl py-4 px-10'>
+                <div key={vimi.content_key} className='bg-white border shadow-lg rounded-xl px-2 py-4 md:px-10'>
                     <div className='text-center items-center py-3'>
                         <h3 className='font-bold text-2xl md:text-3xl text-[#f14310]'>{vimi.title}</h3>
                     </div>

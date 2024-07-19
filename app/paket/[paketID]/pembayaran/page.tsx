@@ -12,6 +12,7 @@ import { Anak, Dewasa, Paket, DetailPembelian } from "@/utils/type";
 import { formatRupiah } from "@/utils/util";
 import LoadingSpinner from "@/Components/LoadingSpinner";
 import ConfirmationModal from "@/Components/ConfirmationModal";
+import AlertModal from "@/Components/AlertModal";
 
 const Page = () => {
     const router = useRouter();
@@ -36,6 +37,8 @@ const Page = () => {
             const parsedData = JSON.parse(data_jamaah);
             setDewasaData(parsedData.dewasa)
             setAnakData(parsedData.anak)
+        } else {
+            router.replace(`/paket/${paketData?.paketID}/pemesanan`)
         }
     }, []);
     
@@ -59,7 +62,7 @@ const Page = () => {
 
     const handleBayarSekarang = () => {
         if (!selectedPembayaran) {
-            alert('Pilih metode pembayaran terlebih dahulu');
+            OpenAlert('Pilih metode pembayaran terlebih dahulu');
             return
         }
         setShowConfirmation(true);
@@ -67,10 +70,23 @@ const Page = () => {
 
     const [isLoadingUpload, setLoadingUpload] = useState(false);
 
+    const [isAlertOpen, setIsAlertOpen] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
+
+    const OpenAlert = (message: string) => {
+        setIsAlertOpen(true)
+        setAlertMessage(message)
+    }
+
+    const CloseAlert = () => {
+        setIsAlertOpen(false)
+        setAlertMessage('')
+    }
+
     const handleKonfirmasiPembayaran = async (confirm: boolean) => {
         setShowConfirmation(false)
         if (confirm) {
-            if (paketData && dewasaData.length > 0) {
+            if (!!paketData && !!dewasaData.length) {
                 setLoadingUpload(true);
 
                 const purchaseID = generatePurchaseID()
@@ -90,21 +106,23 @@ const Page = () => {
                 };
 
                 await addPurchase(dataPembelian)
+                sessionStorage.removeItem('jamaahData')
 
                 setLoadingUpload(false);
 
                 router.push(`/pembayaran-final/${purchaseID}`)
             } else {
-                alert('Data pembelian tidak lengkap');
+                OpenAlert('Data pembelian tidak lengkap');
             }
         } 
     };
 
   return (
-        <div>
-            <div className="flex flex-col-reverse md:flex-row py-4 max-container padding-container animate__animated animate__fadeInUp">
-                <div className="md:border-r-2 lg:pl-40 md:pr-4 w-full md:w-[65%] border-opacity-50 mr-8 border-[#89060b]">
-                    <div>
+        <div className="min-h-[75vh] flexCenter max-container">
+            {isAlertOpen && <AlertModal message={alertMessage} handleClose={CloseAlert} />}
+            <div className="w-full max-w-7xl px-10 lg:px-20 flex flex-col-reverse md:flex-row py-4 animate__animated animate__fadeInUp">
+                <div className="md:border-r-2 md:pr-4 w-full md:w-[65%] border-opacity-50 mr-8 border-[#89060b]">
+                    <div className="w-full">
                         <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-6 shadow">
                             <p className="font-bold text-2xl mb-4 text-[#f14310]">
                             Total Pembayaran
@@ -146,7 +164,7 @@ const Page = () => {
                         </div>
                     </div>
                 </div>
-                <div className="sticky md:w-[40%] justify-center">
+                <div className="sticky w-full md:w-[40%] justify-center">
                     <div className="bg-white rounded-md text-black w-full h-fit shadow-md">
                         <div className=" text-center font-bold text-2xl my-4 pt-4 text-[#f14310]">
                             Detail Pemesanan
@@ -196,7 +214,7 @@ const Page = () => {
                                     ))}
                                     </tbody>
                                 </table>
-                                <p className={"font-bold"}>Anak-anak</p>
+                                {!!anakData.length && <p className={"font-bold"}>Anak-anak</p>}
                                 <table className="w-full border-collapse">
                                     <tbody>
                                     {anakData.map((person) => (

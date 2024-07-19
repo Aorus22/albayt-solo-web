@@ -179,7 +179,7 @@ const Page = () => {
                                         <BuildingIcon fill='#f14310' />
                                         <p className='text-[13px] lg:text-md'>Hotel</p>
                                         <div className="text-2xl flex font-semibold flexCenter">
-                                            <StarIcon1 fill="gold" />
+                                            <StarIcon1 height={24} width={24} fill="gold" />
                                             <p className='text-[15px] lg:text-md'>{currentPaket?.hotel[0].bintang}</p>
                                         </div>
                                     </div>
@@ -219,7 +219,7 @@ const Page = () => {
                                     <div key={index} className='mt-3 mb-10'>
                                         <p className="font-bold mb-4 flex">
                                             {item.nama_hotel} ({item.bintang}
-                                                <StarIcon1 fill="gold" />
+                                                <StarIcon1 height={24} width={24} fill="gold" />
                                             )
                                         </p>
                                         <div className='grid md:grid-cols-3 sm:grid-cols-1 gap-4'> 
@@ -241,7 +241,7 @@ const Page = () => {
                                     <p className='text-md font-semibold'>{testi.nama}</p>
                                     <div className='flex mt-2 mb-4'>
                                         {Array.from({length: testi.bintang}, (_, index) => (
-                                            <StarIcon1 fill="gold" />
+                                            <StarIcon1 height={24} width={24} fill="gold" />
                                         ))} 
                                     </div>
                                     <p className='text-sm'>{testi.review}</p>
@@ -278,7 +278,7 @@ const Page = () => {
                                 className='w-full' target='_blank' rel="noopener noreferrer"
                                 >
                                 <div className="flex bg-[#208942] text-gray font-semibold py-2 px-4 rounded items-center justify-center space-x-4 text-zinc-50 h-full w-full">
-                                    <WhatsappIcon width={"24"} height={"24"} fill='black' />
+                                    <WhatsappIcon width={"24"} height={"24"} fill='white' />
                                     <p>Tanya CS</p>
                                 </div>
                                 </Link>
