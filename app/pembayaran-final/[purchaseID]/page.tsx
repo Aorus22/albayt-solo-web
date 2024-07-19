@@ -10,6 +10,7 @@ import { Anak, DataPembelian, DetailPembelian, Dewasa, Paket } from "@/utils/typ
 import LoadingSpinner from "@/Components/LoadingSpinner";
 import ConfirmationModal from "@/Components/ConfirmationModal";
 import AlertModal from "@/Components/AlertModal";
+import BackButton from "@/Components/BackButton";
 
 const Page = () => {
     const [detailPembelian, setDetailPembelian] = useState<DetailPembelian | null>(null);
@@ -44,6 +45,8 @@ const Page = () => {
     const dewasaCount = dewasaData?.length || 0
     const anakData = detailPembelian?.detailJamaah.anak
     const anakCount = anakData?.length || 0
+    const totalJamaah = dewasaCount + anakCount
+
     const currentBank = DATA_BANK.find((bank) => bank.nama === detailPembelian?.metodePembayaran);
 
     const [previewUrl, setPreviewUrl] = useState<any>();
@@ -68,31 +71,44 @@ const Page = () => {
 
     const [isAlertOpen, setIsAlertOpen] = useState(false)
     const [alertMessage, setAlertMessage] = useState('')
+    const [isRedirect, setIsRedirect] = useState(false)
 
-    const OpenAlert = (message: string) => {
+    const OpenAlert = (message: string, redirect=false) => {
         setIsAlertOpen(true)
         setAlertMessage(message)
+        setIsRedirect(redirect)
     }
 
     const CloseAlert = () => {
         setIsAlertOpen(false)
         setAlertMessage('')
+        if(isRedirect){
+            router.push(`/detail-transaksi/${detailPembelian?.purchaseID}`);
+        }
     }
 
-    const OpenConfirmation = async() => {
+    const OpenConfirmation = async () => {
         if (!file) {
             OpenAlert('Silakan Upload Foto Terlebih Dahulu');
             return;
         }
-        if((detailPaket?.remainingseat ?? 0) <= 0){
-            OpenAlert("Kuota Telah Terisi Penuh, Pesanan Akan Dibatalkan")
-            await batalkanPembelian(detailPembelian?.purchaseID ?? "")
-            router.push(`/detail-transaksi/${detailPembelian?.purchaseID}`);
-            return 
+    
+        const remainingSeats = detailPaket?.remainingseat ?? 0;
+        const purchaseID = detailPembelian?.purchaseID ?? "";
+        const isQuotaExceeded = remainingSeats <= 0 || remainingSeats < totalJamaah;
+    
+        if (isQuotaExceeded) {
+            const message = remainingSeats <= 0 
+                ? "Kuota Telah Terisi Penuh, Pesanan Akan Dibatalkan" 
+                : "Kuota Tidak Mencukupi, Pesanan Akan Dibatalkan";
+    
+            OpenAlert(message, true);
+            await batalkanPembelian(purchaseID);
+            return;
         }
-
-        setShowConfirmation(true)
-    }
+    
+        setShowConfirmation(true);
+    };
 
     const handleSubmit = async (confirm: boolean) => {
         setShowConfirmation(false)
@@ -143,12 +159,13 @@ const Page = () => {
     }
 
     return (
-        <div className="max-container min-h-[70vh] flexCenter">
+        <div className="max-container min-h-[75vh] flexCenter">
             {isLoadingUpload && <LoadingSpinner overlay />}
             {isAlertOpen && <AlertModal message={alertMessage} handleClose={CloseAlert} />}
             {showConfirmation && <ConfirmationModal handleKonfirmasi={handleSubmit} message={"Apakah anda yakin untuk mengupload bukti pembayaran?"}/>}
-            <div className="flex flex-col md:flex-row py-4 padding-container animate__animated animate__fadeInUp">
-                <div className="md:border-r-2 lg:pl-40 md:pr-4 w-full md:w-[65%] border-opacity-50 mr-8 border-[#89060b]">
+            <div className="w-full max-w-7xl flex flex-col md:flex-row py-16 padding-container animate__animated animate__fadeInUp">
+                <div className="md:border-r-2 md:pr-4 w-full md:w-[65%] border-opacity-50 mr-8 border-[#89060b]">
+                    <BackButton link={'/riwayat-pembelian'}/>
                     <div>
                         <div
                             className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-6 shadow">

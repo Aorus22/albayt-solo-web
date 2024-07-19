@@ -23,7 +23,7 @@ function SignInPage(){
     };
 
     return (
-        <div className="mx-auto flexCenter items-center min-h-[70vh]">
+        <div className="mx-auto flexCenter items-center min-h-[75vh]">
             <div className="bg-white p-8 rounded-lg shadow-md">
                 <div className="header flexCenter text-center mb-8">
                     <Image src={'/images/Logo.png'} alt='logo' width={100} height={100}/>

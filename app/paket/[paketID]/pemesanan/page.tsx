@@ -8,6 +8,7 @@ import { Anak, Dewasa, Paket } from "@/utils/type";
 import { formatRupiah } from "@/utils/util";
 import LoadingBar from "@/Components/LoadingBar";
 import AlertModal from "@/Components/AlertModal";
+import BackButton from "@/Components/BackButton";
 
 const Page = () => {
     const { user } = UserAuth()
@@ -148,9 +149,9 @@ const Page = () => {
         <div className="min-h-[75vh] flexCenter">
             {isAlertOpen && <AlertModal message={alertMessage} handleClose={CloseAlert} />}
             <div className="md:flex py-8 max-container padding-container animate__animated animate__fadeInUp">
-                <div
-                    className="pr-0 mr-0 pb-8 mb-8 border-b-2 border-r-0 md:pr-16 md:mr-16 md:pb-0 md:mb-0 md:border-b-0 md:border-r-2 border-[#89060b] border-opacity-50 md:w-[65%]">
+                <div className="pr-0 mr-0 pb-8 mb-8 border-b-2 border-r-0 md:pr-16 md:mr-16 md:pb-0 md:mb-0 md:border-b-0 md:border-r-2 border-[#89060b] border-opacity-50 md:w-[65%]">
                     <div>
+                        <BackButton link={`/paket/${params.paketID}`} />
                         <div
                             className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-4 md:p-6 shadow">
                             <p className="font-bold text-2xl mb-4 text-[#f14310]">

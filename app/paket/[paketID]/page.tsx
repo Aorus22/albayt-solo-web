@@ -115,7 +115,7 @@ const Page = () => {
     };
 
   return (
-    <div className='max-container min-h-[70vh]'>
+    <div className='max-container min-h-[75vh]'>
         {isLoading ? ( 
             <LoadingBar />
         ) : (

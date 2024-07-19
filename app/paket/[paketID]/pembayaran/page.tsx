@@ -13,6 +13,9 @@ import { formatRupiah } from "@/utils/util";
 import LoadingSpinner from "@/Components/LoadingSpinner";
 import ConfirmationModal from "@/Components/ConfirmationModal";
 import AlertModal from "@/Components/AlertModal";
+import LoadingBar from "@/Components/LoadingBar";
+import { ArrowLeftIcon } from "@heroicons/react/solid";
+import BackButton from "@/Components/BackButton";
 
 const Page = () => {
     const router = useRouter();
@@ -20,11 +23,16 @@ const Page = () => {
     const { user } = UserAuth()
 
     const { paket : allPaket } = usePaketContext();
-    const [paketData, setPaketData] = useState<Paket>();
+    const [paketData, setPaketData] = useState<Paket | null>(null);
+
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const currentPaket = allPaket?.find((paket: Paket) => paket.paketID === params.paketID)
-        setPaketData(currentPaket);
+        if(currentPaket){
+            setPaketData(currentPaket);
+            setIsLoading(false)
+        }
     }, [allPaket]);
 
 
@@ -38,7 +46,7 @@ const Page = () => {
             setDewasaData(parsedData.dewasa)
             setAnakData(parsedData.anak)
         } else {
-            router.replace(`/paket/${paketData?.paketID}/pemesanan`)
+            router.replace(`/paket/${params.paketID}/pemesanan`)
         }
     }, []);
     
@@ -48,6 +56,7 @@ const Page = () => {
 
     const dewasaCount = dewasaData.length
     const anakCount = anakData.length
+    const totalJamaah = (dewasaCount+anakCount)
     const totalHarga = (paketData?.harga_dp ?? 0) * (dewasaCount + anakCount)
 
     const handleRadioChange = (event: any) => {
@@ -63,6 +72,9 @@ const Page = () => {
     const handleBayarSekarang = () => {
         if (!selectedPembayaran) {
             OpenAlert('Pilih metode pembayaran terlebih dahulu');
+            return
+        } else if ((paketData?.remainingseat || 0) < totalJamaah) {
+            OpenAlert(`Kuota tidak mencukupi untuk ${totalJamaah} orang. Sisa Kuota: ${paketData?.remainingseat}`);
             return
         }
         setShowConfirmation(true);
@@ -111,18 +123,29 @@ const Page = () => {
                 setLoadingUpload(false);
 
                 router.push(`/pembayaran-final/${purchaseID}`)
-            } else {
+            }  else {
                 OpenAlert('Data pembelian tidak lengkap');
             }
         } 
     };
 
-  return (
+    if(isLoading){
+        return(
+            <div className="min-h-[75vh]">
+                <LoadingBar />
+            </div>
+        )
+    }
+
+    return (
         <div className="min-h-[75vh] flexCenter max-container">
             {isAlertOpen && <AlertModal message={alertMessage} handleClose={CloseAlert} />}
             <div className="w-full max-w-7xl px-10 lg:px-20 flex flex-col-reverse md:flex-row py-4 animate__animated animate__fadeInUp">
                 <div className="md:border-r-2 md:pr-4 w-full md:w-[65%] border-opacity-50 mr-8 border-[#89060b]">
                     <div className="w-full">
+                        <div className='hidden md:block'>
+                            <BackButton link={`/paket/${params.paketID}/pemesanan`} />
+                        </div>
                         <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-6 shadow">
                             <p className="font-bold text-2xl mb-4 text-[#f14310]">
                             Total Pembayaran
@@ -165,6 +188,9 @@ const Page = () => {
                     </div>
                 </div>
                 <div className="sticky w-full md:w-[40%] justify-center">
+                    <div className='md:hidden'>
+                        <BackButton link={`/paket/${params.paketID}/pemesanan`} />
+                    </div>
                     <div className="bg-white rounded-md text-black w-full h-fit shadow-md">
                         <div className=" text-center font-bold text-2xl my-4 pt-4 text-[#f14310]">
                             Detail Pemesanan

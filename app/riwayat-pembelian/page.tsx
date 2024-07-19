@@ -32,7 +32,7 @@ const Page = () => {
 
   return (
     <div>
-        <section className='max-container padding-container py-8 min-h-[70vh]'>
+        <section className='max-container padding-container py-8 min-h-[75vh]'>
             <h1 className='font-bold text-[#f13410] text-4xl lg:text-5xl text-center'>RIWAYAT PEMBELIAN</h1>
             <div className='my-10'>
                 {isLoading && <LoadingBar />}
@@ -66,13 +66,13 @@ const Page = () => {
                                 {beli.detailPaket?.title}
                             </p>
                             <p className='font-medium text-[12px] md:text-[14px] text-gray-50 text-justify w-full md:w-[70%]'>
-                            {`${beli?.detailPembelian?.detailJamaah?.dewasa?.length} seat untuk jamaah dewasa`}
+                                {`${beli?.detailPembelian?.detailJamaah?.dewasa?.length} seat untuk jamaah dewasa`}
                             </p>
-                            {beli?.detailPembelian?.detailJamaah?.anak && beli?.detailPembelian?.detailJamaah?.anak?.length > 0 && (
-                                    <p>
-                                    {`${beli?.detailPembelian?.detailJamaah?.anak?.length} seat untuk jamaah anak-anak`}
+                                {beli?.detailPembelian?.detailJamaah?.anak && beli?.detailPembelian?.detailJamaah?.anak?.length > 0 && (
+                                    <p className='font-medium text-[12px] md:text-[14px] text-gray-50 text-justify w-full md:w-[70%]'>
+                                        {`${beli?.detailPembelian?.detailJamaah?.anak?.length} seat untuk jamaah anak-anak`}
                                     </p>
-                            )}
+                                 )}
                         </div>
 
                         <div className='flex flex-col place-items-end'>

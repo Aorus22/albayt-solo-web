@@ -11,6 +11,7 @@ import { DataPembelian } from '@/utils/type';
 import ImageWithLoading from '@/Components/ImageWithLoading';
 import ImagePreview from '@/Components/ImagePreview';
 import WhatsappIcon from '@/public/icon/WhatsappIcon.svg'
+import BackButton from '@/Components/BackButton';
 
 const Page = () => {
     const params = useParams();
@@ -51,110 +52,115 @@ const Page = () => {
     }
 
   return (
-    <section className='max-container padding-container py-8 min-h-[70vh]'>
-        <h1 className='font-bold text-[#f14310] text-4xl lg:text-5xl text-center'>DETAIL TRANSAKSI</h1>
+    <section className='max-container padding-container py-8 min-h-[75vh]'>
+        <h1 className='font-bold text-[#f14310] text-4xl md:text-5xl text-center'>DETAIL TRANSAKSI</h1>
         <div className='my-10'>
             {isLoading ? (
                 <LoadingBar />
             ) : (
-                <div className='lg:mx-72 p-6 border rounded-xl my-10 animate__animated animate__fadeInUp'>
-                    <div className='flex flex-col gap-5 mx-50'>
+                <div className='flexCenter'>
+                    <div className='w-full max-w-3xl p-6 border rounded-xl animate__animated animate__fadeInUp'>
+                        <div className='mb-6'>
+                            <BackButton link={`/riwayat-pembelian`} className='h-8'/>
+                        </div>
+                        <div className='flex flex-col gap-5 mx-50'>
+                            <div>
+                                <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>ID Pembelian</h3>
+                                <p className='font-semibold text-[14px] md:text-[16px]'>{riwayatPembelian?.detailPembelian?.purchaseID}</p>
+                            </div>
+                            <div>
+                                <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Status</h3>
+                                <p className={`py-1 px-2 font-bold w-fit ${riwayatPembelian?.detailPembelian.statusPembayaran === 'Berhasil' ? 'text-green-600 bg-green-100' : riwayatPembelian?.detailPembelian.statusPembayaran === 'Menunggu Konfirmasi' ? 'text-yellow-600 bg-yellow-100' : 'text-red-600 bg-red-100'}`}>{riwayatPembelian?.detailPembelian.statusPembayaran}</p>
+                            </div>
+                            <div>
+                                <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Tanggal Transaksi</h3>
+                                <p className='font-semibold text-[14px] md:text-[16px]'>
+                                    {formateDateTime(riwayatPembelian?.detailPembelian?.tanggalPemesanan?.seconds || 0)}
+                                </p>
+                            </div>
+                        </div>
+
+                        <span className='border-b rounded-full my-7'/>
+
                         <div>
-                            <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>ID Pembelian</h3>
-                            <p className='font-semibold text-[14px] md:text-[16px]'>{riwayatPembelian?.detailPembelian?.purchaseID}</p>
+                            <h3 className='font-semibold text-[16px] lg:text-lg mt-10'>Detail Pembelian</h3>
+                            <div className='flex gap-5 my-4'>
+                                <div className='flex flex-col gap-1 w-[60%]'>
+                                    <h3 className='font-medium text-[12px] md:text-[14px] text-gray-50'>Nama Paket</h3>
+                                    <p className='font-semibold text-[13px] md:text-[14px]'>{riwayatPembelian?.detailPaket?.title}</p>
+                                </div>
+                                <div className='flex flex-col gap-1 w-[40%]'>
+                                    <h3 className='font-medium text-[12px] md:text-[14px] text-gray-50'>Metode Pembayaran</h3>
+                                    <p className='font-semibold text-[13px] md:text-[14px]'>{riwayatPembelian?.detailPembelian?.metodePembayaran}</p>
+                                </div>
+                            </div>
+                            <div className='flex gap-5'>
+                                <div className='flex flex-col gap-1'>
+                                    <h3 className='font-medium text-[12px] md:text-[14px] text-gray-50'>Nominal</h3>
+                                    <p className='font-semibold text-[13px] md:text-[14px]'>{formatRupiah(riwayatPembelian?.detailPembelian?.totalPembayaran || 0)}</p>
+                                </div>
+                            </div>
                         </div>
+
+                        <div className='border-b rounded-full my-7'/>
+
                         <div>
-                            <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Status</h3>
-                            <p className={`py-1 px-2 font-bold w-fit ${riwayatPembelian?.detailPembelian.statusPembayaran === 'Berhasil' ? 'text-green-600 bg-green-100' : riwayatPembelian?.detailPembelian.statusPembayaran === 'Menunggu Konfirmasi' ? 'text-yellow-600 bg-yellow-100' : 'text-red-600 bg-red-100'}`}>{riwayatPembelian?.detailPembelian.statusPembayaran}</p>
-                        </div>
-                        <div>
-                            <h3 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Tanggal Transaksi</h3>
-                            <p className='font-semibold text-[14px] md:text-[16px]'>
-                                {formateDateTime(riwayatPembelian?.detailPembelian?.tanggalPemesanan?.seconds || 0)}
-                            </p>
-                        </div>
-                    </div>
-
-                <span className='border-b rounded-full my-7'/>
-
-                <div>
-                    <h3 className='font-semibold text-[16px] lg:text-lg'>Detail Pembelian</h3>
-                    <div className='flex gap-5 my-4'>
-                        <div className='flex flex-col gap-1 w-[60%]'>
-                            <h3 className='font-medium text-[12px] md:text-[14px] text-gray-50'>Nama Paket</h3>
-                            <p className='font-semibold text-[13px] md:text-[14px]'>{riwayatPembelian?.detailPaket?.title}</p>
-                        </div>
-                        <div className='flex flex-col gap-1 w-[40%]'>
-                            <h3 className='font-medium text-[12px] md:text-[14px] text-gray-50'>Metode Pembayaran</h3>
-                            <p className='font-semibold text-[13px] md:text-[14px]'>{riwayatPembelian?.detailPembelian?.metodePembayaran}</p>
-                        </div>
-                    </div>
-                    <div className='flex gap-5'>
-                        <div className='flex flex-col gap-1'>
-                            <h3 className='font-medium text-[12px] md:text-[14px] text-gray-50'>Nominal</h3>
-                            <p className='font-semibold text-[13px] md:text-[14px]'>{formatRupiah(riwayatPembelian?.detailPembelian?.totalPembayaran || 0)}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className='border-b rounded-full my-7'/>
-
-                <div>
-                    <h3 className='font-semibold text-[16px] lg:text-lg'>Detail Jamaah</h3>
-                    {riwayatPembelian?.detailPembelian?.detailJamaah?.dewasa && (
-                        <div className='mt-4'>
-                            <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Dewasa</h4>
-                            {riwayatPembelian.detailPembelian.detailJamaah.dewasa.map((dewasa, index) => (
-                                <div key={index} className='flex gap-5'>
-                                    <div className='flex gap-8'>
-                                        <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {dewasa.nama}</p>
-                                        <p className='font-semibold text-[13px] md:text-[14px]'>Telepon: {dewasa.telp}</p>
+                            <h3 className='font-semibold text-[16px] lg:text-lg'>Detail Jamaah</h3>
+                            {riwayatPembelian?.detailPembelian?.detailJamaah?.dewasa && (
+                                <div className='mt-4'>
+                                    <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Dewasa</h4>
+                                    {riwayatPembelian.detailPembelian.detailJamaah.dewasa.map((dewasa, index) => (
+                                        <div key={index} className='flex gap-5'>
+                                            <div className='flex gap-8'>
+                                                <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {dewasa.nama}</p>
+                                                <p className='font-semibold text-[13px] md:text-[14px]'>Telepon: {dewasa.telp}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                            {riwayatPembelian?.detailPembelian?.detailJamaah?.anak && riwayatPembelian?.detailPembelian?.detailJamaah?.anak.length > 0 && (
+                            <div className='my-4'>
+                                <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Anak-anak</h4>
+                                {riwayatPembelian.detailPembelian.detailJamaah.anak.map((anak, index) => (
+                                    <div key={index} className='flex gap-5'>
+                                        <div className='flex gap-8'>
+                                            <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {anak.nama}</p>
+                                            <p className='font-semibold text-[13px] md:text-[14px]'>Tanggal Lahir: {anak.tgl_lahir}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+                            )}
                         </div>
-                    )}
-                    {riwayatPembelian?.detailPembelian?.detailJamaah?.anak && riwayatPembelian?.detailPembelian?.detailJamaah?.anak.length > 0 && (
-                    <div className='my-4'>
-                        <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Anak-anak</h4>
-                        {riwayatPembelian.detailPembelian.detailJamaah.anak.map((anak, index) => (
-                            <div key={index} className='flex gap-5'>
-                                <div className='flex gap-8'>
-                                    <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {anak.nama}</p>
-                                    <p className='font-semibold text-[13px] md:text-[14px]'>Tanggal Lahir: {anak.tgl_lahir}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    )}
-                </div>
-                <div className='border-b rounded-full my-7'/>
-                    <div>
-                        <h3 className='font-semibold text-[16px] lg:text-lg mb-4'>Bukti Pembayaran</h3>
-                        {(riwayatPembelian?.detailPembelian.statusPembayaran === "Belum Dibayar" || riwayatPembelian?.detailPembelian.statusPembayaran === "Berkas Ditolak") ? (
-                            <Link href={`/pembayaran-final/${riwayatPembelian?.detailPembelian.purchaseID}`}>
-                                <button className='mt-2 py-2 px-4 font-semibold text-white text-[12px] lg:text-[14px] bg-yellow-600 rounded-lg duration-200 hover:bg-black'>Ke Halaman Pembayaran</button>
-                            </Link>
-                        ) : riwayatPembelian?.detailPembelian.statusPembayaran === "Menunggu Konfirmasi" ? (
+                        <div className='border-b rounded-full my-7'/>
                             <div>
-                                <div className='w-full min-h-32 hover:cursor-pointer'>
-                                    <ImageWithLoading onClick={handleSelectPreview} height='auto' width='60%' src={riwayatPembelian?.detailPembelian.urlBuktiPembayaran} alt={'Foto Bukti Pembayaran'} />
-                                </div>
-                                <Link href={`https://wa.me/628122586045?text=Assalammualaikum, Saya ingin mengonfirmasi pembelian dengan ID pembelian ${riwayatPembelian?.detailPembelian.purchaseID}`} target='blank' rel="noopener noreferrer">
-                                <button className='mt-8 flex items-center gap-2 py-2 px-4 font-semibold text-white text-[12px] lg:text-[14px] bg-green-50 rounded-lg duration-200 hover:bg-black'>
-                                    <WhatsappIcon fill="white" />
-                                    <p>Konfirmasi WhatsApp</p>
-                                </button>
-                                </Link>
+                                <h3 className='font-semibold text-[16px] lg:text-lg mb-4'>Bukti Pembayaran</h3>
+                                {(riwayatPembelian?.detailPembelian.statusPembayaran === "Belum Dibayar" || riwayatPembelian?.detailPembelian.statusPembayaran === "Berkas Ditolak") ? (
+                                    <Link href={`/pembayaran-final/${riwayatPembelian?.detailPembelian.purchaseID}`}>
+                                        <button className='mt-2 py-2 px-4 font-semibold text-white text-[12px] lg:text-[14px] bg-yellow-600 rounded-lg duration-200 hover:bg-black'>Ke Halaman Pembayaran</button>
+                                    </Link>
+                                ) : riwayatPembelian?.detailPembelian.statusPembayaran === "Menunggu Konfirmasi" ? (
+                                    <div>
+                                        <div className='w-full min-h-32 hover:cursor-pointer'>
+                                            <ImageWithLoading onClick={handleSelectPreview} height='auto' width='60%' src={riwayatPembelian?.detailPembelian.urlBuktiPembayaran} alt={'Foto Bukti Pembayaran'} />
+                                        </div>
+                                        <Link href={`https://wa.me/628122586045?text=Assalammualaikum, Saya ingin mengonfirmasi pembelian dengan ID pembelian ${riwayatPembelian?.detailPembelian.purchaseID}`} target='blank' rel="noopener noreferrer">
+                                        <button className='mt-8 flex items-center gap-2 py-2 px-4 font-semibold text-white text-[12px] lg:text-[14px] bg-green-50 rounded-lg duration-200 hover:bg-black'>
+                                            <WhatsappIcon fill="white" />
+                                            <p>Konfirmasi WhatsApp</p>
+                                        </button>
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <div className='w-full min-h-32 hover:cursor-pointer'>
+                                            <ImageWithLoading onClick={handleSelectPreview} height='auto' width='60%' src={riwayatPembelian?.detailPembelian.urlBuktiPembayaran || ""} alt={'Foto Bukti Pembayaran'} />
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                        ) : (
-                            <div>
-                                <div className='w-full min-h-32 hover:cursor-pointer'>
-                                    <ImageWithLoading onClick={handleSelectPreview} height='auto' width='60%' src={riwayatPembelian?.detailPembelian.urlBuktiPembayaran || ""} alt={'Foto Bukti Pembayaran'} />
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                        </div>
                 </div>
             )}
         </div>
