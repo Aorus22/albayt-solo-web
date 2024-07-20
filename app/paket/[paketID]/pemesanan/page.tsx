@@ -154,7 +154,7 @@ const Page = () => {
                         <BackButton link={`/paket/${params.paketID}`} />
                         <div
                             className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-4 md:p-6 shadow">
-                            <p className="font-bold text-2xl mb-4 text-[#f14310]">
+                            <p className="font-bold text-xl md:text-2xl mb-4 text-[#f14310]">
                                 Nama Pemesan
                             </p>
                             <div className="flex gap-4 items-center">
@@ -168,19 +168,13 @@ const Page = () => {
                         </div>
                         <div
                             className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-4 md:p-6 shadow">
-                            <p className="font-bold text-2xl mb-4 text-[#f14310]">
+                            <p className="font-bold text-xl md:text-2xl mb-4 text-[#f14310]">
                                 Tipe Pembayaran
                             </p>
                             <label htmlFor="bayar1" className="items-center">
                                 <div className="border border-gray-20 opacity-75 rounded-md lg:mr-4">
                                     <div className="flex justify-between p-4 bg-[#ffa488] font-bold text-[#552719]">
-                                        <div className="">
-                                            <p className="mr-4">Bayar Uang Muka
-                                                - {paketData?.harga_dp.toLocaleString('id-ID', {
-                                                    style: 'currency',
-                                                    currency: 'IDR'
-                                                })} (per orang)</p>
-                                        </div>
+                                        <p className="mr-4 text-sm">Bayar Uang Muka - {formatRupiah(paketData?.harga_dp || 0)} (per orang)</p>
                                         <input
                                             type="radio"
                                             id="bayar1"
@@ -260,7 +254,7 @@ const Page = () => {
 
                         <div
                             className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-4 md:p-6 shadow">
-                            <p className="font-bold text-2xl mb-4 text-[#f14310]">
+                            <p className="font-bold text-xl md:text-2xl mb-4 text-[#f14310]">
                                 Jumlah Jamaah
                             </p>
                             <form>
@@ -283,12 +277,12 @@ const Page = () => {
 
                         <div
                             className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-4 md:p-6 shadow">
-                            <p className="font-bold text-2xl mb-4 text-[#f14310]">
+                            <p className="font-bold text-xl md:text-2xl mb-4 text-[#f14310]">
                                 Detail Jamaah
                             </p>
                             
                             {!!!dewasaCount && !!!anakCount && (
-                                <p className="font-medium text-gray-30">Belum terdapat jamaah yang ditambahkan!</p>
+                                <p className="font-medium text-gray-30 text-sm">Belum terdapat jamaah yang ditambahkan!</p>
                             )}
 
                             <form>
@@ -365,10 +359,10 @@ const Page = () => {
                 </div>
                 <div className="sticky md:w-[40%] justify-center my-4 md:my-2">
                     <div className="bg-white rounded-md text-black w-full h-fit shadow-md">
-                        <div className=" text-center font-bold text-2xl my-4 pt-4 text-[#f14310]">
+                        <div className=" text-center font-bold text-xl md:text-2xl my-4 pt-4 text-[#f14310]">
                             Detail Pemesanan
                         </div>
-                        <p className="text-center mx-8 font-bold text-[16px] lg:text-lg mt-4 text-[#89060b]">
+                        <p className="text-center mx-8 font-bold text-md md:text-xl mt-4 text-[#89060b]">
                             {paketData?.title}
                         </p>
                         <div className="p-4">

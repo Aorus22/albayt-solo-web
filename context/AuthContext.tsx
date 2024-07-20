@@ -1,7 +1,8 @@
 'use client'
-import React, { useContext, createContext, ReactNode } from "react";
+import React, { useContext, createContext, ReactNode, useState } from "react";
 import { useUserSession } from "@/auth/auth-hook";
 import { User } from "firebase/auth";
+import LoadingSpinner from "@/Components/LoadingSpinner";
 
 interface AuthContextType {
     user: User | null;
@@ -11,10 +12,11 @@ const AuthContext = createContext<AuthContextType>({ user: null });
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
-    const user = useUserSession();
+    const { user, isLoading } = useUserSession();
 
     return (
         <AuthContext.Provider value={{ user }}>
+            {isLoading && <LoadingSpinner overlay/>}
             {children}
         </AuthContext.Provider>
     );

@@ -4,10 +4,12 @@ import { User } from 'firebase/auth';
 
 export function useUserSession() {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(async (authUser) => {
       if (authUser) {
+        setIsLoading(true);
         (async() =>{
           try {
               const response = await fetch('/api/login', {
@@ -23,6 +25,7 @@ export function useUserSession() {
               }
 
               setUser(authUser);
+              setIsLoading(false);
 
             } catch (error) {
               console.error('Error saat login:', error);
@@ -55,5 +58,5 @@ export function useUserSession() {
     return () => unsubscribe();
   }, []);
 
-  return user;
+  return {user, isLoading};
 }

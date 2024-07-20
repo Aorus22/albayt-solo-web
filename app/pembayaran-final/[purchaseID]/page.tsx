@@ -22,21 +22,21 @@ const Page = () => {
     const [isLoading, setLoading ] = useState<boolean>(true)
 
     useEffect(() => {
-        if (user != null) {
-            (async () => {
-                try {
-                    const response: DataPembelian | null = await ambilDetailPembayaran(String(params.purchaseID));
-                    if (user?.uid == response?.detailPembelian.UserID){
-                      setDetailPembelian(response.detailPembelian)
-                      setDetailPaket(response.detailPaket)
-                    } else {
-                        router.push('/')
-                    }
-                } catch (Error) {
-                    console.error('Error fetching data:', Error);
+        if (!user) return
+        
+        (async () => {
+            try {
+                const response: DataPembelian | null = await ambilDetailPembayaran(String(params.purchaseID));
+                if (user?.uid == response?.detailPembelian.UserID){
+                  setDetailPembelian(response.detailPembelian)
+                  setDetailPaket(response.detailPaket)
+                } else {
+                    router.push('/')
                 }
-            })();
-        }
+            } catch (Error) {
+                console.error('Error fetching data:', Error);
+            }
+        })();
     }, [user]);
 
     useEffect(() => setLoading(!detailPembelian), [detailPembelian]);
@@ -163,13 +163,13 @@ const Page = () => {
             {isLoadingUpload && <LoadingSpinner overlay />}
             {isAlertOpen && <AlertModal message={alertMessage} handleClose={CloseAlert} />}
             {showConfirmation && <ConfirmationModal handleKonfirmasi={handleSubmit} message={"Apakah anda yakin untuk mengupload bukti pembayaran?"}/>}
-            <div className="w-full max-w-7xl flex flex-col md:flex-row py-16 padding-container animate__animated animate__fadeInUp">
+            <div className="w-full max-w-7xl flex flex-col md:flex-row py-8 padding-container animate__animated animate__fadeInUp">
                 <div className="md:border-r-2 md:pr-4 w-full md:w-[65%] border-opacity-50 mr-8 border-[#89060b]">
                     <BackButton link={'/riwayat-pembelian'}/>
                     <div>
                         <div
                             className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-6 shadow">
-                            <p className="font-bold text-2xl mb-4 text-[#f14310]">
+                            <p className="font-bold text-xl md:text-2xl mb-4 text-[#f14310]">
                                 Silakan Transfer
                             </p>
                             <div className="flex gap-2 items-center">
@@ -179,7 +179,7 @@ const Page = () => {
                             <div className="font-medium text-[16px]">No Rekening: {currentBank?.rekening}</div>
                         </div>
                         <div className="border rounded border-[rgba(0,0,0,0.16)] mt-4 justify-center bg-white p-6 shadow">
-                            <p className="font-bold block text-2xl mb-4 text-[#f14310]">
+                            <p className="font-bold block text-xl md:text-2xl mb-4 text-[#f14310]">
                                 Upload Bukti Transfer
                             </p>
                             <div className="border border-gray-20 border-opacity-50 h-fit p-6 rounded-md">
@@ -202,7 +202,7 @@ const Page = () => {
                             </div>
                         </div>
     
-                        <div className="my-8 w-full flex justify-end">
+                        <div className="mt-4 mb-2 w-full flex justify-end">
                             <button onClick={OpenConfirmation} className="flex bg-[#89060b] font-bold text-white w-fit rounded-lg p-4 duration-200 hover:bg-black">
                                 Submit
                             </button>
@@ -211,10 +211,10 @@ const Page = () => {
                 </div>
                 <div className="sticky md:w-[40%] justify-center">
                     <div className="bg-white rounded-md text-black w-full h-fit shadow-md">
-                        <div className=" text-center font-bold text-2xl my-4 pt-4 text-[#f14310]">
+                        <div className=" text-center font-bold text-xl md:text-2xl my-4 text-[#f14310]">
                             Detail Pemesanan
                         </div>
-                        <p className="text-center mx-8 font-bold text-[16px] lg:text-lg mt-4 text-[#89060b]">
+                        <p className="text-center mx-8 font-bold text-md md:text-xl mt-4 text-[#89060b]">
                             {detailPaket?.title}
                         </p>
                         <div className="p-4">
@@ -244,34 +244,32 @@ const Page = () => {
                         </div>
                     </div>
                     <div className="bg-white rounded-md text-black w-full h-fit shadow-md">
-                        <div className=" text-center font-bold text-2xl my-4 pt-4 text-[#f14310]">
+                        <div className=" text-center font-bold text-xl md:text-2xl my-4 pt-4 text-[#f14310]">
                             Detail Jamaah
                         </div>
-                        <div className={"pl-4"}>
-                            <div className="px-4 pb-4">
-                                <p className={"font-bold"}>Dewasa</p>
-                                <table className="w-full border-collapse mb-4">
-                                    <tbody>
-                                    {dewasaData?.map((person: Dewasa) => (
-                                        <tr key={person.nama}>
-                                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
-                                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.telp}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                                <p className={"font-bold"}>Anak-anak</p>
-                                <table className="w-full border-collapse">
-                                    <tbody>
-                                    {anakData?.map((person: Anak) => (
-                                        <tr key={person.nama}>
-                                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
-                                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.tgl_lahir}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div className="px-4 pb-4">
+                            <p className={"px-2 font-bold"}>Dewasa</p>
+                            <table className="w-full border-collapse mb-4">
+                                <tbody>
+                                {dewasaData?.map((person) => (
+                                    <tr key={person.nama}>
+                                        <td className="w-1/2 border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
+                                        <td className="w-1/2 border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.telp}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                            {!!anakData?.length && <p className={"px-2 font-bold"}>Anak-anak</p>}
+                            <table className="w-full border-collapse">
+                                <tbody>
+                                {anakData?.map((person) => (
+                                    <tr key={person.nama}>
+                                        <td className="w-1/2 border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
+                                        <td className="w-1/2 border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.tgl_lahir}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

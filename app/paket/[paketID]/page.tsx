@@ -135,7 +135,7 @@ const Page = () => {
                     </div>
                 </div>
 
-            {/* Main */}
+                {/* Main */}
                 <div className="px-5 xs:px-10 sm:px-20 lg:px-24 xl:px-56 w-full bg-gradient-to-t to-transparent from-[#ffc750] flex justify-center items-center pb-20">
                     <div className="grid lg:grid-cols-5 pt-4">
                         <div className='col-span-3'>

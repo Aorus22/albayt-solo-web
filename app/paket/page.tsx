@@ -1,7 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Card_Paket from '@/Components/Card_Paket'
-import { CalendarIcon, CurrencyDollarIcon, LocationMarkerIcon } from '@heroicons/react/solid';
+import { CalendarIcon, CurrencyDollarIcon, FilterIcon, LocationMarkerIcon } from '@heroicons/react/solid';
+import "animate.css/animate.min.css";
 import "../globals.css";
 import { usePaketContext } from "@/context/PaketContext";
 import LoadingBar from "@/Components/LoadingBar";
@@ -82,7 +83,7 @@ const Page = () => {
         return isLokasiMatch && isWaktuMatch && isBiayaMatch;
         });
 
-        setFilteredData(newData);
+        setFilteredData(newData ?? []);
 
         const filterData = {
             lokasiKeberangkatan: lokasiKeberangkatan === "" ? "" : lokasiKeberangkatan, 
@@ -114,9 +115,25 @@ const Page = () => {
         localStorage.removeItem('filter'); 
     };
 
+    const [filterShow, setFilterShow] = useState(false)
+
+    const handleCLickFilter = () => {
+        setFilterShow((prev) => !prev)
+    }
+
     return (
         <div className="max-container padding-container py-10 md:py-20 bg-gradient-to-b from-white to-[#ffc750]">
-            <div className='flex justify-center items-center bg-[#442324] rounded-xl p-5 mb-10'>
+
+            {/* Filter Button Mobile */}
+            <div className={`md:hidden mb-6 flexCenter`}>
+                <button onClick={handleCLickFilter} className={`bg-[#442324] px-4 py-2 rounded-lg duration-200 font-medium text-white tracking-wider flexCenter gap-2 hover:bg-black`}>
+                    <FilterIcon width={16} height={16} />
+                    <p>{filterShow? "Tutup " : "Buka "}Filter</p>
+                </button>
+            </div>
+
+            {/* Box Filter */}
+            <div className={`${filterShow ? ("flex") : ("hidden")} animate__animated animate__fadeInDown md:flex justify-center items-center bg-[#442324] rounded-xl p-5 mb-10`}>
                 <form onSubmit={handleSubmit} className={"w-full px-2"}>
                     <div className="grid lg:grid-cols-3 lg:gap-10 gap-6">
                         <div className="form-group flex flex-col">
@@ -243,10 +260,11 @@ const Page = () => {
                     </div>
                 </form>
             </div>
+
             {isLoading && (
                 <LoadingBar />
             )}
-            <section className="py-7 md:px-12">
+            <section className="mb-7 md:px-12">
                 <div id='konten' className='grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-3 justify-center'>
                     {(isFiltered && filteredData?.length == 0) ? (
                         <div className="text-center text-gray-700 font-bold col-span-full">

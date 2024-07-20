@@ -138,16 +138,16 @@ const Page = () => {
     }
 
     return (
-        <div className="min-h-[75vh] flexCenter max-container">
+        <div className="min-h-[75vh] flexCenter max-container padding-container">
             {isAlertOpen && <AlertModal message={alertMessage} handleClose={CloseAlert} />}
-            <div className="w-full max-w-7xl px-10 lg:px-20 flex flex-col-reverse md:flex-row py-4 animate__animated animate__fadeInUp">
+            <div className="w-full max-w-7xl flex flex-col-reverse md:flex-row py-4 animate__animated animate__fadeInUp">
                 <div className="md:border-r-2 md:pr-4 w-full md:w-[65%] border-opacity-50 mr-8 border-[#89060b]">
                     <div className="w-full">
                         <div className='hidden md:block'>
                             <BackButton link={`/paket/${params.paketID}/pemesanan`} />
                         </div>
                         <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-6 shadow">
-                            <p className="font-bold text-2xl mb-4 text-[#f14310]">
+                            <p className="font-bold text-xl md:text-2xl mb-4 text-[#f14310]">
                             Total Pembayaran
                             </p>
                             {((paketData?.harga_dp ?? 0) * (dewasaCount + anakCount)).toLocaleString('id-ID', {
@@ -156,7 +156,7 @@ const Page = () => {
                             })}
                         </div>
                         <div className="border rounded border-[rgba(0,0,0,0.16)] min-h-24 mt-4 justify-center bg-white p-6 shadow">
-                            <p className="font-bold text-2xl mb-4 text-[#f14310]">
+                            <p className="font-bold text-xl md:text-2xl mb-4 text-[#f14310]">
                                 Metode Pembayaran
                             </p>
                             {DATA_BANK.map((value, index) => (
@@ -192,12 +192,10 @@ const Page = () => {
                         <BackButton link={`/paket/${params.paketID}/pemesanan`} />
                     </div>
                     <div className="bg-white rounded-md text-black w-full h-fit shadow-md">
-                        <div className=" text-center font-bold text-2xl my-4 pt-4 text-[#f14310]">
+                        <div className=" text-center font-bold text-xl md:text-2xl my-4 pt-4 text-[#f14310]">
                             Detail Pemesanan
                         </div>
-                        <p className="text-center mx-8 font-bold text-[16px] lg:text-lg mt-4 text-[#89060b]">
-                        {paketData?.title}
-                        </p>
+                        <p className="text-center mx-8 font-bold text-md md:text-xl mt-4 text-[#89060b]">{paketData?.title}</p>
                         <div className="p-4">
                             <table className="w-full border-collapse">
                                 <tbody>
@@ -224,34 +222,32 @@ const Page = () => {
                         </div>
                     </div>
                     <div className="bg-white rounded-md text-black w-full h-fit shadow-md">
-                        <div className=" text-center font-bold text-2xl my-4 pt-4 text-[#f14310]">
+                        <div className=" text-center font-bold text-xl md:text-2xl my-4 pt-4 text-[#f14310]">
                             Detail Jamaah
                         </div>
-                        <div className={"pl-4"}>
-                            <div className="px-4 pb-4">
-                                <p className={"font-bold"}>Dewasa</p>
-                                <table className="w-full border-collapse mb-4">
-                                    <tbody>
-                                    {dewasaData.map((person) => (
-                                        <tr key={person.nama}>
-                                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
-                                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.telp}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                                {!!anakData.length && <p className={"font-bold"}>Anak-anak</p>}
-                                <table className="w-full border-collapse">
-                                    <tbody>
-                                    {anakData.map((person) => (
-                                        <tr key={person.nama}>
-                                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
-                                            <td className="border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.tgl_lahir}</td>
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div className="px-4 pb-4">
+                            <p className={"px-2 font-bold"}>Dewasa</p>
+                            <table className="w-full border-collapse mb-4">
+                                <tbody>
+                                {dewasaData.map((person) => (
+                                    <tr key={person.nama}>
+                                        <td className="w-1/2 border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
+                                        <td className="w-1/2 border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.telp}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                            {!!anakData.length && <p className={"px-2 font-bold"}>Anak-anak</p>}
+                            <table className="w-full border-collapse">
+                                <tbody>
+                                {anakData.map((person) => (
+                                    <tr key={person.nama}>
+                                        <td className="w-1/2 border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.nama}</td>
+                                        <td className="w-1/2 border-b border-gray-200 p-2 lg:p-3 text-[14px] lg:text-[16px]">{person.tgl_lahir}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

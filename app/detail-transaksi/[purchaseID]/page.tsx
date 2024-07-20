@@ -17,16 +17,16 @@ const Page = () => {
     const params = useParams();
     const router = useRouter()
     const { user } = UserAuth()
-    const [riwayatPembelian, setRiwayatPembelian] = useState<DataPembelian>();
+    const [riwayatPembelian, setRiwayatPembelian] = useState<DataPembelian | null>();
     const [isLoading, setLoading ] = useState<boolean>(true)
 
     useEffect(() => {
-        if (user != null) {
+        if (user) {
             (async () => {
                 try {
-                    const response = await ambilDetailPembayaran(String(params.purchaseID));
+                    const response: DataPembelian | null = await ambilDetailPembayaran(String(params.purchaseID));
                     if (user?.uid == response?.detailPembelian.UserID){
-                        setRiwayatPembelian(response as DataPembelian);
+                        setRiwayatPembelian(response);
                 } else {
                     router.push('/')
                 }
@@ -80,10 +80,10 @@ const Page = () => {
                             </div>
                         </div>
 
-                        <span className='border-b rounded-full my-7'/>
+                        <div className='border-b rounded-full my-7' />
 
                         <div>
-                            <h3 className='font-semibold text-[16px] lg:text-lg mt-10'>Detail Pembelian</h3>
+                            <h3 className='font-semibold text-[16px] lg:text-lg'>Detail Pembelian</h3>
                             <div className='flex gap-5 my-4'>
                                 <div className='flex flex-col gap-1 w-[60%]'>
                                     <h3 className='font-medium text-[12px] md:text-[14px] text-gray-50'>Nama Paket</h3>
@@ -108,28 +108,41 @@ const Page = () => {
                             <h3 className='font-semibold text-[16px] lg:text-lg'>Detail Jamaah</h3>
                             {riwayatPembelian?.detailPembelian?.detailJamaah?.dewasa && (
                                 <div className='mt-4'>
-                                    <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Dewasa</h4>
-                                    {riwayatPembelian.detailPembelian.detailJamaah.dewasa.map((dewasa, index) => (
-                                        <div key={index} className='flex gap-5'>
-                                            <div className='flex gap-8'>
-                                                <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {dewasa.nama}</p>
-                                                <p className='font-semibold text-[13px] md:text-[14px]'>Telepon: {dewasa.telp}</p>
+                                    <h4 className='text-center bg-gray-10 rounded-sm font-medium text-[14px] md:text-[15px] mb-2'>Jamaah Dewasa</h4>
+                                    <div className='w-full flex flex-col gap-3'>
+                                        {riwayatPembelian.detailPembelian.detailJamaah.dewasa.map((dewasa, index) => (
+                                            <div key={index} className='w-full grid md:grid-cols-2 border-b-2'>
+                                                <div className='flex'>
+                                                    <p className='font-medium text-[12px] md:text-[13px] text-gray-50'>Nama:</p>
+                                                    <p className='font-semibold text-[13px] md:text-[14px] ml-1'>{dewasa.nama}</p>
+                                                </div>
+                                                <div className='flex'>
+                                                    <p className='font-medium text-[12px] md:text-[13px] text-gray-50'>Telepon:</p>
+                                                    <p className='font-semibold text-[13px] md:text-[14px] ml-1'>{dewasa.telp}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {riwayatPembelian?.detailPembelian?.detailJamaah?.anak && riwayatPembelian?.detailPembelian?.detailJamaah?.anak.length > 0 && (
+                            <div className='my-4'>
+                                <h4 className='text-center bg-gray-10 rounded-sm font-medium text-[14px] md:text-[15px] mb-2'>Jamaah Anak-anak</h4>
+                                <div className='w-full flex flex-col gap-3'>
+                                    {riwayatPembelian.detailPembelian.detailJamaah.anak.map((anak, index) => (
+                                        <div key={index} className='w-full grid md:grid-cols-2 border-b-2'>
+                                            <div className='flex'>
+                                                <p className='font-medium text-[12px] md:text-[13x] text-gray-50'>Nama:</p>
+                                                <p className='font-semibold text-[13px] md:text-[14px] ml-1'>{anak.nama}</p>
+                                            </div>
+                                            <div className='flex'>
+                                                <p className='font-medium text-[12px] md:text-[13px] text-gray-50'>Tanggal Lahir:</p>
+                                                <p className='font-semibold text-[13px] md:text-[14px] ml-1'>{anak.tgl_lahir}</p>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
-                            )}
-                            {riwayatPembelian?.detailPembelian?.detailJamaah?.anak && riwayatPembelian?.detailPembelian?.detailJamaah?.anak.length > 0 && (
-                            <div className='my-4'>
-                                <h4 className='font-medium text-gray-50 text-[12px] md:text-[14px]'>Jamaah Anak-anak</h4>
-                                {riwayatPembelian.detailPembelian.detailJamaah.anak.map((anak, index) => (
-                                    <div key={index} className='flex gap-5'>
-                                        <div className='flex gap-8'>
-                                            <p className='font-semibold text-[13px] md:text-[14px]'>Nama: {anak.nama}</p>
-                                            <p className='font-semibold text-[13px] md:text-[14px]'>Tanggal Lahir: {anak.tgl_lahir}</p>
-                                        </div>
-                                    </div>
-                                ))}
                             </div>
                             )}
                         </div>

@@ -16,18 +16,18 @@ const Page = () => {
     const [isLoading, setLoading ] = useState<boolean>(true)
 
     useEffect(() => {
-        if (user != null) {
-            (async () => {
-                try {
-                    const response = await ambilRiwayatPembelian(user ? user.uid : "");
-                    setRiwayatPembelian(response as DataPembelian[]);
-                } catch (Error) {
-                    console.error('Error fetching data:', Error);
-                } finally {
-                    setLoading(false);
-                }
-            })()
-        }
+        if (!user) return
+        
+        (async () => {
+            try {
+                const response = await ambilRiwayatPembelian(user.uid);
+                setRiwayatPembelian(response as DataPembelian[]);
+            } catch (Error) {
+                console.error('Error fetching data:', Error);
+            } finally {
+                setLoading(false);
+            }
+        })()
     }, [user]);
 
   return (
